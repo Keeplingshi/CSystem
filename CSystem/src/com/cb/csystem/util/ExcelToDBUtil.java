@@ -522,37 +522,51 @@ public class ExcelToDBUtil {
 						cell = row.getCell(4, Row.CREATE_NULL_AS_BLANK); 
 						cell.setCellType(Cell.CELL_TYPE_STRING);
 						content=cell.getStringCellValue().trim();
-						patyDomain.setApplicationDate(DateUtil.parseDate(content));
+						if(ValidateUtil.notEmpty(content)){
+							patyDomain.setApplicationDate(DateUtil.parseDate(content));
+						}
 						
 						//确定积极份子日期
 						cell = row.getCell(5, Row.CREATE_NULL_AS_BLANK); 
 						cell.setCellType(Cell.CELL_TYPE_STRING);
 						content=cell.getStringCellValue().trim();
-						patyDomain.setActiveDate(DateUtil.parseDate(content));
+						if(ValidateUtil.notEmpty(content)){
+							patyDomain.setActiveDate(DateUtil.parseDate(content));
+						}
 						
 						//确定发展对象日期
 						cell = row.getCell(6, Row.CREATE_NULL_AS_BLANK); 
 						cell.setCellType(Cell.CELL_TYPE_STRING);
 						content=cell.getStringCellValue().trim();
-						patyDomain.setDevelopDate(DateUtil.parseDate(content));
+						if(ValidateUtil.notEmpty(content)){
+							patyDomain.setDevelopDate(DateUtil.parseDate(content));
+						}
+						
 						
 						//入党日期
 						cell = row.getCell(7, Row.CREATE_NULL_AS_BLANK); 
 						cell.setCellType(Cell.CELL_TYPE_STRING);
 						content=cell.getStringCellValue().trim();
-						patyDomain.setJoinpatyDate(DateUtil.parseDate(content));
+						if(ValidateUtil.notEmpty(content)){
+							patyDomain.setJoinpatyDate(DateUtil.parseDate(content));
+						}
 						
 						//转正日期
 						cell = row.getCell(8, Row.CREATE_NULL_AS_BLANK); 
 						cell.setCellType(Cell.CELL_TYPE_STRING);
 						content=cell.getStringCellValue().trim();
-						patyDomain.setConfirmDate(DateUtil.parseDate(content));
+						if(ValidateUtil.notEmpty(content)){
+							patyDomain.setConfirmDate(DateUtil.parseDate(content));
+						}
+						
 						
 						//备注
 						cell = row.getCell(9, Row.CREATE_NULL_AS_BLANK); 
 						cell.setCellType(Cell.CELL_TYPE_STRING);
 						content=cell.getStringCellValue().trim();
-						patyDomain.setNote(content);
+						if(ValidateUtil.notEmpty(content)){
+							patyDomain.setNote(content);
+						}
 						
 						patyDomain.setStudent(studentDomain);
 						if(patyService.doSave(patyDomain)){

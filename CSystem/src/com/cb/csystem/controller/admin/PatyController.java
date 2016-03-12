@@ -142,18 +142,6 @@ public class PatyController {
 	}
 	
 	/**
-	 * 新增党建页面
-	 * @param model
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/patyAdd")
-	public String dopatyAdd(Model model)throws Exception{
-		
-		return "/adminView/paty/patyAdd";
-	}
-	
-	/**
 	 * 修改党建
 	 * @param model
 	 * @param id

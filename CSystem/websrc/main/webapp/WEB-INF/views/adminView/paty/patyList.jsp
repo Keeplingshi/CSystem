@@ -25,7 +25,7 @@
 		</span>
 		
 		<!-- <input id="testBtn" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="测试"/> -->
-		<!-- <input id="patyExcelToDBButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="导入党建信息"/> -->
+		<input id="patyExcelToDBButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="导入党建信息"/>
 		<input id="patyDBToExcelButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="信息导出"/>
 		<input id="patyQueryButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="查询"/>
 	</div>
@@ -89,10 +89,10 @@
 						<td>${cusfun:getNameByValueAndType(patyDomain.student.sex,"8002")}</td>
 						<td>${patyDomain.student.classDomain.name }</td>
 						<td><fmt:formatDate value="${patyDomain.applicationDate }" type="date"/></td>
-						<c:if test="${patyDomain.isPassActive=='1'}">
+						<c:if test="${patyDomain.isPassActive!='2'}">
 							<td><fmt:formatDate value="${patyDomain.activeDate }" type="date"/></td>
 						</c:if>
-						<c:if test="${patyDomain.isPassActive!='1'}">
+						<c:if test="${patyDomain.isPassActive=='2'}">
 							<td style="color: red;"><fmt:formatDate value="${patyDomain.activeDate }" type="date"/></td>
 						</c:if>
 						<td><fmt:formatDate value="${patyDomain.developDate }" type="date"/></td>
@@ -161,7 +161,7 @@
 	    });
 	});
 	
-/* 	$("#patyExcelToDBButton").click(function(){
+ 	$("#patyExcelToDBButton").click(function(){
 		//layer.tips('正在开发','#patyExcelToDBButton');
 		parent.layer.open({
 	        type: 2,
@@ -176,7 +176,7 @@
 	    });
 		
 	});
-	 */
+	 
 	//测试
 	$("#testBtn").click(function(){
 	

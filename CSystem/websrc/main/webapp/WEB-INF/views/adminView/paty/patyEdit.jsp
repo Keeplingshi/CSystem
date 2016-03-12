@@ -50,11 +50,11 @@
 		<tr>
 			<td class="lesta-150" colspan="2">中党是否通过：</td>
 			<td class="lestb">
-				<c:if test="${patyDomain.isPassActive==1 }">
+				<c:if test="${patyDomain.isPassActive!=2 }">
 					<input type="radio" name="isPassActive" value="1" checked="checked"/>通过
 					<input type="radio" name="isPassActive" value="2" />不通过
 				</c:if>
-				<c:if test="${patyDomain.isPassActive!=1 }">
+				<c:if test="${patyDomain.isPassActive==2 }">
 					<input type="radio" name="isPassActive" value="1" />通过
 					<input type="radio" name="isPassActive" value="2" checked="checked"/>不通过
 				</c:if>

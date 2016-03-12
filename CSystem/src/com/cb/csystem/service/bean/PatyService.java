@@ -70,23 +70,30 @@ public class PatyService implements IPatyService{
 	public boolean doSave(PatyDomain patyDomain) throws Exception {
 		// TODO Auto-generated method stub
 		
-//		StudentDomain studentDomain=patyDomain.getStudent();
-//		
-//		if(patyDomain.getConfirmDate()!=null){
-//			//转正，党员
-//			studentDomain.setPoliticalStatus(Integer.valueOf(CodeBookConsts.POLITICALSTATUE_TYPE_A));
-//		}else{
-//			if(patyDomain.getJoinpatyDate()!=null){
-//				//预备党员
-//				studentDomain.setPoliticalStatus(Integer.valueOf(CodeBookConsts.POLITICALSTATUE_TYPE_B));
-//			}else{
-//				if(patyDomain.getActiveDate()!=null){
-//					
-//				}
-//				
-//			}
-//			
-//		}
+		StudentDomain studentDomain=patyDomain.getStudent();
+		
+		if(studentDomain!=null){
+			//设置学生当前状态
+			if(patyDomain.getConfirmDate()!=null){
+				//转正，党员
+				studentDomain.setPoliticalStatus(Integer.valueOf(CodeBookConsts.POLITICALSTATUE_TYPE_A));
+			}else{
+				if(patyDomain.getJoinpatyDate()!=null){
+					//预备党员
+					studentDomain.setPoliticalStatus(Integer.valueOf(CodeBookConsts.POLITICALSTATUE_TYPE_B));
+				}else{
+					if(patyDomain.getActiveDate()!=null||patyDomain.getDevelopDate()!=null||patyDomain.getActiveDate()!=null||patyDomain.getApplicationDate()!=null){
+						studentDomain.setPoliticalStatus(Integer.valueOf(CodeBookConsts.POLITICALSTATUE_TYPE_C));
+					}else{
+						studentDomain.setPoliticalStatus(Integer.valueOf(CodeBookConsts.POLITICALSTATUE_TYPE_D));
+					}
+					
+				}
+			}
+			
+			studentService.doSaveStuAndOthers(studentDomain);
+		}
+
 		
 		if(patyDomain.getId()==null){
 			return patyDao.save(patyDomain);

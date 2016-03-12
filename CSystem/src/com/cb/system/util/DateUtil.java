@@ -30,10 +30,18 @@ public class DateUtil {
 	 */
     public static Date parseDate(String dateStr) throws ParseException {
         Date date=null;
+        
+        
+    	if(dateStr.matches("-")){
+    		date=parseDate(dateStr,"yyyy-MM-dd");
+    		return date;
+    	}
+        
         String[] dateArray = dateStr.split("\\D+");     //+防止多个非数字字符在一起时导致解析错误
         int dateLen = dateArray.length;
         int dateStrLen=dateStr.length();
         if(dateLen>0){
+        	
             if(dateLen==1&&dateStrLen>4){
                 if(dateStrLen=="yyyyMMddHHmmss".length()){
                     //如果字符串长度为14位并且不包含其他非数字字符，则按照（yyyyMMddHHmmss）格式解析
@@ -82,7 +90,6 @@ public class DateUtil {
         return date;
     }
     
-  //左补齐
     public static String leftPad(String str,String pad,int len){
         String newStr=(str==null?"":str);
         while(newStr.length()<len){
@@ -94,7 +101,12 @@ public class DateUtil {
         return newStr;
     }
     
-  //按照给定的格式化字符串格式化日期
+    /**
+     * 按照给定的格式化字符串格式化日期
+     * @param date
+     * @param formatStr
+     * @return
+     */
     public static String formatDate(Date date, String formatStr) {
         SimpleDateFormat sdf = new SimpleDateFormat(formatStr);
         return sdf.format(date);

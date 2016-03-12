@@ -239,7 +239,10 @@
 		
 		//党建管理
 		$("#paty_manage").click(function(){
-			layer.tips("客官莫急，开发中","#paty_manage");
+			$.post("${pageContext.request.contextPath}/instructor/paty/patyList", function(result){
+				$("#content_page").empty();
+				$("#content_page").html(result);
+			});
 		});
 
 	</script>
