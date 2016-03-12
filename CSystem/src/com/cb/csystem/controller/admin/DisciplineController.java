@@ -25,6 +25,7 @@ import com.cb.csystem.domain.DisciplineDomain;
 import com.cb.csystem.domain.DisciplineTypeDomain;
 import com.cb.csystem.domain.GradeDomain;
 import com.cb.csystem.domain.StudentDomain;
+import com.cb.csystem.domain.UserDomain;
 import com.cb.csystem.service.IClassService;
 import com.cb.csystem.service.ICollegeService;
 import com.cb.csystem.service.IDisciplineService;
@@ -32,6 +33,7 @@ import com.cb.csystem.service.IDisciplineTypeService;
 import com.cb.csystem.service.IGradeService;
 import com.cb.csystem.service.IMajorService;
 import com.cb.csystem.service.IStudentService;
+import com.cb.csystem.service.IUserService;
 import com.cb.csystem.util.Consts;
 import com.cb.csystem.util.DBToExcelUtil;
 import com.cb.system.util.DateUtil;
@@ -48,6 +50,7 @@ import com.cb.system.util.SelectItem;
 @RequestMapping("/admin/discipline")
 public class DisciplineController {
 
+	@Resource private IUserService userService;
 	@Resource private IDisciplineService disciplineService;
 	@Resource private IDisciplineTypeService disciplineTypeService;
 	@Resource private IGradeService gradeService;
@@ -106,7 +109,7 @@ public class DisciplineController {
 			,String searchText,String sortMode,String sortValue)throws Exception{
 		
 		//List<DisciplineDomain> disciplineList=disciplineService.doGetPageList(pageInfo);
-		List<DisciplineDomain> disciplineList=disciplineService.doSearchPageList(pageInfo,gradeId
+		List<DisciplineDomain> disciplineList=disciplineService.doSearchPageList(pageInfo,null,gradeId
 				,collegeId,majorId,classId,disciplineTypeId,beginTime,endTime,searchText,sortMode,sortValue);
 		List<DisciplineTypeDomain> disciplineTypeList=disciplineTypeService.doGetFilterList();
 		List<CollegeDomain> collegeList=collegeService.doGetFilterList();
@@ -198,10 +201,14 @@ public class DisciplineController {
 	@RequestMapping("/save")
 	@ResponseBody
 	public String doSave(@Valid @ModelAttribute("domain") DisciplineDomain domain,
-			BindingResult result)throws Exception{
+			HttpSession session,BindingResult result)throws Exception{
 		if (result.hasErrors()) {// 如果校验失败,则返回
 			return Consts.ERROR;
 		} else {
+			
+			String username=(String)session.getAttribute(Consts.CURRENT_USER);
+			UserDomain userDomain=userService.doGetUserByUsername(username);
+			domain.setUserId(userDomain.getId());
 			if(disciplineService.doSave(domain)){
 				return Consts.SUCCESS;
 			}

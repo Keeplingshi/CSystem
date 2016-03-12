@@ -15,10 +15,9 @@
 <script src="${pageContext.request.contextPath}/resources/layer/layer.js"></script>
 
 <div id="dialog_content_page">
-<form id="dialogFormId" action="${pageContext.request.contextPath}/admin/discipline/studentDiscipline" method="post">
+<form id="dialogFormId" action="${pageContext.request.contextPath}/disciplineAdmin/discipline/studentDiscipline" method="post">
 	<input type="hidden" id="gradeId" name="gradeId" value="${gradeId }" />
 	<input type="hidden" id="majorId" name="majorId" value="${majorId }" />
-	<input type="hidden" id="collegeId" name="collegeId" value="${collegeId }" />
 	<input type="hidden" id="classId" name="classId" value="${classId }" />
 	<div class="breadcrumbs" id="studentListToolbar">
 	
@@ -36,14 +35,6 @@
 			<option value="" selected="selected">全部</option>
 			<c:forEach items="${gradeList }" var="gradeDomain">
 				<option value="${gradeDomain.id }">${gradeDomain.grade}</option>
-			</c:forEach>
-		</select>
-
-		<label style="margin-left: 20px;">学院：</label>
-		<select id="college_select_id" style="width: 100px;" onchange="getMajor(this.value)">
-			<option value="" selected="selected">全部</option>
-			<c:forEach items="${collegeList }" var="collegeDomain">
-				<option value="${collegeDomain.id }">${collegeDomain.name}</option>
 			</c:forEach>
 		</select>
 		
@@ -108,7 +99,6 @@
 	//使下拉框默认选择
 	$(function(){
 		$("#grade_select_id option[value='${gradeId}']").attr("selected",true);
-		$("#college_select_id option[value='${collegeId}']").attr("selected",true);
 		$("#major_select_id option[value='${majorId}']").attr("selected",true);
 		$("#class_select_id option[value='${classId}']").attr("selected",true);
 	});
@@ -125,10 +115,6 @@
 	$("#major_select_id").change(function(){
 		var majorIdVal=$(this).children('option:selected').val();
 		$("#majorId").val(majorIdVal);
-	});
-	$("#college_select_id").change(function(){
-		var collegeIdVal=$(this).children('option:selected').val();
-		$("#collegeId").val(collegeIdVal);
 	});
 
 	//查询
@@ -147,29 +133,19 @@
 			if(checkBox.checked){
 				//学生id
 				studentId=checkBox.value;
+				//获取学生姓名方法
+				//var tr=checkBox.closest("tr");	//这种方法360浏览器不支持
+				//获取tr父节点
+				var tr=checkBox.parentNode.parentNode.parentNode;
+				var td_stuname=$(tr)[0].children[2];
+				studentName=$(td_stuname)[0].innerText;
+				//给父窗口赋值
+				parent.$('#stuId').val(studentId);
+				parent.$('#stuname').val(studentName);
 				
-				$.ajax({
-					type: "POST",
-					async: false,
-             		url: "${pageContext.request.contextPath}/admin/discipline/studentDisciplineExcel/"+studentId,
-             		success: function(data){
-						if(data=='error'){
-							layer.msg("遇到未知错误，请重新查询！", {
-								offset: ['260px'],
-								time: 1500//1.5s后自动关闭
-							});
-						}else{
-							parent.layer.msg('导出成功', {
-								offset: ['260px'],
-			     		        time: 1500//1.5s后自动关闭
-			     		    });
-							
-							window.location="${pageContext.request.contextPath}/admin/discipline/"+data+"/downloadDisciplineInfo";
-							
-						};
-                    }
-         		});
-
+				//关闭
+			    var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+			    parent.layer.close(index);
 			}
 		}
 		if(studentId==null||studentId==''){
@@ -199,7 +175,7 @@
 	function getMajor(college_id)
 	{
     	$.ajax({
-			url:'${pageContext.request.contextPath}/admin/major/getMajorByCollege?college_id='+college_id,
+			url:'${pageContext.request.contextPath}/disciplineAdmin/major/getMajorByCollege?college_id='+college_id,
 			type:"post",
 			error:function(e){
 			},
@@ -219,7 +195,7 @@
 	function getClass(major_id)
 	{
     	$.ajax({
-			url:'${pageContext.request.contextPath}/admin/class/getClassByMajor?major_id='+major_id,
+			url:'${pageContext.request.contextPath}/disciplineAdmin/class/getClassByMajor?major_id='+major_id,
 			type:"post",
 			error:function(e){
 			},

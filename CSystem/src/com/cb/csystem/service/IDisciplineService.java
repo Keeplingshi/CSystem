@@ -53,6 +53,7 @@ public interface IDisciplineService {
 	/**
 	 * 违纪搜索
 	 * @param pageInfo
+	 * @param userId
 	 * @param gradeId
 	 * @param collegeId
 	 * @param majorId
@@ -65,7 +66,7 @@ public interface IDisciplineService {
 	 * @param sortValue
 	 * @return
 	 */
-	public List<DisciplineDomain> doSearchPageList(PageInfo pageInfo,
+	public List<DisciplineDomain> doSearchPageList(PageInfo pageInfo,String userId,
 			String gradeId, String collegeId, String majorId, String classId,
 			String disciplineTypeId, Date beginTime, Date endTime,
 			String searchText, String sortMode, String sortValue) throws Exception;

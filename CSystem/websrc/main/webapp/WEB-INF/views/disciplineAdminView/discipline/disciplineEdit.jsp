@@ -11,7 +11,7 @@
 <script src="${pageContext.request.contextPath}/resources/layer/layer.js"></script>
 <script src="${pageContext.request.contextPath}/resources/plugins/datePicker/WdatePicker.js"></script>
 
-<form id="disciplineEditFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/admin/discipline/save" method="post">
+<form id="disciplineEditFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/disciplineAdmin/discipline/save" method="post">
 <input type="hidden" id="id" name="id" value="${disciplineDomain.id }"/>
 	<input type="hidden" id="stuId" name="student.id" value="${disciplineDomain.student.id }"/>
 	<input type="hidden" id="disciplineTypeId" name="disciplineType.id" value="${disciplineDomain.disciplineType.id }"/>
@@ -54,7 +54,6 @@
 			</td>
 		</tr>
 	</table>
-<%-- 	<c:if test="${disciplineDomain.disciplineType.id=='1' }"> --%>
 		<div id="course_div" style="display: none;">
 			<table>
 			<tr>
@@ -71,7 +70,6 @@
 			</tr>
 			</table>
 		</div>	
-<%-- 	</c:if> --%>
 	<input id="saveButton" type="button" class="button button-highlight button-rounded button-small" style="margin-top:20px; margin-left: 240px;" value="确定"/>
 </form>
 

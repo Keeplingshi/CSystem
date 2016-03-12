@@ -78,7 +78,7 @@
 	        offset: '-40px',
 	        moveOut: true,
 	        scrollbar: false,
-	        content: '${pageContext.request.contextPath}/admin/student/studentChooseView',
+	        content: '${pageContext.request.contextPath}/disciplineAdmin/discipline/studentDiscipline',
 	        end: function(){
 				
 	        }

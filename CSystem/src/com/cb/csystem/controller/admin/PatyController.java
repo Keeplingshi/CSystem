@@ -1,6 +1,5 @@
 package com.cb.csystem.controller.admin;
 
-import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -8,7 +7,6 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -17,11 +15,9 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.cb.csystem.domain.CollegeDomain;
-import com.cb.csystem.domain.DisciplineDomain;
 import com.cb.csystem.domain.GradeDomain;
 import com.cb.csystem.domain.PatyDomain;
 import com.cb.csystem.domain.StudentDomain;
@@ -34,7 +30,6 @@ import com.cb.csystem.service.IStudentService;
 import com.cb.csystem.util.CodeBookConsts;
 import com.cb.csystem.util.Consts;
 import com.cb.csystem.util.DBToExcelUtil;
-import com.cb.system.util.DateUtil;
 import com.cb.system.util.FileUtil;
 import com.cb.system.util.PageInfo;
 import com.cb.system.util.SelectItem;

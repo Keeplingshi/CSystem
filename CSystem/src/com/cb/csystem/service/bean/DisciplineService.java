@@ -88,13 +88,18 @@ public class DisciplineService implements IDisciplineService {
 	 * @see com.cb.csystem.service.IDisciplineService#doSearchPageList(com.cb.system.util.PageInfo, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.lang.String, java.util.Date, java.util.Date, java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public List<DisciplineDomain> doSearchPageList(PageInfo pageInfo,
+	public List<DisciplineDomain> doSearchPageList(PageInfo pageInfo,String userId,
 			String gradeId, String collegeId, String majorId, String classId,
 			String disciplineTypeId, Date beginTime, Date endTime,
 			String searchText, String sortMode, String sortValue)
 			throws Exception {
 		// TODO Auto-generated method stub
 		DetachedCriteria detachedCriteria=DetachedCriteria.forClass(DisciplineDomain.class);
+		
+		if(ValidateUtil.notEmpty(userId)){
+			detachedCriteria.add(Restrictions.eq("userId", userId));
+		}
+		
 		detachedCriteria.createAlias("student", "qstu");
 		detachedCriteria.createAlias("qstu.classDomain", "qclazz");
 		//班级过滤

@@ -33,6 +33,7 @@ public class DisciplineDomain {
 	private String note;	//备注
 	private String courseName;	//课程名称
 	private String courseTeacher;	//课程老师
+	private String userId;
 	
 	@Id
 	@GeneratedValue(generator="system-uuid")
@@ -120,6 +121,15 @@ public class DisciplineDomain {
 
 	public void setCourseTeacher(String courseTeacher) {
 		this.courseTeacher = courseTeacher;
+	}
+
+	@Column(name = "USERID", nullable = true, length = 100)
+	public String getUserId() {
+		return userId;
+	}
+
+	public void setUserId(String userId) {
+		this.userId = userId;
 	}
 	
 	

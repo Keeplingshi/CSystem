@@ -89,7 +89,7 @@ public class IDisciplineController {
 				
 				String collegeId=userDomain.getCollege().getId();
 				String gradeId=userDomain.getGrade().getId();
-				List<DisciplineDomain> disciplineList=disciplineService.doSearchPageList(pageInfo, gradeId, collegeId, null, null, null, null, null, null, null, null);
+				List<DisciplineDomain> disciplineList=disciplineService.doSearchPageList(pageInfo,null, gradeId, collegeId, null, null, null, null, null, null, null, null);
 				List<DisciplineTypeDomain> disciplineTypeList=disciplineTypeService.doGetFilterList();
 				List<SelectItem> majorList=majorService.dogetMajorsByCollegeId(collegeId);
 				List<SelectItem> classList=classService.doGetClazzSelectItem(gradeId, collegeId, null);
@@ -129,7 +129,7 @@ public class IDisciplineController {
 				String collegeId=userDomain.getCollege().getId();
 				String gradeId=userDomain.getGrade().getId();
 				
-				List<DisciplineDomain> disciplineList=disciplineService.doSearchPageList(pageInfo,gradeId
+				List<DisciplineDomain> disciplineList=disciplineService.doSearchPageList(pageInfo,null,gradeId
 						,collegeId,majorId,classId,disciplineTypeId,beginTime,endTime,searchText,sortMode,sortValue);
 				List<DisciplineTypeDomain> disciplineTypeList=disciplineTypeService.doGetFilterList();
 				List<SelectItem> majorList=majorService.dogetMajorsByCollegeId(collegeId);
@@ -217,10 +217,14 @@ public class IDisciplineController {
 	@RequestMapping("/save")
 	@ResponseBody
 	public String doSave(@Valid @ModelAttribute("domain") DisciplineDomain domain,
-			BindingResult result)throws Exception{
+			HttpSession session,BindingResult result)throws Exception{
 		if (result.hasErrors()) {// 如果校验失败,则返回
 			return Consts.ERROR;
 		} else {
+			
+			String username=(String)session.getAttribute(Consts.CURRENT_USER);
+			UserDomain userDomain=userService.doGetUserByUsername(username);
+			domain.setUserId(userDomain.getId());
 			if(disciplineService.doSave(domain)){
 				return Consts.SUCCESS;
 			}
