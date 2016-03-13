@@ -501,10 +501,10 @@ public class JobInfoService implements IJobInfoService{
 				detachedCriteria_I.add(Restrictions.eq("qclazz.id", classId));
 				detachedCriteria_J.add(Restrictions.eq("qclazz.id", classId));
 				
-				detachedCriteria_C.add(Restrictions.eq("contractStatus", Integer.parseInt(CodeBookConsts.CONTRACTSTATUS_TYPE_C)));
-				detachedCriteria_D.add(Restrictions.eq("contractStatus", Integer.parseInt(CodeBookConsts.CONTRACTSTATUS_TYPE_D)));
 				detachedCriteria_A.add(Restrictions.eq("contractStatus", Integer.parseInt(CodeBookConsts.CONTRACTSTATUS_TYPE_A)));
 				detachedCriteria_B.add(Restrictions.eq("contractStatus", Integer.parseInt(CodeBookConsts.CONTRACTSTATUS_TYPE_B)));
+				detachedCriteria_C.add(Restrictions.eq("contractStatus", Integer.parseInt(CodeBookConsts.CONTRACTSTATUS_TYPE_C)));
+				detachedCriteria_D.add(Restrictions.eq("contractStatus", Integer.parseInt(CodeBookConsts.CONTRACTSTATUS_TYPE_D)));
 				detachedCriteria_E.add(Restrictions.eq("contractStatus", Integer.parseInt(CodeBookConsts.CONTRACTSTATUS_TYPE_E)));
 				detachedCriteria_F.add(Restrictions.eq("contractStatus", Integer.parseInt(CodeBookConsts.CONTRACTSTATUS_TYPE_F)));
 				detachedCriteria_G.add(Restrictions.eq("contractStatus", Integer.parseInt(CodeBookConsts.CONTRACTSTATUS_TYPE_G)));

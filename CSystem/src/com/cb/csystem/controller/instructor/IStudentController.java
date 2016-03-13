@@ -18,7 +18,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.cb.csystem.domain.CodeBookDomain;
-import com.cb.csystem.domain.CollegeDomain;
 import com.cb.csystem.domain.StudentDomain;
 import com.cb.csystem.domain.UserDomain;
 import com.cb.csystem.service.IClassService;

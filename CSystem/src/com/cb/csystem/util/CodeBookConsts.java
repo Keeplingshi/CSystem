@@ -40,52 +40,52 @@ public class CodeBookConsts {
 	/**
 	 * 签约状态：8003  1-已签  2-未签  3-升学(保研)  4-未签(考研)  5-未签(考公)  6-未签(拟出国)	7-不分  8-升学(考取) 9-已签(公务员) 10-已签(出国)
 	 */
-	public static final String CONTRACTSTATUS_TYPE_A="1";
+	public static final String CONTRACTSTATUS_TYPE_A="3";
 	
 	/**
 	 * 签约状态：8003  1-已签  2-未签  3-升学(保研)  4-未签(考研)  5-未签(考公)  6-未签(拟出国)	7-不分  8-升学(考取) 9-已签(公务员) 10-已签(出国)
 	 */
-	public static final String CONTRACTSTATUS_TYPE_B="2";
+	public static final String CONTRACTSTATUS_TYPE_B="8";
 	
 	/**
 	 * 签约状态：8003  1-已签  2-未签  3-升学(保研)  4-未签(考研)  5-未签(考公)  6-未签(拟出国)	7-不分  8-升学(考取) 9-已签(公务员) 10-已签(出国)
 	 */
-	public static final String CONTRACTSTATUS_TYPE_C="3";
+	public static final String CONTRACTSTATUS_TYPE_C="1";
 	
 	/**
 	 * 签约状态：8003  1-已签  2-未签  3-升学(保研)  4-未签(考研)  5-未签(考公)  6-未签(拟出国)	7-不分  8-升学(考取) 9-已签(公务员) 10-已签(出国)
 	 */
-	public static final String CONTRACTSTATUS_TYPE_D="4";
+	public static final String CONTRACTSTATUS_TYPE_D="9";
 	
 	/**
 	 * 签约状态：8003  1-已签  2-未签  3-升学(保研)  4-未签(考研)  5-未签(考公)  6-未签(拟出国)	7-不分  8-升学(考取) 9-已签(公务员) 10-已签(出国)
 	 */
-	public static final String CONTRACTSTATUS_TYPE_E="5";
+	public static final String CONTRACTSTATUS_TYPE_E="10";
 	
 	/**
 	 * 签约状态：8003  1-已签  2-未签  3-升学(保研)  4-未签(考研)  5-未签(考公)  6-未签(拟出国)	7-不分  8-升学(考取) 9-已签(公务员) 10-已签(出国)
 	 */
-	public static final String CONTRACTSTATUS_TYPE_F="6";
+	public static final String CONTRACTSTATUS_TYPE_F="2";
 	
 	/**
 	 * 签约状态：8003  1-已签  2-未签  3-升学(保研)  4-未签(考研)  5-未签(考公)  6-未签(拟出国)	7-不分  8-升学(考取) 9-已签(公务员) 10-已签(出国)
 	 */
-	public static final String CONTRACTSTATUS_TYPE_G="7";
+	public static final String CONTRACTSTATUS_TYPE_G="4";
 	
 	/**
 	 * 签约状态：8003  1-已签  2-未签  3-升学(保研)  4-未签(考研)  5-未签(考公)  6-未签(拟出国)	7-不分  8-升学(考取) 9-已签(公务员) 10-已签(出国)
 	 */
-	public static final String CONTRACTSTATUS_TYPE_H="8";
+	public static final String CONTRACTSTATUS_TYPE_H="5";
 	
 	/**
 	 * 签约状态：8003  1-已签  2-未签  3-升学(保研)  4-未签(考研)  5-未签(考公)  6-未签(拟出国)	7-不分  8-升学(考取) 9-已签(公务员) 10-已签(出国)
 	 */
-	public static final String CONTRACTSTATUS_TYPE_I="9";
+	public static final String CONTRACTSTATUS_TYPE_I="6";
 	
 	/**
 	 * 签约状态：8003  1-已签  2-未签  3-升学(保研)  4-未签(考研)  5-未签(考公)  6-未签(拟出国)	7-不分  8-升学(考取) 9-已签(公务员) 10-已签(出国)
 	 */
-	public static final String CONTRACTSTATUS_TYPE_J="10";
+	public static final String CONTRACTSTATUS_TYPE_J="7";
 	
 	/**
 	 * 签约书状态：8004  1-三方已交  2-已签未交  3-未找到工作  4-已有offer，在考虑
