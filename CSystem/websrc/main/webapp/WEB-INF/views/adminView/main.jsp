@@ -336,7 +336,7 @@
 		});
 	
 		
-		//联系笔记类型管理
+		//联系笔记管理
 		$("#linkNote_manage").click(function(){
 			$.post("${pageContext.request.contextPath}/admin/linkNote/linkNoteList", function(result){
 				$("#content_page").empty();

@@ -11,7 +11,7 @@
 <script src="${pageContext.request.contextPath}/resources/layer/layer.js"></script>
 <script src="${pageContext.request.contextPath}/resources/plugins/datePicker/WdatePicker.js"></script>
 
-<form id="linkNoteAddFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/admin/linkNote/save" method="post">
+<form id="linkNoteAddFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/instructor/linkNote/save" method="post">
 	<input type="hidden" id="stuId" name="student.id" value=""/>
 	<input type="hidden" id="linkNoteTypeId" name="linkNoteType.id" value=""/>
 	<table>
@@ -63,7 +63,7 @@
 	        offset: '-40px',
 	        moveOut: true,
 	        scrollbar: false,
-	        content: '${pageContext.request.contextPath}/admin/student/studentChooseView',
+	        content: '${pageContext.request.contextPath}/instructor/student/studentChooseView',
 	        end: function(){
 				
 	        }

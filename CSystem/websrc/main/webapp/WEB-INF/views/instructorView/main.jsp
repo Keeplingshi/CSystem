@@ -88,6 +88,12 @@
 								<span class="menu-text"> 学生管理 </span>
 							</a>
 						</li>
+						<li id="linkNote_manage">
+							<a href="javascript:void(0);">
+								<i class="icon-dashboard"></i>
+								<span class="menu-text"> 联系笔记 </span>
+							</a>
+						</li>
 						<li id="job_manage">
 							<a href="javascript:void(0);">
 								<i class="icon-dashboard"></i>
@@ -240,6 +246,14 @@
 		//党建管理
 		$("#paty_manage").click(function(){
 			$.post("${pageContext.request.contextPath}/instructor/paty/patyList", function(result){
+				$("#content_page").empty();
+				$("#content_page").html(result);
+			});
+		});
+		
+		//联系笔记管理
+		$("#linkNote_manage").click(function(){
+			$.post("${pageContext.request.contextPath}/instructor/linkNote/linkNoteList", function(result){
 				$("#content_page").empty();
 				$("#content_page").html(result);
 			});

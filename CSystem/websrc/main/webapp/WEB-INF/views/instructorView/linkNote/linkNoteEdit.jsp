@@ -11,15 +11,19 @@
 <script src="${pageContext.request.contextPath}/resources/layer/layer.js"></script>
 <script src="${pageContext.request.contextPath}/resources/plugins/datePicker/WdatePicker.js"></script>
 
-<form id="linkNoteAddFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/admin/linkNote/save" method="post">
-	<input type="hidden" id="stuId" name="student.id" value=""/>
-	<input type="hidden" id="linkNoteTypeId" name="linkNoteType.id" value=""/>
+<form id="linkNoteEditFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/instructor/linkNote/save" method="post">
+<input type="hidden" id="id" name="id" value="${linkNoteDomain.id }"/>
+	<input type="hidden" id="stuId" name="student.id" value="${linkNoteDomain.student.id }"/>
+	<input type="hidden" id="linkNoteTypeId" name="linkNoteType.id" value="${linkNoteDomain.linkNoteType.id }"/>
 	<table>
 		<tr>
-			<td class="lesta-150">学生：</td>
+			<td class="lesta-150">姓名：</td>
 			<td class="lestb">
-				<input type="text" id="stuname" class="input_text_a" placeholder="请选择学生" readonly="readonly"/>
-				<input type="button" id="chooseStudentButton" class="button button-primary button-rounded button-small" value="选择">
+				${linkNoteDomain.student.name }
+			</td>
+			<td class="lesta-150">学号：</td>
+			<td class="lestb">
+				${linkNoteDomain.student.stuId }
 			</td>
 		</tr>
 		<tr>
@@ -32,43 +36,38 @@
 					</c:forEach>
 				</select>
 			</td>
+			<td class="lesta-150">班级：</td>
+			<td class="lestb">
+				${linkNoteDomain.student.classDomain.name }
+			</td>
 		</tr>
 		<tr>
 			<td class="lesta-150">时间：</td>
 			<td class="lestb">
-				<input type="text" name="time" class="Wdate" readonly="readonly" placeholder="日期" onfocus="WdatePicker()" 
-					 style="width: 150px;height: 30px;cursor: pointer;"/> 
+				<input type="text" name="time" class="Wdate" readonly="readonly" placeholder="请输入时间" onfocus="WdatePicker()" style="width: 150px;height: 30px;cursor: pointer;" value="<fmt:formatDate value="${linkNoteDomain.time }" type="date"/>"/> 
 			</td>
 		</tr>
 		<tr>
 			<td class="lesta-150">备注：</td>
 			<td class="lestb" colspan="3" rowspan="2">
-				<textarea rows="5" cols="50" id="note" name="note" style="margin-top: 20px;" maxlength="200"></textarea>
+				<textarea rows="5" cols="50" id="note" name="note" style="margin-top: 20px;">${linkNoteDomain.note }</textarea>
 			</td>
 		</tr>
 	</table>
-	
-	<input id="saveButton" type="button" class="button button-highlight button-rounded button-small" style="margin-top:20px; margin-left: 140px;" value="确定"/>
+
+	<input id="saveButton" type="button" class="button button-highlight button-rounded button-small" style="margin-top:20px; margin-left: 240px;" value="确定"/>
 </form>
 
 <script>
 	
-	//选择学生
-	$("#chooseStudentButton").click(function(){
- 	    layer.open({
-	        type: 2,
-	        title: '选择学生',
-	        shadeClose: true, //点击遮罩关闭层
-	        area : ['800px' , '650px'],
-	        offset: '-40px',
-	        moveOut: true,
-	        scrollbar: false,
-	        content: '${pageContext.request.contextPath}/admin/student/studentChooseView',
-	        end: function(){
-				
-	        }
-	    }); 
+	$(function(){
+		if("${linkNoteDomain.linkNoteType.id}"=='1'){
+			$("#course_div").show();
+		}
+		
+		$("#linkNoteType_select_choose_id option[value='${linkNoteDomain.linkNoteType.id}']").attr("selected",true);
 	});
+
 	
 	//联系笔记类型选择
 	$("#linkNoteType_select_choose_id").click(function(){
@@ -90,11 +89,11 @@
 			return;
 		}
 		
-		var form = $("#linkNoteAddFormId");
+		var form = $("#linkNoteEditFormId");
 		form.ajaxSubmit(function(result){
 			if(result=='success'){
 
-				parent.layer.msg("新增成功！", {
+				parent.layer.msg("修改成功！", {
 					offset: ['260px'],
 					time: 1500//1.5s后自动关闭
 				});
@@ -102,7 +101,7 @@
 				var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
 				parent.layer.close(index); //再执行关闭    
 			}else{
-				layer.msg("新增失败！", {
+				layer.msg("修改失败！", {
 					offset: ['260px'],
 					time: 1500//1.5s后自动关闭
 				});
