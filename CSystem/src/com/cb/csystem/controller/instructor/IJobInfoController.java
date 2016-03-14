@@ -299,22 +299,23 @@ public class IJobInfoController {
 		
 		String username=(String)session.getAttribute(Consts.CURRENT_USER);
 		UserDomain userDomain=userService.doGetUserByUsername(username);
-		boolean b=false;
+		String filename=username+"_"+System.currentTimeMillis()+".xls";
+		
 		if(userDomain!=null){
 			if(userDomain.getCollege()!=null&&userDomain.getGrade()!=null){
 				String gradeId=userDomain.getGrade().getId();
 				String collegeId=userDomain.getCollege().getId();
 				List<JobInfoDomain> jobInfoDomains=jobInfoService.doSearchJobInfoList(gradeId,collegeId, majorId, classId);
 				List<SelectItem> selectItems=jobInfoService.doJobInfoCount(gradeId, collegeId, majorId, classId);
-				b=DBToExcelUtil.jobInfoDBToExcel(jobInfoDomains, selectItems,Consts.DBTOEXCEL_PATH+Consts.JOBINFO_EXCEL);
+				String fileOutputName=DBToExcelUtil.jobInfoDBToExcel(jobInfoDomains, selectItems,Consts.DBTOEXCEL_PATH+filename,filename);
+				
+				if(fileOutputName.equals(filename)){
+					return fileOutputName;
+				}
 			}
 		}
 		
-		if(b){
-			return Consts.SUCCESS;
-		}else{
-			return Consts.ERROR;
-		}
+		return Consts.ERROR;
 	}
 	
 	/**
@@ -322,9 +323,10 @@ public class IJobInfoController {
 	 * @param response
 	 * @throws Exception
 	 */
-	@RequestMapping("/downloadJobInfo")
-	public void dodownloadJobInfo(HttpServletResponse response)throws Exception{
-		FileUtil.fileDownload(response, Consts.DBTOEXCEL_PATH+Consts.JOBINFO_EXCEL, Consts.JOBINFO_EXCEL);
+	@RequestMapping("/{fileOutputName}/downloadJobInfo")
+	public void dodownloadJobInfoInfo(HttpServletResponse response,@PathVariable String fileOutputName)throws Exception{
+		FileUtil.fileDownload(response, Consts.DBTOEXCEL_PATH+fileOutputName, Consts.JOBINFO_EXCEL);
+		FileUtil.delFile(Consts.DBTOEXCEL_PATH+fileOutputName);
 	}
 	
 	/**
@@ -372,14 +374,18 @@ public class IJobInfoController {
 		
 		String username=(String)session.getAttribute(Consts.CURRENT_USER);
 		UserDomain userDomain=userService.doGetUserByUsername(username);
+		String filename=username+"_"+System.currentTimeMillis()+".xls";
+		
 		if(userDomain!=null){
 			if(userDomain.getCollege()!=null&&userDomain.getGrade()!=null){
 				String gradeId=userDomain.getGrade().getId();
 				String collegeId=userDomain.getCollege().getId();
 				
 				List<JobInfoCountBean> jobInfoCountBeans=jobInfoService.doJobInfoCountByClassInfo(gradeId, collegeId);
-				if(DBToExcelUtil.jobInfoCountDBToExcel(jobInfoCountBeans, Consts.DBTOEXCEL_PATH+Consts.JOBCOUNT_EXCEL)){
-					return Consts.SUCCESS;
+				String fileOutputName=DBToExcelUtil.jobInfoCountDBToExcel(jobInfoCountBeans, Consts.DBTOEXCEL_PATH+filename,filename);
+				
+				if(fileOutputName.equals(filename)){
+					return fileOutputName;
 				}
 			}
 		}
@@ -392,8 +398,10 @@ public class IJobInfoController {
 	 * @param response
 	 * @throws Exception
 	 */
-	@RequestMapping("/downloadJobCount")
-	public void dodownloadJobCount(HttpServletResponse response)throws Exception{
-		FileUtil.fileDownload(response, Consts.DBTOEXCEL_PATH+Consts.JOBCOUNT_EXCEL, Consts.JOBCOUNT_EXCEL);
+	@RequestMapping("/{fileOutputName}/downloadJobCount")
+	public void dodownloadJobCount(HttpServletResponse response,@PathVariable String fileOutputName)throws Exception{
+		
+		FileUtil.fileDownload(response, Consts.DBTOEXCEL_PATH+fileOutputName, Consts.JOBCOUNT_EXCEL);
+		FileUtil.delFile(Consts.DBTOEXCEL_PATH+fileOutputName);
 	}
 }

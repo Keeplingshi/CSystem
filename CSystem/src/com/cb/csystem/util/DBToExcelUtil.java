@@ -34,9 +34,8 @@ public class DBToExcelUtil {
 	 * @param studentDomains
 	 * @return
 	 */
-	public static boolean studnetinfoDBToExcel(List<StudentDomain> studentDomains,String path)
+	public static String studnetinfoDBToExcel(List<StudentDomain> studentDomains,String path,String filename)
 	{
-		boolean b=false;
 		String[] headers = { "学号", "姓名", "性别", "出生日期","政治面貌","身份证号","籍贯","宿舍号","行政班级","电子邮件","教学班级","手机号" };
 		int columnNum=headers.length;
 		// 声明一个工作薄
@@ -100,14 +99,13 @@ public class DBToExcelUtil {
 				OutputStream out = new FileOutputStream(path);
 				workbook.write(out);
 				out.close();
-				b=true;
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			filename=null;
 		}
 		
-		return b;
+		return filename;
 	}
 	
 	/**
@@ -116,9 +114,8 @@ public class DBToExcelUtil {
 	 * @param path
 	 * @return
 	 */
-	public static boolean jobInfoDBToExcel(List<JobInfoDomain> jobInfoDomains,List<SelectItem> selectList,String path)
+	public static String jobInfoDBToExcel(List<JobInfoDomain> jobInfoDomains,List<SelectItem> selectList,String path,String filename)
 	{
-		boolean b=false;
 		String[] headers = { "学号", "姓名", "性别", "签约状态","签约单位","协议书状态","当前状态","派遣地址","薪金/月","备注"};
 		int columnNum=headers.length;
 		// 声明一个工作薄
@@ -217,14 +214,13 @@ public class DBToExcelUtil {
 				OutputStream out = new FileOutputStream(path);
 				workbook.write(out);
 				out.close();
-				b=true;
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			filename=null;
 		}
 		
-		return b;
+		return filename;
 	}
 	
 	/**
@@ -233,24 +229,9 @@ public class DBToExcelUtil {
 	 * @param path
 	 * @return
 	 */
-	public static boolean jobInfoCountDBToExcel(List<JobInfoCountBean> jobInfoCountBeans,String path)
+	public static String jobInfoCountDBToExcel(List<JobInfoCountBean> jobInfoCountBeans,String path,String filename)
 	{
-		boolean b=false;
-		
-//		/**
-//		 * 签约状态：8003  1-已签  2-未签  3-升学(保研)  4-未签(考研)  5-未签(考公)  6-未签(拟出国)	7-不分  8-升学(考取) 9-已签(公务员) 10-已签(出国)
-//		 */
-//		public static final String CONTRACTSTATUS_TYPE_A="1";
-//		public static final String CONTRACTSTATUS_TYPE_B="2";
-//		public static final String CONTRACTSTATUS_TYPE_C="3";
-//		public static final String CONTRACTSTATUS_TYPE_D="4";
-//		public static final String CONTRACTSTATUS_TYPE_E="5";
-//		public static final String CONTRACTSTATUS_TYPE_F="6";
-//		public static final String CONTRACTSTATUS_TYPE_G="7";
-//		public static final String CONTRACTSTATUS_TYPE_H="8";
-//		public static final String CONTRACTSTATUS_TYPE_I="9";
-//		public static final String CONTRACTSTATUS_TYPE_J="10";
-		//CodeBookHelper.getIdByValueAndType(CodeBookConsts.CONTRACTSTATUS_TYPE_A, CodeBookConstsType.CONTRACTSTATUS_TYPE);
+
 		String[] headers = { "班级", "班级人数", CodeBookHelper.getNameByValueAndType(CodeBookConsts.CONTRACTSTATUS_TYPE_A, CodeBookConstsType.CONTRACTSTATUS_TYPE)
 				,CodeBookHelper.getNameByValueAndType(CodeBookConsts.CONTRACTSTATUS_TYPE_B, CodeBookConstsType.CONTRACTSTATUS_TYPE)
 				,CodeBookHelper.getNameByValueAndType(CodeBookConsts.CONTRACTSTATUS_TYPE_C, CodeBookConstsType.CONTRACTSTATUS_TYPE)
@@ -328,14 +309,13 @@ public class DBToExcelUtil {
 				OutputStream out = new FileOutputStream(path);
 				workbook.write(out);
 				out.close();
-				b=true;
 			}
 		} catch (IOException e) {
 			// TODO Auto-generated catch block
-			e.printStackTrace();
+			filename=null;
 		}
 		
-		return b;
+		return filename;
 	}
 	
 	/**

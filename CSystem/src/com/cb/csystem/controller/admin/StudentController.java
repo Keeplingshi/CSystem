@@ -4,6 +4,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
 import org.springframework.stereotype.Controller;
@@ -252,113 +253,6 @@ public class StudentController {
 	}
 	
 	/**
-	 * 从excel中导入学生信息页面
-	 * @param model
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/studentExcelView")
-	public String dostudentExcelView(Model model)throws Exception{
-		
-		List<CollegeDomain> collegeList=collegeService.doGetFilterList();
-		List<SelectItem> majorList=majorService.dogetMajorsByCollegeId(null);
-		List<SelectItem> classList=classService.dogetClasssByMajorId(null);
-		List<GradeDomain> gradeList=gradeService.doGetFilterList();
-		
-		model.addAttribute("collegeList", collegeList);
-		model.addAttribute("majorList", majorList);
-		model.addAttribute("classList", classList);
-		model.addAttribute("gradeList", gradeList);
-		
-		return "/adminView/student/studentExcelView";
-	}
-	
-	/**
-	 * 导出数据
-	 * @param model
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/studentDBToExcelView")
-	public String dostudentDBToExcelView(Model model)throws Exception{
-		
-		List<CollegeDomain> collegeList=collegeService.doGetFilterList();
-		List<SelectItem> majorList=majorService.dogetMajorsByCollegeId(null);
-		List<SelectItem> classList=classService.dogetClasssByMajorId(null);
-		List<GradeDomain> gradeList=gradeService.doGetFilterList();
-		
-		model.addAttribute("collegeList", collegeList);
-		model.addAttribute("majorList", majorList);
-		model.addAttribute("classList", classList);
-		model.addAttribute("gradeList", gradeList);
-		
-		return "/adminView/student/studentDBToExcelView";
-	}
-	
-	/**
-	 * 将excel文件中学生信息写入数据库
-	 * @param request
-	 * @return
-	 */
-	@RequestMapping("/studentExcelSave")
-	@ResponseBody
-	public String dostudentExcelSave(@RequestParam(value = "file", required = false) MultipartFile file,String classId)
-	{
-		try{
-			ClassDomain classDomain=classService.doGetById(classId);
-			ExcelToDBUtil.studentInfoexcelToDB(file,classDomain);
-		}catch (Exception e) {
-			return Consts.ERROR;
-		}
-		
-		return Consts.SUCCESS;
-	}
-	
-	/**
-	 * 下载模板
-	 * @param response
-	 * @throws Exception
-	 */
-	@RequestMapping("/downloadStudentExcel")
-	public void dodownloadStudentExcel(HttpServletResponse response)throws Exception{
-		FileUtil.fileDownload(response, Consts.DOWNLOAD_PATH+Consts.STUDENT_EXCEL, Consts.STUDENT_EXCEL);
-	}
-	
-	/**
-	 * 学生信息导出文件
-	 * @param gradeId
-	 * @param classId
-	 * @param majorId
-	 * @param collegeId
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/studentDBToExcel")
-	@ResponseBody
-	public String dostudentDBToExcel(HttpServletResponse response,String gradeId,String collegeId,String majorId,String classId)throws Exception{
-		
-		List<StudentDomain> studentDomains=studentService.doSearchstudentList(gradeId,collegeId, majorId, classId);
-		boolean b=DBToExcelUtil.studnetinfoDBToExcel(studentDomains, Consts.DBTOEXCEL_PATH+Consts.STUDENT_EXCEL);
-		
-		if(b){
-			return Consts.SUCCESS;
-		}else{
-			return Consts.ERROR;
-		}
-		
-	}
-	
-	/**
-	 * 下载学生信息
-	 * @param response
-	 * @throws Exception
-	 */
-	@RequestMapping("/downloadStudentInfo")
-	public void dodownloadStudentInfo(HttpServletResponse response)throws Exception{
-		FileUtil.fileDownload(response, Consts.DBTOEXCEL_PATH+Consts.STUDENT_EXCEL, Consts.STUDENT_EXCEL);
-	}
-	
-	/**
 	 * 学生选择页面
 	 * @param pageInfo
 	 * @param model
@@ -384,6 +278,117 @@ public class StudentController {
 		model.addAttribute("searchText", searchText);
 		
 		return "/adminView/student/studentChooseView";
+	}
+	
+	/**
+	 * 从excel中导入学生信息页面
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/studentExcelView")
+	public String dostudentExcelView(Model model)throws Exception{
+		
+		List<CollegeDomain> collegeList=collegeService.doGetFilterList();
+		List<SelectItem> majorList=majorService.dogetMajorsByCollegeId(null);
+		List<SelectItem> classList=classService.dogetClasssByMajorId(null);
+		List<GradeDomain> gradeList=gradeService.doGetFilterList();
+		
+		model.addAttribute("collegeList", collegeList);
+		model.addAttribute("majorList", majorList);
+		model.addAttribute("classList", classList);
+		model.addAttribute("gradeList", gradeList);
+		
+		return "/adminView/student/studentExcelView";
+	}
+	
+	/**
+	 * 下载模板
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping("/downloadStudentExcel")
+	public void dodownloadStudentExcel(HttpServletResponse response)throws Exception{
+		FileUtil.fileDownload(response, Consts.DOWNLOAD_PATH+Consts.STUDENT_EXCEL, Consts.STUDENT_EXCEL);
+	}
+	
+	/**
+	 * 将excel文件中学生信息写入数据库
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/studentExcelSave")
+	@ResponseBody
+	public String dostudentExcelSave(@RequestParam(value = "file", required = false) MultipartFile file,String classId)
+	{
+		try{
+			ClassDomain classDomain=classService.doGetById(classId);
+			ExcelToDBUtil.studentInfoexcelToDB(file,classDomain);
+		}catch (Exception e) {
+			return Consts.ERROR;
+		}
+		
+		return Consts.SUCCESS;
+	}
+	
+	/**
+	 * 导出学生数据页面
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/studentDBToExcelView")
+	public String dostudentDBToExcelView(Model model)throws Exception{
+		
+		List<CollegeDomain> collegeList=collegeService.doGetFilterList();
+		List<SelectItem> majorList=majorService.dogetMajorsByCollegeId(null);
+		List<SelectItem> classList=classService.dogetClasssByMajorId(null);
+		List<GradeDomain> gradeList=gradeService.doGetFilterList();
+		
+		model.addAttribute("collegeList", collegeList);
+		model.addAttribute("majorList", majorList);
+		model.addAttribute("classList", classList);
+		model.addAttribute("gradeList", gradeList);
+		
+		return "/adminView/student/studentDBToExcelView";
+	}
+	
+	/**
+	 * 生成学生信息文件
+	 * @param gradeId
+	 * @param classId
+	 * @param majorId
+	 * @param collegeId
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/studentDBToExcel")
+	@ResponseBody
+	public String dostudentDBToExcel(HttpSession session,String gradeId,String collegeId,String majorId,String classId)throws Exception{
+		
+		String username=(String)session.getAttribute(Consts.CURRENT_USER);
+		String filename=username+"_"+System.currentTimeMillis()+".xls";
+		
+		List<StudentDomain> studentDomains=studentService.doSearchstudentList(gradeId,collegeId, majorId, classId);
+		String fileOutputName=DBToExcelUtil.studnetinfoDBToExcel(studentDomains, Consts.DBTOEXCEL_PATH+filename,filename);
+		
+		if(fileOutputName.equals(filename)){
+			return fileOutputName;
+		}
+		
+		return Consts.ERROR;
+		
+	}
+	
+	/**
+	 * 下载学生信息
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping("/{fileOutputName}/downloadStudentInfo")
+	public void dodownloadStudentInfo(HttpServletResponse response,@PathVariable String fileOutputName)throws Exception{
+		FileUtil.fileDownload(response, Consts.DBTOEXCEL_PATH+fileOutputName, Consts.STUDENT_EXCEL);
+		FileUtil.delFile(Consts.DBTOEXCEL_PATH+fileOutputName);
 	}
 	
 }

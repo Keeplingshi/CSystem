@@ -197,21 +197,22 @@ public class MStudentController {
 	@ResponseBody
 	public String dostudentDBToExcel(HttpServletResponse response,HttpSession session)throws Exception{
 		
-		boolean b=false;
 		String username=(String)session.getAttribute(Consts.CURRENT_USER);
 		UserDomain userDomain=userService.doGetUserByUsername(username);
+		String filename=username+"_"+System.currentTimeMillis()+".xls";
+		
 		if(userDomain!=null){
 			if(userDomain.getClassDomain()!=null){
 				List<StudentDomain> studentList=studentService.doSearchstudentList(null, null, null, userDomain.getClassDomain().getId());
-				b=DBToExcelUtil.studnetinfoDBToExcel(studentList, Consts.DBTOEXCEL_PATH+Consts.STUDENT_EXCEL);
+				String fileOutputName=DBToExcelUtil.studnetinfoDBToExcel(studentList, Consts.DBTOEXCEL_PATH+filename,filename);
+				
+				if(fileOutputName.equals(filename)){
+					return fileOutputName;
+				}
 			}
 		}
 		
-		if(b){
-			return Consts.SUCCESS;
-		}else{
-			return Consts.ERROR;
-		}
+		return Consts.ERROR;
 	}
 	
 	/**
@@ -219,9 +220,10 @@ public class MStudentController {
 	 * @param response
 	 * @throws Exception
 	 */
-	@RequestMapping("/downloadStudentInfo")
-	public void dodownloadStudentInfo(HttpServletResponse response)throws Exception{
-		FileUtil.fileDownload(response, Consts.DBTOEXCEL_PATH+Consts.STUDENT_EXCEL, Consts.STUDENT_EXCEL);
+	@RequestMapping("/{fileOutputName}/downloadStudentInfo")
+	public void dodownloadStudentInfo(HttpServletResponse response,@PathVariable String fileOutputName)throws Exception{
+		FileUtil.fileDownload(response, Consts.DBTOEXCEL_PATH+fileOutputName, Consts.STUDENT_EXCEL);
+		FileUtil.delFile(Consts.DBTOEXCEL_PATH+fileOutputName);
 	}
 
 }

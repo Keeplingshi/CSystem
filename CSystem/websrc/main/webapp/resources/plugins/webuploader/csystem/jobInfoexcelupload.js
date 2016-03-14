@@ -16,7 +16,7 @@ jQuery(function() {
         swf: '${pageContext.request.contextPath}/resources/plugins/webuploader/Uploader.swf',
 
         // 文件接收服务端。
-        server: '/CSystem/common/jobInfoExcelSave',
+        server: BASE_URL+'/jobInfo/jobInfoExcelSave',
         
         accept:{
             title: 'excel',

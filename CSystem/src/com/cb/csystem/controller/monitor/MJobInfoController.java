@@ -232,22 +232,23 @@ public class MJobInfoController {
 	@ResponseBody
 	public String dojobInfoDBToExcel(HttpServletResponse response,HttpSession session)throws Exception{
 		
-		boolean b=false;
 		String username=(String)session.getAttribute(Consts.CURRENT_USER);
 		UserDomain userDomain=userService.doGetUserByUsername(username);
+		String filename=username+"_"+System.currentTimeMillis()+".xls";
+		
 		if(userDomain!=null){
 			if(userDomain.getClassDomain()!=null){
 				List<JobInfoDomain> jobInfoDomains=jobInfoService.doSearchJobInfoList(null,null, null, userDomain.getClassDomain().getId());
 				List<SelectItem> selectItems=jobInfoService.doJobInfoCount(null,null, null, userDomain.getClassDomain().getId());
-				b=DBToExcelUtil.jobInfoDBToExcel(jobInfoDomains, selectItems,Consts.DBTOEXCEL_PATH+Consts.JOBINFO_EXCEL);
+				String fileOutputName=DBToExcelUtil.jobInfoDBToExcel(jobInfoDomains, selectItems,Consts.DBTOEXCEL_PATH+filename,filename);
+				
+				if(fileOutputName.equals(filename)){
+					return fileOutputName;
+				}
 			}
 		}
 
-		if(b){
-			return Consts.SUCCESS;
-		}else{
-			return Consts.ERROR;
-		}
+		return Consts.ERROR;
 	}
 	
 	/**
@@ -255,9 +256,10 @@ public class MJobInfoController {
 	 * @param response
 	 * @throws Exception
 	 */
-	@RequestMapping("/downloadJobInfo")
-	public void dodownloadJobInfo(HttpServletResponse response)throws Exception{
-		FileUtil.fileDownload(response, Consts.DBTOEXCEL_PATH+Consts.JOBINFO_EXCEL, Consts.JOBINFO_EXCEL);
+	@RequestMapping("/{fileOutputName}/downloadJobInfoInfo")
+	public void dodownloadJobInfoInfo(HttpServletResponse response,@PathVariable String fileOutputName)throws Exception{
+		FileUtil.fileDownload(response, Consts.DBTOEXCEL_PATH+fileOutputName, Consts.JOBINFO_EXCEL);
+		FileUtil.delFile(Consts.DBTOEXCEL_PATH+fileOutputName);
 	}
 	
 	/**

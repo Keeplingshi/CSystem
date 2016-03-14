@@ -17,6 +17,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
+
+import com.cb.csystem.domain.ClassDomain;
 import com.cb.csystem.domain.CodeBookDomain;
 import com.cb.csystem.domain.StudentDomain;
 import com.cb.csystem.domain.UserDomain;
@@ -28,6 +31,7 @@ import com.cb.csystem.util.CodeBookConstsType;
 import com.cb.csystem.util.CodeBookHelper;
 import com.cb.csystem.util.Consts;
 import com.cb.csystem.util.DBToExcelUtil;
+import com.cb.csystem.util.ExcelToDBUtil;
 import com.cb.system.util.FileUtil;
 import com.cb.system.util.PageInfo;
 import com.cb.system.util.SelectItem;
@@ -256,108 +260,6 @@ public class IStudentController {
 	}
 	
 	/**
-	 * 从excel中导入学生信息页面
-	 * @param model
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/studentExcelView")
-	public String dostudentExcelView(Model model,HttpSession session)throws Exception{
-		
-		String username=(String)session.getAttribute(Consts.CURRENT_USER);
-		UserDomain userDomain=userService.doGetUserByUsername(username);
-		if(userDomain!=null){
-			if(userDomain.getCollege()!=null&&userDomain.getGrade()!=null){
-				
-				List<SelectItem> majorList=majorService.dogetMajorsByCollegeId(userDomain.getCollege().getId());
-				List<SelectItem> classList=classService.doGetClazzSelectItem(userDomain.getGrade().getId(), userDomain.getCollege().getId(), null);
-				
-				model.addAttribute("majorList", majorList);
-				model.addAttribute("classList", classList);
-			}
-		}
-		
-		return "/instructorView/student/studentExcelView";
-	};
-	
-	/**
-	 * 导出数据
-	 * @param model
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/studentDBToExcelView")
-	public String dostudentDBToExcelView(Model model,HttpSession session)throws Exception{
-		
-		String username=(String)session.getAttribute(Consts.CURRENT_USER);
-		UserDomain userDomain=userService.doGetUserByUsername(username);
-		if(userDomain!=null){
-			if(userDomain.getCollege()!=null&&userDomain.getGrade()!=null){
-				
-				List<SelectItem> majorList=majorService.dogetMajorsByCollegeId(userDomain.getCollege().getId());
-				List<SelectItem> classList=classService.doGetClazzSelectItem(userDomain.getGrade().getId(), userDomain.getCollege().getId(), null);
-				
-				model.addAttribute("majorList", majorList);
-				model.addAttribute("classList", classList);
-			}
-		}
-		
-		return "/instructorView/student/studentDBToExcelView";
-	}
-	
-	/**
-	 * 下载模板
-	 * @param response
-	 * @throws Exception
-	 */
-	@RequestMapping("/downloadStudentExcel")
-	public void dodownloadStudentExcel(HttpServletResponse response)throws Exception{
-		FileUtil.fileDownload(response, Consts.DOWNLOAD_PATH+Consts.STUDENT_EXCEL, Consts.STUDENT_EXCEL);
-	}
-	
-	/**
-	 * 学生信息导出文件
-	 * @param gradeId
-	 * @param classId
-	 * @param majorId
-	 * @param collegeId
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/studentDBToExcel")
-	@ResponseBody
-	public String dostudentDBToExcel(HttpServletResponse response,HttpSession session,String majorId,String classId)throws Exception{
-		
-		String username=(String)session.getAttribute(Consts.CURRENT_USER);
-		UserDomain userDomain=userService.doGetUserByUsername(username);
-		boolean b=false;
-		if(userDomain!=null){
-			if(userDomain.getCollege()!=null&&userDomain.getGrade()!=null){
-				String gradeId=userDomain.getGrade().getId();
-				String collegeId=userDomain.getCollege().getId();
-				List<StudentDomain> studentDomains=studentService.doSearchstudentList(gradeId,collegeId, majorId, classId);
-				b=DBToExcelUtil.studnetinfoDBToExcel(studentDomains, Consts.DBTOEXCEL_PATH+Consts.STUDENT_EXCEL);
-			}
-		}
-		
-		if(b){
-			return Consts.SUCCESS;
-		}else{
-			return Consts.ERROR;
-		}
-	}
-	
-	/**
-	 * 下载学生信息
-	 * @param response
-	 * @throws Exception
-	 */
-	@RequestMapping("/downloadStudentInfo")
-	public void dodownloadStudentInfo(HttpServletResponse response)throws Exception{
-		FileUtil.fileDownload(response, Consts.DBTOEXCEL_PATH+Consts.STUDENT_EXCEL, Consts.STUDENT_EXCEL);
-	}
-	
-	/**
 	 * 学生选择页面
 	 * @param pageInfo
 	 * @param model
@@ -391,4 +293,125 @@ public class IStudentController {
 		
 		return "/instructorView/student/studentChooseView";
 	}
+	
+	/**
+	 * excel中导入学生信息页面
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/studentExcelView")
+	public String dostudentExcelView(Model model,HttpSession session)throws Exception{
+		
+		String username=(String)session.getAttribute(Consts.CURRENT_USER);
+		UserDomain userDomain=userService.doGetUserByUsername(username);
+		if(userDomain!=null){
+			if(userDomain.getCollege()!=null&&userDomain.getGrade()!=null){
+				
+				List<SelectItem> majorList=majorService.dogetMajorsByCollegeId(userDomain.getCollege().getId());
+				List<SelectItem> classList=classService.doGetClazzSelectItem(userDomain.getGrade().getId(), userDomain.getCollege().getId(), null);
+				
+				model.addAttribute("majorList", majorList);
+				model.addAttribute("classList", classList);
+			}
+		}
+		
+		return "/instructorView/student/studentExcelView";
+	}
+	
+	/**
+	 * 下载模板
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping("/downloadStudentExcel")
+	public void dodownloadStudentExcel(HttpServletResponse response)throws Exception{
+		FileUtil.fileDownload(response, Consts.DOWNLOAD_PATH+Consts.STUDENT_EXCEL, Consts.STUDENT_EXCEL);
+	}
+	
+	/**
+	 * 将excel文件中学生信息写入数据库
+	 * @param request
+	 * @return
+	 */
+	@RequestMapping("/studentExcelSave")
+	@ResponseBody
+	public String dostudentExcelSave(@RequestParam(value = "file", required = false) MultipartFile file,String classId)
+	{
+		try{
+			ClassDomain classDomain=classService.doGetById(classId);
+			ExcelToDBUtil.studentInfoexcelToDB(file,classDomain);
+		}catch (Exception e) {
+			return Consts.ERROR;
+		}
+		
+		return Consts.SUCCESS;
+	}
+	
+	/**
+	 * 导出学生数据页面
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/studentDBToExcelView")
+	public String dostudentDBToExcelView(Model model,HttpSession session)throws Exception{
+		
+		String username=(String)session.getAttribute(Consts.CURRENT_USER);
+		UserDomain userDomain=userService.doGetUserByUsername(username);
+		if(userDomain!=null){
+			if(userDomain.getCollege()!=null&&userDomain.getGrade()!=null){
+				
+				List<SelectItem> majorList=majorService.dogetMajorsByCollegeId(userDomain.getCollege().getId());
+				List<SelectItem> classList=classService.doGetClazzSelectItem(userDomain.getGrade().getId(), userDomain.getCollege().getId(), null);
+				
+				model.addAttribute("majorList", majorList);
+				model.addAttribute("classList", classList);
+			}
+		}
+		
+		return "/instructorView/student/studentDBToExcelView";
+	}
+	
+	/**
+	 * 生成学生信息文件
+	 * @param classId
+	 * @param majorId
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/studentDBToExcel")
+	@ResponseBody
+	public String dostudentDBToExcel(HttpServletResponse response,HttpSession session,String majorId,String classId)throws Exception{
+		
+		String username=(String)session.getAttribute(Consts.CURRENT_USER);
+		UserDomain userDomain=userService.doGetUserByUsername(username);
+		String filename=username+"_"+System.currentTimeMillis()+".xls";
+		
+		if(userDomain!=null){
+			if(userDomain.getCollege()!=null&&userDomain.getGrade()!=null){
+				String gradeId=userDomain.getGrade().getId();
+				String collegeId=userDomain.getCollege().getId();
+				List<StudentDomain> studentDomains=studentService.doSearchstudentList(gradeId,collegeId, majorId, classId);
+				String fileOutputName=DBToExcelUtil.studnetinfoDBToExcel(studentDomains, Consts.DBTOEXCEL_PATH+filename,filename);
+				if(fileOutputName.equals(filename)){
+					return fileOutputName;
+				}
+			}
+		}
+		
+		return Consts.ERROR;
+	}
+	
+	/**
+	 * 下载学生信息
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping("/{fileOutputName}/downloadStudentInfo")
+	public void dodownloadStudentInfo(HttpServletResponse response,@PathVariable String fileOutputName)throws Exception{
+		FileUtil.fileDownload(response, Consts.DBTOEXCEL_PATH+fileOutputName, Consts.STUDENT_EXCEL);
+		FileUtil.delFile(Consts.DBTOEXCEL_PATH+fileOutputName);
+	}
+	
 }

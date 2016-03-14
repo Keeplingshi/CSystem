@@ -29,6 +29,10 @@
 						<option value="${collegeDomain.id }">${collegeDomain.name}</option>
 					</c:forEach>
 				</select>
+			</td>
+		</tr>
+		<tr style="height: 60px;">
+			<td>
 				
 				<label style="margin-left: 15px;">专业：</label>
 				<select id="major_DBtoExcel_select_id" class="select_style" onchange="getClass(this.value)">
@@ -60,18 +64,19 @@
 	$("#DBtoExcelButton").click(function(){
 		var form = $("#studentDBtoExcelFormId");
 		form.ajaxSubmit(function(result){
-			if(result=='success'){
-
+		
+			if(result=='error'){
+				layer.msg("遇到未知错误，请重新查询！", {
+					offset: ['260px'],
+					time: 1500//1.5s后自动关闭
+				});
+			}else{
 				parent.layer.msg('导出成功', {
 					offset: ['260px'],
      		        time: 1500//1.5s后自动关闭
      		    });
-				
-				window.location="${pageContext.request.contextPath}/admin/student/downloadStudentInfo";
-
-			}else{
-				layer.msg('导出失败');
-			}
+				window.location="${pageContext.request.contextPath}/admin/student/"+result+"/downloadStudentInfo";
+			};
 		});
 	});
 

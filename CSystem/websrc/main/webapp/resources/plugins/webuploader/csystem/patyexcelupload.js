@@ -15,7 +15,7 @@ jQuery(function() {
         swf: '${pageContext.request.contextPath}/resources/plugins/webuploader/Uploader.swf',
 
         // 文件接收服务端。
-        server: '/CSystem/common/paty/patyExcelSave',
+        server: BASE_URL+'/paty/patyExcelSave',
         
         accept:{
             title: 'excel',

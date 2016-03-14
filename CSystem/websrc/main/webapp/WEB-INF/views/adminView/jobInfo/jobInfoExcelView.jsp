@@ -7,6 +7,11 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery.form.js"></script>
 <script src="${pageContext.request.contextPath}/resources/layer/layer.js"></script>
 <script src="${pageContext.request.contextPath}/resources/plugins/webuploader/webuploader.js"></script>
+
+<script>
+	var BASE_URL='${pageContext.request.contextPath}/admin/';
+</script>
+
 <script src="${pageContext.request.contextPath}/resources/plugins/webuploader/csystem/jobInfoexcelupload.js"></script>
 
 <input type="hidden" id="classExcelViewId" value="" />

@@ -11,7 +11,7 @@
 <script src="${pageContext.request.contextPath}/resources/plugins/datePicker/WdatePicker.js"></script>
 
 <div id="pop_content_page">
-	<form id="patyCountFormId" action="${pageContext.request.contextPath}/admin/paty/patyExcelSave" method="post">
+	<form id="patyCountFormId" action="${pageContext.request.contextPath}/admin/paty/patyDBToExcel" method="post">
 		<input type="hidden" id="gradeId" name="gradeId" value="${gradeId }" />
 		<input type="hidden" id="classId" name="classId" value="${classId }" />
 		<input type="hidden" id="majorId" name="majorId" value="${majorId }" />

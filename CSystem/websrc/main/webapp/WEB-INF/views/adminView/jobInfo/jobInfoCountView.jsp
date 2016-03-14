@@ -91,21 +91,20 @@
 			
 			},
 			success : function(result) {
-				if(result=='success'){
-
+				
+				if(result=='error'){
+					layer.msg("遇到未知错误，请重新查询！", {
+						offset: ['260px'],
+						time: 1500//1.5s后自动关闭
+					});
+				}else{
 					parent.layer.msg('导出成功', {
 						offset: ['260px'],
 	     		        time: 1500//1.5s后自动关闭
 	     		    });
-					
-					window.location="${pageContext.request.contextPath}/admin/jobInfo/downloadJobCount";
-
-				}else{
-					parent.layer.msg('导出失败', {
-						offset: ['260px'],
-	     		        time: 1500//1.5s后自动关闭
-	     		    });
+					window.location="${pageContext.request.contextPath}/admin/jobInfo/"+result+"/downloadJobCount";
 				}
+				
 			}
 		});
 	});
