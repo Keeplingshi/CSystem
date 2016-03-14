@@ -7,12 +7,17 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery.form.js"></script>
 <script src="${pageContext.request.contextPath}/resources/layer/layer.js"></script>
 <script src="${pageContext.request.contextPath}/resources/plugins/webuploader/webuploader.js"></script>
+
+<script>
+	var BASE_URL='${pageContext.request.contextPath}/instructor/';
+</script>
+
 <script src="${pageContext.request.contextPath}/resources/plugins/webuploader/csystem/patyexcelupload.js"></script>
 
 <table>
 	<tr style="height: 60px;">
 		<td>
-		<a href="${pageContext.request.contextPath}/common/paty/downloadPatyExcel"><input type="button" id="excelDownload" class="button button-primary button-rounded button-small" value="模板下载"/></a>  
+		<a href="${pageContext.request.contextPath}/instructor/paty/downloadPatyExcel"><input type="button" id="excelDownload" class="button button-primary button-rounded button-small" value="模板下载"/></a>  
 		</td>
 	</tr>
   	<tr style="height: 60px;">

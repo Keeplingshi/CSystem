@@ -15,7 +15,9 @@ import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.cb.csystem.domain.PatyDomain;
 import com.cb.csystem.domain.UserDomain;
@@ -25,6 +27,7 @@ import com.cb.csystem.service.IPatyService;
 import com.cb.csystem.service.IUserService;
 import com.cb.csystem.util.Consts;
 import com.cb.csystem.util.DBToExcelUtil;
+import com.cb.csystem.util.ExcelToDBUtil;
 import com.cb.system.util.FileUtil;
 import com.cb.system.util.PageInfo;
 import com.cb.system.util.SelectItem;
@@ -192,6 +195,35 @@ public class IPatyController {
 	}
 	
 	/**
+	 * 下载党建信息导入模板
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping("/downloadPatyExcel")
+	public void dodownloadStudentExcel(HttpServletResponse response)throws Exception{
+		FileUtil.fileDownload(response, Consts.DOWNLOAD_PATH+Consts.PATY_EXCEL, Consts.PATY_EXCEL);
+	}
+	
+	/**
+	 * 党建导入信息
+	 * @param file
+	 * @return
+	 */
+	@RequestMapping("/patyExcelSave")
+	@ResponseBody
+	public String dopatyExcelSave(@RequestParam(value = "file", required = false) MultipartFile file)
+	{
+		String result=null;
+		try{
+			result=ExcelToDBUtil.patyExcelToDB(file);
+		}catch (Exception e) {
+			return Consts.ERROR;
+		}
+		
+		return result;
+	}
+	
+	/**
 	 * 党建导出信息文件
 	 * @return
 	 * @throws Exception
@@ -228,7 +260,7 @@ public class IPatyController {
 	 * @return
 	 * @throws Exception
 	 */
-	@RequestMapping("/patyExcelSave")
+	@RequestMapping("/patyDBToExcel")
 	@ResponseBody
 	public String dopatyExcelSave(HttpSession session,String majorId,String classId)throws Exception{
 		
