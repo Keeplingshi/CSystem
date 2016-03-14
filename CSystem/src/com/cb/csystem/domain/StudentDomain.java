@@ -50,6 +50,7 @@ public class StudentDomain {
 	private JobInfoDomain jobInfo;	//就业
 	private PatyDomain paty;	//党建
 	private Set<DisciplineDomain> disciplines=new HashSet<DisciplineDomain>(0);
+	private Set<LinkNoteDomain> linknotes=new HashSet<LinkNoteDomain>(0);
 	
 	@Id
 	@GeneratedValue(generator="system-uuid")
@@ -219,6 +220,14 @@ public class StudentDomain {
 	
 	public void setNationality(String nationality) {
 		this.nationality = nationality;
+	}
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "linkNoteType", fetch = FetchType.LAZY)
+	public Set<LinkNoteDomain> getLinknotes() {
+		return linknotes;
+	}
+	public void setLinknotes(Set<LinkNoteDomain> linknotes) {
+		this.linknotes = linknotes;
 	}
 
 	

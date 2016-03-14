@@ -137,7 +137,7 @@
 								<i class="icon-dashboard"></i>
 								<span class="menu-text">
 									学校管理
-									<span class="badge badge-primary ">5</span>
+									<span class="badge badge-primary ">4</span>
 								</span>
 
 								<b class="arrow icon-angle-down"></b>
@@ -167,10 +167,29 @@
 										班级管理
 									</a>
 								</li>
+							</ul>
+						</li>
+						<li>
+							<a href="#" class="dropdown-toggle">
+								<i class="icon-dashboard"></i>
+								<span class="menu-text">
+									其他
+									<span class="badge badge-primary ">2</span>
+								</span>
+
+								<b class="arrow icon-angle-down"></b>
+							</a>
+							<ul class="submenu" id="submenu">
 								<li id="disciplineType_manage">
 									<a href="javascript:void(0);">
 										<i class="icon-double-angle-right"></i>
 										违纪类型管理
+									</a>
+								</li>
+								<li id="linkNoteType_manage">
+									<a href="javascript:void(0);">
+										<i class="icon-double-angle-right"></i>
+										联系笔记类型管理
 									</a>
 								</li>
 							</ul>
@@ -297,6 +316,14 @@
 		//党建管理
 		$("#paty_manage").click(function(){
 			$.post("${pageContext.request.contextPath}/admin/paty/patyList", function(result){
+				$("#content_page").empty();
+				$("#content_page").html(result);
+			});
+		});
+		
+		//联系笔记类型管理
+		$("#linkNoteType_manage").click(function(){
+			$.post("${pageContext.request.contextPath}/admin/linkNoteType/linkNoteTypeList", function(result){
 				$("#content_page").empty();
 				$("#content_page").html(result);
 			});

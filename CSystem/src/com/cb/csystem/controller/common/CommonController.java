@@ -3,7 +3,6 @@ package com.cb.csystem.controller.common;
 import java.util.List;
 
 import javax.annotation.Resource;
-import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import net.sf.json.JSONArray;
@@ -11,20 +10,14 @@ import net.sf.json.JSONArray;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import org.springframework.web.multipart.MultipartFile;
-
-import com.cb.csystem.domain.ClassDomain;
 import com.cb.csystem.domain.UserDomain;
 import com.cb.csystem.service.IClassService;
 import com.cb.csystem.service.IJobInfoService;
 import com.cb.csystem.service.IMajorService;
 import com.cb.csystem.service.IUserService;
 import com.cb.csystem.util.Consts;
-import com.cb.csystem.util.ExcelToDBUtil;
 import com.cb.system.util.EndecryptUtils;
-import com.cb.system.util.FileUtil;
 import com.cb.system.util.SelectItem;
 
 /**
