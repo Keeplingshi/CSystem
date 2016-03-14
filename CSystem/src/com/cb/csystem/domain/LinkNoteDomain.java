@@ -27,8 +27,8 @@ public class LinkNoteDomain {
 	@DateTimeFormat( pattern = "yyyy-MM-dd" )
 	private Date time;	//时间
 	private String note;	//备注
-	//private String userId;	//创建用户
-	private UserDomain userDomain;
+	private String userId;	//创建用户
+	//private UserDomain userDomain;
 	
 	@Id
 	@GeneratedValue(generator="system-uuid")
@@ -99,22 +99,22 @@ public class LinkNoteDomain {
 		this.linkNoteType = linkNoteType;
 	}
 	
-	@ManyToOne(cascade = CascadeType.REFRESH)
-	@JoinColumn(name = "USERID")
-	public UserDomain getUserDomain() {
-		return userDomain;
-	}
-	public void setUserDomain(UserDomain userDomain) {
-		this.userDomain = userDomain;
-	}
+//	@ManyToOne(cascade = CascadeType.REFRESH)
+//	@JoinColumn(name = "USERID")
+//	public UserDomain getUserDomain() {
+//		return userDomain;
+//	}
+//	public void setUserDomain(UserDomain userDomain) {
+//		this.userDomain = userDomain;
+//	}
 	
-//	@Column(name = "USERID", nullable = false, length = 100)
-//	public String getUserId() {
-//		return userId;
-//	}
-//	public void setUserId(String userId) {
-//		this.userId = userId;
-//	}
+	@Column(name = "USERID", nullable = false, length = 100)
+	public String getUserId() {
+		return userId;
+	}
+	public void setUserId(String userId) {
+		this.userId = userId;
+	}
 	
 	
 	

@@ -52,7 +52,7 @@ public class DisciplineService implements IDisciplineService {
 	}
 
 	/**
-	 * @see com.cb.csystem.service.IDisciplineService#doGetPageList(com.cb.system.util.PageInfo)
+	 * @see com.cb.csystem.service.IDisciplineService#doGetPageList(PageInfo)
 	 */
 	@Override
 	public List<DisciplineDomain> doGetPageList(PageInfo pageInfo)

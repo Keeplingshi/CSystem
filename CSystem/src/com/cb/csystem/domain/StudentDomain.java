@@ -222,13 +222,12 @@ public class StudentDomain {
 		this.nationality = nationality;
 	}
 	
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "linkNoteType", fetch = FetchType.LAZY)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.LAZY)
 	public Set<LinkNoteDomain> getLinknotes() {
 		return linknotes;
 	}
 	public void setLinknotes(Set<LinkNoteDomain> linknotes) {
 		this.linknotes = linknotes;
 	}
-
 	
 }

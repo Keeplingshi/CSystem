@@ -36,7 +36,6 @@ public class UserDomain {
 	private GradeDomain grade;
 	//private String classId;		//班级	班长账户使用
 	private ClassDomain classDomain;
-	private Set<LinkNoteDomain> linknotes=new HashSet<LinkNoteDomain>(0);	//联系笔记
 	
 	public UserDomain(){
 		
@@ -110,15 +109,6 @@ public class UserDomain {
 
 	public void setClassDomain(ClassDomain classDomain) {
 		this.classDomain = classDomain;
-	}
-
-	@OneToMany(cascade = CascadeType.ALL, mappedBy = "linkNoteType", fetch = FetchType.LAZY)
-	public Set<LinkNoteDomain> getLinknotes() {
-		return linknotes;
-	}
-
-	public void setLinknotes(Set<LinkNoteDomain> linknotes) {
-		this.linknotes = linknotes;
 	}
 	
 	
