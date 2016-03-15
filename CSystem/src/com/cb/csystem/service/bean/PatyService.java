@@ -82,12 +82,11 @@ public class PatyService implements IPatyService{
 					//预备党员
 					studentDomain.setPoliticalStatus(Integer.valueOf(CodeBookConsts.POLITICALSTATUE_TYPE_B));
 				}else{
-					if(patyDomain.getActiveDate()!=null||patyDomain.getDevelopDate()!=null||patyDomain.getActiveDate()!=null||patyDomain.getApplicationDate()!=null){
-						studentDomain.setPoliticalStatus(Integer.valueOf(CodeBookConsts.POLITICALSTATUE_TYPE_C));
-					}else{
-						studentDomain.setPoliticalStatus(Integer.valueOf(CodeBookConsts.POLITICALSTATUE_TYPE_D));
-					}
-					
+//					if(patyDomain.getActiveDate()!=null||patyDomain.getDevelopDate()!=null||patyDomain.getActiveDate()!=null||patyDomain.getApplicationDate()!=null){
+//						studentDomain.setPoliticalStatus(Integer.valueOf(CodeBookConsts.POLITICALSTATUE_TYPE_C));
+//					}else{
+//						studentDomain.setPoliticalStatus(Integer.valueOf(CodeBookConsts.POLITICALSTATUE_TYPE_D));
+//					}
 				}
 			}
 			

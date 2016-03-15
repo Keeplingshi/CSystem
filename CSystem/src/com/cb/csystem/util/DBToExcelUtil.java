@@ -13,8 +13,10 @@ import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
 import org.apache.poi.ss.util.CellRangeAddress;
+
 import com.cb.csystem.domain.DisciplineDomain;
 import com.cb.csystem.domain.JobInfoDomain;
+import com.cb.csystem.domain.LinkNoteDomain;
 import com.cb.csystem.domain.PatyDomain;
 import com.cb.csystem.domain.StudentDomain;
 import com.cb.csystem.util.bean.JobInfoCountBean;
@@ -510,6 +512,102 @@ public class DBToExcelUtil {
 			//备注
 			cells[10].setCellValue(patyDomain.getNote());
 			
+		}
+		
+		try {
+			//首先创建文件
+			if(FileUtil.createFile(path)){
+				OutputStream out = new FileOutputStream(path);
+				workbook.write(out);
+				out.close();
+			}
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			filename=null;
+		}
+		
+		return filename;
+	}
+
+	/**
+	 * 导出联系笔记
+	 * @param linkNoteDomains
+	 * @param string
+	 * @param filename
+	 * @return
+	 */
+	public static String linkNoteDBToExcel(
+			List<LinkNoteDomain> linkNoteDomains, String path, String filename,String title) {
+		// TODO Auto-generated method stub
+		String[] headers = { "学号", "姓名", "联系笔记", "班级","时间","备注"};
+		// 声明一个工作薄
+		HSSFWorkbook workbook = new HSSFWorkbook();
+		// 生成一个表格
+		HSSFSheet sheet = workbook.createSheet("联系笔记信息");
+		// 设置表格默认列宽度为15个字节
+		sheet.setDefaultColumnWidth(15);
+		
+		// 产生表格标题行
+		int columnNum=headers.length;
+		HSSFRow row = sheet.createRow(0);
+		//第0行，文档标题
+		HSSFCell cell = row.createCell(0);
+		//表格样式
+		HSSFCellStyle titlestyle = workbook.createCellStyle();
+		HSSFFont titlefont  = workbook.createFont();
+		//设置字体
+		titlefont.setFontHeightInPoints((short) 18);
+		titlefont.setFontName("宋体");
+		titlestyle.setFont(titlefont);
+		titlestyle.setAlignment(HSSFCellStyle.ALIGN_CENTER);//左右居中       
+		titlestyle.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中      
+		cell.setCellStyle(titlestyle);
+		//标题行内容
+		cell.setCellValue(title);
+		sheet.addMergedRegion(new CellRangeAddress(0, 0, 0, columnNum-1));
+		
+		//从第一行开始标题
+		row = sheet.createRow(1);
+		//表格样式
+		HSSFCellStyle style = workbook.createCellStyle();
+		HSSFFont font  = workbook.createFont();
+		//设置字体
+		font.setFontHeightInPoints((short)12);
+		font.setFontName("宋体");
+		style.setFont(font);
+		style.setAlignment(HSSFCellStyle.ALIGN_CENTER);//左右居中       
+		style.setVerticalAlignment(HSSFCellStyle.VERTICAL_CENTER);//上下居中      
+		for (int i = 0; i < columnNum; i++) {
+			cell = row.createCell(i);
+			HSSFRichTextString text = new HSSFRichTextString(headers[i]);
+			cell.setCellValue(text);
+			cell.setCellStyle(style);
+		}
+		
+		//文档内容
+		int index=1;
+		HSSFCell[] cells=new HSSFCell[columnNum];
+		for(LinkNoteDomain linkNoteDomain:linkNoteDomains)
+		{
+			index++;
+			row = sheet.createRow(index);
+			for(int i=0;i<columnNum;i++){
+				cells[i]=row.createCell(i);
+				cells[i].setCellStyle(style);
+			}
+			// { "学号", "姓名", "联系笔记", "班级","时间","备注"};
+			//学号
+			cells[0].setCellValue(linkNoteDomain.getStudent().getStuId());
+			//姓名
+			cells[1].setCellValue(linkNoteDomain.getStudent().getName());
+			//联系笔记
+			cells[2].setCellValue(linkNoteDomain.getLinkNoteType().getName());
+			//班级
+			cells[3].setCellValue(linkNoteDomain.getStudent().getClassDomain().getName());
+			//时间
+			cells[4].setCellValue(DateUtil.getDayFormat(linkNoteDomain.getTime()));
+			//
+			cells[5].setCellValue(linkNoteDomain.getNote());
 		}
 		
 		try {

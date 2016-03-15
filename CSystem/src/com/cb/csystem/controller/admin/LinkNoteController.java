@@ -4,6 +4,7 @@ import java.util.Date;
 import java.util.List;
 
 import javax.annotation.Resource;
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
@@ -26,6 +27,8 @@ import com.cb.csystem.service.ILinkNoteService;
 import com.cb.csystem.service.ILinkNoteTypeService;
 import com.cb.csystem.service.IUserService;
 import com.cb.csystem.util.Consts;
+import com.cb.csystem.util.DBToExcelUtil;
+import com.cb.system.util.FileUtil;
 import com.cb.system.util.PageInfo;
 
 /**
@@ -231,4 +234,58 @@ public class LinkNoteController {
 		return Consts.ERROR;
 	}
 
+	/**
+	 * 联系笔记统计报表页面
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/linkNoteDBToExcelView")
+	public String dolinkNoteDBToExcelView(Model model)throws Exception{
+		
+		List<LinkNoteTypeDomain> linkNoteTypeList=linkNoteTypeService.doGetFilterList();
+		model.addAttribute("linkNoteTypeList", linkNoteTypeList);
+		
+		return "/adminView/linkNote/linkNoteDBToExcelView";
+	}
+	
+	/**
+	 * 导出excel报表
+	 * @param model
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/linkNoteExcel")
+	@ResponseBody
+	public String dolinkNoteExcel(Model model,HttpServletResponse response
+			,HttpSession session,String linkNoteTypeId
+			,@RequestParam(value ="beginTime") @DateTimeFormat(pattern="yyyy-MM-dd") Date beginTime
+			,@RequestParam(value ="endTime") @DateTimeFormat(pattern="yyyy-MM-dd") Date endTime)throws Exception{
+		
+		String username=(String)session.getAttribute(Consts.CURRENT_USER);
+		UserDomain userDomain=userService.doGetUserByUsername(username);
+		String filename=username+"_"+System.currentTimeMillis()+".xls";
+		String title="联系笔记";
+		
+		List<LinkNoteDomain> linkNoteDomains=linkNoteService.doSearchList(userDomain.getId(),linkNoteTypeId,beginTime, endTime);
+		
+		String fileOutputName=DBToExcelUtil.linkNoteDBToExcel(linkNoteDomains, Consts.DBTOEXCEL_PATH+filename, filename,title);
+		if(fileOutputName.equals(filename)){
+			return fileOutputName;
+		}
+		
+		return Consts.ERROR;
+	}
+	
+	/**
+	 * 下载联系笔记报表
+	 * @param response
+	 * @throws Exception
+	 */
+	@RequestMapping("/{fileOutputName}/downloadlinkNote")
+	public void dodownloadlinkNote(HttpServletResponse response,@PathVariable String fileOutputName)throws Exception{
+		FileUtil.fileDownload(response, Consts.DBTOEXCEL_PATH+fileOutputName, Consts.LINKNOTE_EXCEL);
+		FileUtil.delFile(Consts.DBTOEXCEL_PATH+fileOutputName);
+	}
+	
 }

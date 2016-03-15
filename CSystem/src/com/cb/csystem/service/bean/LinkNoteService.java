@@ -154,4 +154,34 @@ public class LinkNoteService implements ILinkNoteService{
 		return b;
 	}
 
+	/**
+	 * @see com.cb.csystem.service.ILinkNoteService#doSearchList(java.lang.String, java.lang.String, java.util.Date, java.util.Date)
+	 */
+	@Override
+	public List<LinkNoteDomain> doSearchList(String userId,
+			String linkNoteTypeId, Date beginTime, Date endTime)
+			throws Exception {
+		// TODO Auto-generated method stub
+		DetachedCriteria detachedCriteria=DetachedCriteria.forClass(LinkNoteDomain.class);
+		if(ValidateUtil.isEmpty(userId)){
+			return null;
+		}
+		detachedCriteria.add(Restrictions.eq("userId", userId));
+		//类型
+		if(ValidateUtil.notEmpty(linkNoteTypeId)){
+			detachedCriteria.add(Restrictions.eq("linkNoteType.id", linkNoteTypeId));
+		}
+		//时间
+		if(beginTime!=null){
+			//大于等于
+			detachedCriteria.add(Restrictions.ge("time", beginTime));
+		}
+		if(endTime!=null){
+			//小于等于
+			detachedCriteria.add(Restrictions.le("time", endTime));
+		}
+		
+		return linkNoteDao.getFilterList(detachedCriteria);
+	}
+
 }

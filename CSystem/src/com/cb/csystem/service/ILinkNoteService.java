@@ -73,5 +73,16 @@ public interface ILinkNoteService {
 	 * @return
 	 */
 	public boolean doDeleteByIds(String[] linkNoteIds)throws Exception;
+
+	/**
+	 * 搜索
+	 * @param userId
+	 * @param linkNoteTypeId
+	 * @param beginTime
+	 * @param endTime
+	 * @return
+	 */
+	public List<LinkNoteDomain> doSearchList(String userId, String linkNoteTypeId,
+			Date beginTime, Date endTime)throws Exception;
 	
 }

@@ -23,6 +23,7 @@
 			<i class="icon-search nav-search-icon"></i>
 		</span>
 		
+		<input id="linkNoteDBToExcelButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="导出联系笔记"/>
 		<input id="linkNoteDeleteButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="删除"/>
 		<input id="linkNoteAddButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="新增"/>
 		<input id="linkNoteQueryButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="查询"/>
@@ -287,6 +288,19 @@
 		});
 	});
 
+	//联系笔记导出
+	$("#linkNoteDBToExcelButton").click(function(){
+		parent.layer.open({
+	        type: 2,
+	        title: '联系笔记信息',
+	        shadeClose: true,
+	        area : ['600px' , '400px'],
+	        offset: ['100px'],
+	        content: '${pageContext.request.contextPath}/instructor/linkNote/linkNoteDBToExcelView'
+	    });
+		
+	});
+	
 	//点击表格标题栏，选中所有checkbox框
 	$('table th input:checkbox').on('click' , function(){
 		

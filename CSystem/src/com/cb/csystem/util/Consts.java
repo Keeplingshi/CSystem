@@ -39,6 +39,8 @@ public class Consts {
 	 */
 	public static final String JOBCOUNT_EXCEL="jobcount.xls";
 	
+	public static final String LINKNOTE_EXCEL="联系笔记.xls";
+	
 	/**
 	 * 违纪报表导出文件
 	 */
