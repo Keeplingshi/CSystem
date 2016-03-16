@@ -152,6 +152,12 @@ public class UserController {
 		model.addAttribute("roleList", roleList);
 		model.addAttribute("userDomain", userDomain);
 		
+		List<CollegeDomain> collegeList=collegeService.doGetFilterList();
+		List<GradeDomain> gradeList=gradeService.doGetFilterList();
+		
+		model.addAttribute("collegeList", collegeList);
+		model.addAttribute("gradeList", gradeList);
+		
 		return "/adminView/user/userEdit";
 	}
 	

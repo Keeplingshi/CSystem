@@ -82,8 +82,10 @@ public class StudentController {
 		List<CollegeDomain> collegeList=collegeService.doGetFilterList();
 		List<SelectItem> majorList=majorService.dogetMajorsByCollegeId(null);
 		List<SelectItem> classList=classService.dogetClasssByMajorId(null);
+		List<GradeDomain> gradeList=gradeService.doGetFilterList();
 		List<StudentDomain> studentList=studentService.doGetPageList(pageInfo);
 		
+		model.addAttribute("gradeList", gradeList);
 		model.addAttribute("collegeList", collegeList);
 		model.addAttribute("majorList", majorList);
 		model.addAttribute("classList", classList);
@@ -97,27 +99,33 @@ public class StudentController {
 	 * @param pageInfo
 	 * @param bindingResult
 	 * @param model
+	 * @param gradeId
 	 * @param collegeId
 	 * @param majorId
 	 * @param searchText
+	 * @param sortMode
+	 * @param sortValue
 	 * @return
 	 * @throws Exception
 	 */
 	@RequestMapping("/studentSearchList")
 	public String dostudentSearchList(@ModelAttribute("pageInfo") PageInfo pageInfo
-			,BindingResult bindingResult,Model model,String collegeId,String majorId
+			,BindingResult bindingResult,Model model,String gradeId,String collegeId,String majorId
 			,String classId,String searchText,String sortMode,String sortValue)throws Exception{
 		
-		List<StudentDomain> studentList=studentService.doSearchstudentPageList(pageInfo,null,collegeId,majorId,classId,searchText,sortMode,sortValue);
+		List<StudentDomain> studentList=studentService.doSearchstudentPageList(pageInfo,gradeId,collegeId,majorId,classId,searchText,sortMode,sortValue);
 		List<CollegeDomain> collegeList=collegeService.doGetFilterList();
 		List<SelectItem> majorList=majorService.dogetMajorsByCollegeId(collegeId);
 		List<SelectItem> classList=classService.dogetClasssByMajorId(majorId);
+		List<GradeDomain> gradeList=gradeService.doGetFilterList();
 
 		model.addAttribute("studentList", studentList);
 		model.addAttribute("classList", classList);
 		model.addAttribute("collegeList", collegeList);
+		model.addAttribute("gradeList", gradeList);
 		model.addAttribute("majorList", majorList);
 		model.addAttribute("classId", classId);
+		model.addAttribute("gradeId", gradeId);
 		model.addAttribute("majorId", majorId);
 		model.addAttribute("collegeId", collegeId);
 		model.addAttribute("searchText", searchText);

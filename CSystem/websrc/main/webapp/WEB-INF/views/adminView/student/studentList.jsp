@@ -12,6 +12,7 @@
 
 <div>
 <form id="formId" action="${pageContext.request.contextPath}/admin/student/studentSearchList" method="post">
+	<input type="hidden" id="gradeId" name="gradeId" value="${gradeId }" />
 	<input type="hidden" id="majorId" name="majorId" value="${majorId }" />
 	<input type="hidden" id="collegeId" name="collegeId" value="${collegeId }" />
 	<input type="hidden" id="classId" name="classId" value="${classId }" />
@@ -29,6 +30,14 @@
 		<input id="studentQueryButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="查询"/>
 	</div>
 	<div class="breadcrumbs">
+	
+		<label style="margin-left: 20px;">年级：</label>
+		<select id="grade_select_id" style="width: 100px;">
+			<option value="" selected="selected">全部</option>
+			<c:forEach items="${gradeList }" var="gradeDomain">
+				<option value="${gradeDomain.id }">${gradeDomain.grade}</option>
+			</c:forEach>
+		</select>
 	
 		<label style="margin-left: 20px;">学院：</label>
 		<select id="college_select_id" style="width: 100px;" onchange="getMajor(this.value)">
@@ -54,6 +63,8 @@
 			</c:forEach>
 		</select>
 		
+	</div>
+	<div class="breadcrumbs">
 		<input id="studentExcelToDBButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="从excel中导入数据"/>
 		<input id="studentDBToExcelButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="导出数据"/>
 	
@@ -168,6 +179,7 @@
 
 	//使下拉框默认选择
 	$(function(){
+		$("#grade_select_id option[value='${gradeId}']").attr("selected",true);
 		$("#college_select_id option[value='${collegeId}']").attr("selected",true);
 		$("#major_select_id option[value='${majorId}']").attr("selected",true);
 		$("#class_select_id option[value='${classId}']").attr("selected",true);
@@ -186,7 +198,11 @@
 		var collegeIdVal=$(this).children('option:selected').val();
 		$("#collegeId").val(collegeIdVal);
 	});
-
+	$("#grade_select_id").change(function(){
+		var gradeIdVal=$(this).children('option:selected').val();
+		$("#gradeId").val(gradeIdVal);
+	});
+	
 	//查询
 	$("#studentQueryButton").click(function(){
 		$("#formId").ajaxSubmit(function(data){
