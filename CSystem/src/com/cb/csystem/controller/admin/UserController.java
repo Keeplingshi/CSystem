@@ -192,6 +192,34 @@ public class UserController {
 	}
 	
 	/**
+	 * 保存
+	 * @param domain
+	 * @param result
+	 * @return
+	 * @throws Exception
+	 */
+	@RequestMapping("/editSave")
+	@ResponseBody
+	public String doEditSave(@Valid @ModelAttribute("domain") UserDomain domain,
+			BindingResult result)throws Exception{
+		if (result.hasErrors()) {// 如果校验失败,则返回
+			return Consts.ERROR;
+		} else {
+			
+			if(domain.getCollege()==null||ValidateUtil.isEmpty(domain.getCollege().getId())){
+				domain.setCollege(null);
+			}
+			if(domain.getGrade()==null||ValidateUtil.isEmpty(domain.getGrade().getId())){
+				domain.setGrade(null);
+			}
+			if(userService.doSave(domain)){
+				return Consts.SUCCESS;
+			}
+		}
+		return "error";
+	}
+	
+	/**
 	 * 删除单条数据
 	 * @param id
 	 * @return

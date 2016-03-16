@@ -9,7 +9,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery.form.js"></script>
 <script src="${pageContext.request.contextPath}/resources/layer/layer.js"></script>
 
-<form id="userEditFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/admin/user/save" method="post">
+<form id="userEditFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/admin/user/editSave" method="post">
 	<input type="hidden" id="id" name="id" value="${userDomain.id }"/>
 	<input type="hidden" id="username" name="username" value="${userDomain.username }"/>
 	<input type="hidden" id="password" name="password" value="${userDomain.password }"/>
@@ -33,14 +33,15 @@
 		<tr>
 			<td class="lesta-150">角色：</td>
 			<td class="lestb">
-				<select id="role_select_edit_id" class="select_style">
+				${userDomain.role.name }
+<%-- 				<select id="role_select_edit_id" class="select_style">
 					<option value="" selected="selected">选择</option>
 					<c:forEach items="${roleList }" var="roleDomain">
 						<c:if test="${roleDomain.authority!=3 }">
 							<option value="${roleDomain.id }_${roleDomain.authority }">${roleDomain.name}</option>
 						</c:if>
 					</c:forEach>
-				</select>
+				</select> --%>
 			</td>
 <%-- 			<td class="lesta-150">角色：</td>
 			<td class="lestb">
@@ -105,12 +106,12 @@
 			$("#college_div").show();
 		}
 	
-		$("#role_select_edit_id option[value='${userDomain.role.id}_${userDomain.role.authority }']").attr("selected",true);
+		//$("#role_select_edit_id option[value='${userDomain.role.id}_${userDomain.role.authority }']").attr("selected",true);
 		$("#college_select_edit_id option[value='${userDomain.college.id}']").attr("selected",true);
 		$("#grade_select_edit_id option[value='${userDomain.grade.id}']").attr("selected",true);
 	});
 	
-	//下拉框选择后给隐藏域赋值
+/* 	//下拉框选择后给隐藏域赋值
 	$("#role_select_edit_id").change(function(){
 		var roleselectVal=$(this).children('option:selected').val();
 		var role_id=roleselectVal.split('_')[0];
@@ -139,7 +140,7 @@
 		
 		$("#roleId").val(role_id);
 		$("#roleAuthority").val(role_authorty);
-	});
+	}); */
 	
 	$("#college_select_edit_id").change(function(){
 		var collegeselectVal=$(this).children('option:selected').val();
