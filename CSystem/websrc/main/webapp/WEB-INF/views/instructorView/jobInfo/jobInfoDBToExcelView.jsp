@@ -9,6 +9,9 @@
 <form id="jobInfoDBtoExcelFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/instructor/jobInfo/jobInfoDBToExcel" method="post">
 	<input type="hidden" id="classId" name="classId" value="" />
 	<input type="hidden" id="majorId" name="majorId" value="" />
+	<input type="hidden" id="contractStatusId" name="contractStatusId" value="" />
+	<input type="hidden" id="protocalStateId" name="protocalStateId" value="" />
+	<input type="hidden" id="isPositive" name="isPositive" value="" />
 	<table>
 		<tr style="height: 60px;">
 			<td>
@@ -31,6 +34,31 @@
 		</tr>
 		<tr style="height: 60px;">
 			<td>
+				<label style="margin-left: 15px;">签约状态：</label>
+				<select id="contractStatus_DBtoExcel_select_id" class="select_style" onchange="getProtocalState(this.value)">
+					<option value="" selected="selected">选择</option>
+					<c:forEach items="${contractStatusList }" var="contractStatusDomain">
+						<option value="${contractStatusDomain.value }">${contractStatusDomain.name}</option>
+					</c:forEach>
+				</select>
+			
+				<label style="margin-left: 15px;">协议书：</label>
+				<select id="protocalState_DBtoExcel_select_id" class="select_style">
+					<option value="" selected="selected">选择</option>
+					<c:forEach items="${protocalStateList }" var="protocalStateDomain">
+						<option value="${protocalStateDomain.value }">${protocalStateDomain.name}</option>
+					</c:forEach>
+				</select>
+			
+				<label style="margin-left: 15px;">标记：</label>
+				<select id="isPositive_DBtoExcel_select_id" class="select_style" style="width: 100px;">
+					<option value="" selected="selected">选择</option>
+					<option value="2">标记</option>
+				</select>
+			</td>
+		</tr>
+		<tr style="height: 60px;">
+			<td>
 				<input type="button" id="DBtoExcelButton" class="button button-primary button-rounded button-small" value="导出数据"/>
 			</td>
 		</tr> 
@@ -42,21 +70,6 @@
 	$("#DBtoExcelButton").click(function(){
 		var form = $("#jobInfoDBtoExcelFormId");
 		form.ajaxSubmit(function(result){
-/* 			if(result=='success'){
-
-				parent.layer.msg('导出成功', {
-					offset: ['260px'],
-     		        time: 1500//1.5s后自动关闭
-     		    });
-				
-				window.location="${pageContext.request.contextPath}/instructor/jobInfo/downloadJobInfo";
-
-			}else{
-				parent.layer.msg('导出失败', {
-					offset: ['260px'],
-     		        time: 1500//1.5s后自动关闭
-     		    });
-			} */
 			
 			if(result=='error'){
 				layer.msg("遇到未知错误，请重新查询！", {
@@ -89,6 +102,23 @@
 	$("#major_DBtoExcel_select_id").change(function(){
 		var majorIdVal=$(this).children('option:selected').val();
 		$("#majorId").val(majorIdVal);
+	});
+	
+	//下拉框选择后给隐藏域赋值
+	$("#contractStatus_DBtoExcel_select_id").change(function(){
+		var contractStatus_value=$(this).children('option:selected').val();
+		$("#contractStatusId").val(contractStatus_value);
+	});
+	
+	//下拉框选择后给隐藏域赋值
+	$("#protocalState_DBtoExcel_select_id").change(function(){
+		var protocalState_value=$(this).children('option:selected').val();
+		$("#protocalStateId").val(protocalState_value);
+	});
+
+	$("#isPositive_DBtoExcel_select_id").change(function(){
+		var isPositive_value=$(this).children('option:selected').val();
+		$("#isPositive").val(isPositive_value);
 	});
 	
 	//选择专业，得到班级

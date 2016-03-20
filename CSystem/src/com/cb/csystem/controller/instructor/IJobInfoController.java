@@ -275,7 +275,11 @@ public class IJobInfoController {
 				
 				List<SelectItem> majorList=majorService.dogetMajorsByCollegeId(userDomain.getCollege().getId());
 				List<SelectItem> classList=classService.doGetClazzSelectItem(userDomain.getGrade().getId(), userDomain.getCollege().getId(), null);
-				
+				List<CodeBookDomain> contractStatusList=CodeBookHelper.getCodeBookByType(CodeBookConstsType.CONTRACTSTATUS_TYPE);
+				List<CodeBookDomain> protocalStateList=CodeBookHelper.getCodeBookByType(CodeBookConstsType.PROTOCALSTATE_TYPE);
+
+				model.addAttribute("contractStatusList", contractStatusList);
+				model.addAttribute("protocalStateList", protocalStateList);
 				model.addAttribute("majorList", majorList);
 				model.addAttribute("classList", classList);
 			}
@@ -295,7 +299,8 @@ public class IJobInfoController {
 	 */
 	@RequestMapping("/jobInfoDBToExcel")
 	@ResponseBody
-	public String dojobInfoDBToExcel(HttpSession session,String majorId,String classId)throws Exception{
+	public String dojobInfoDBToExcel(HttpSession session,String majorId,String classId
+			,String contractStatusId,String protocalStateId,String isPositive)throws Exception{
 		
 		String username=(String)session.getAttribute(Consts.CURRENT_USER);
 		UserDomain userDomain=userService.doGetUserByUsername(username);
@@ -305,8 +310,8 @@ public class IJobInfoController {
 			if(userDomain.getCollege()!=null&&userDomain.getGrade()!=null){
 				String gradeId=userDomain.getGrade().getId();
 				String collegeId=userDomain.getCollege().getId();
-				List<JobInfoDomain> jobInfoDomains=jobInfoService.doSearchJobInfoList(gradeId,collegeId, majorId, classId);
-				List<SelectItem> selectItems=jobInfoService.doJobInfoCount(gradeId, collegeId, majorId, classId);
+				List<JobInfoDomain> jobInfoDomains=jobInfoService.doSearchJobInfoList(gradeId,collegeId, majorId, classId,contractStatusId,protocalStateId,isPositive);
+				List<SelectItem> selectItems=jobInfoService.doJobInfoCount(gradeId, collegeId, majorId, classId,contractStatusId,protocalStateId,isPositive);
 				String fileOutputName=DBToExcelUtil.jobInfoDBToExcel(jobInfoDomains, selectItems,Consts.DBTOEXCEL_PATH+filename,filename);
 				
 				if(fileOutputName.equals(filename)){
@@ -344,7 +349,7 @@ public class IJobInfoController {
 			if(userDomain.getCollege()!=null&&userDomain.getGrade()!=null){
 				String gradeId=userDomain.getGrade().getId();
 				String collegeId=userDomain.getCollege().getId();
-				List<SelectItem> jobInfoCountList=jobInfoService.doJobInfoCount(gradeId, collegeId, majorId, classId);
+				List<SelectItem> jobInfoCountList=jobInfoService.doJobInfoCount(gradeId, collegeId, majorId, classId,null,null,null);
 				
 				List<SelectItem> majorList=majorService.dogetMajorsByCollegeId(collegeId);
 				List<SelectItem> classList=classService.doGetClazzSelectItem(gradeId, collegeId, null);

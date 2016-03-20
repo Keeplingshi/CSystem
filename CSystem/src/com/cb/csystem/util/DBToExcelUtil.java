@@ -191,23 +191,25 @@ public class DBToExcelUtil {
 			}
 		}
 		
-		HSSFCell[] countCells=new HSSFCell[selectList.size()];
-		//统计信息写入excel
-		index+=3;
-		row = sheet.createRow(index);
-		for(int i=0;i<selectList.size();i++)
-		{
-			countCells[i]=row.createCell(i);
-			countCells[i].setCellStyle(style);
-			countCells[i].setCellValue(selectList.get(i).getSelectText());
-		}
-		index++;
-		row = sheet.createRow(index);
-		for(int i=0;i<selectList.size();i++)
-		{
-			countCells[i]=row.createCell(i);
-			countCells[i].setCellStyle(style);
-			countCells[i].setCellValue(selectList.get(i).getSelectValue());
+		if(selectList!=null){
+			HSSFCell[] countCells=new HSSFCell[selectList.size()];
+			//统计信息写入excel
+			index+=3;
+			row = sheet.createRow(index);
+			for(int i=0;i<selectList.size();i++)
+			{
+				countCells[i]=row.createCell(i);
+				countCells[i].setCellStyle(style);
+				countCells[i].setCellValue(selectList.get(i).getSelectText());
+			}
+			index++;
+			row = sheet.createRow(index);
+			for(int i=0;i<selectList.size();i++)
+			{
+				countCells[i]=row.createCell(i);
+				countCells[i].setCellStyle(style);
+				countCells[i].setCellValue(selectList.get(i).getSelectValue());
+			}
 		}
 		
 		try {

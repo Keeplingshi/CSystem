@@ -141,7 +141,7 @@ public class JobInfoService implements IJobInfoService{
 			detachedCriteria.add(disjunction);
 		}
 		
-		//判断签约状态和协议书状态
+		//判断协议书状态和签约状态
 		if(ValidateUtil.notEmpty(protocalStateId)){
 			detachedCriteria.add(Restrictions.eq("protocalState", Integer.valueOf(protocalStateId)));  
 		}else{
@@ -208,8 +208,8 @@ public class JobInfoService implements IJobInfoService{
 	 * @see com.cb.csystem.service.IJobInfoService#doSearchJobInfoList(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public List<JobInfoDomain> doSearchJobInfoList(String gradeId,
-			String collegeId, String majorId, String classId) throws Exception {
+	public List<JobInfoDomain> doSearchJobInfoList(String gradeId,String collegeId, String majorId, String classId
+			,String contractStatusId,String protocalStateId,String isPositive) throws Exception {
 		// TODO Auto-generated method stub
 		
 		DetachedCriteria detachedCriteria=DetachedCriteria.forClass(JobInfoDomain.class);
@@ -238,6 +238,20 @@ public class JobInfoService implements IJobInfoService{
 			}
 		}
 		
+		//判断协议书状态和签约状态
+		if(ValidateUtil.notEmpty(protocalStateId)){
+			detachedCriteria.add(Restrictions.eq("protocalState", Integer.valueOf(protocalStateId)));  
+		}else{
+			if(ValidateUtil.notEmpty(contractStatusId)){
+				detachedCriteria.add(Restrictions.eq("contractStatus", Integer.valueOf(contractStatusId)));  
+			}
+		}
+		
+		//积极不积极
+		if(ValidateUtil.notEmpty(isPositive)){
+			detachedCriteria.add(Restrictions.eq("isPositive", Integer.valueOf(isPositive)));  
+		}
+		
 		return jobInfoDao.getFilterList(detachedCriteria);
 	}
 
@@ -245,8 +259,9 @@ public class JobInfoService implements IJobInfoService{
 	 * @see com.cb.csystem.service.IJobInfoService#doJobInfoCount(java.lang.String, java.lang.String, java.lang.String, java.lang.String)
 	 */
 	@Override
-	public List<SelectItem> doJobInfoCount(String gradeId, String collegeId,
-			String majorId, String classId) throws Exception {
+	public List<SelectItem> doJobInfoCount(String gradeId, String collegeId,String majorId, String classId
+			,String contractStatusId,String protocalStateId,String isPositive) throws Exception {
+		
 		// TODO Auto-generated method stub
 		DetachedCriteria detachedCriteria=DetachedCriteria.forClass(JobInfoDomain.class);
 		DetachedCriteria detachedCriteria_A=DetachedCriteria.forClass(JobInfoDomain.class);
@@ -386,40 +401,97 @@ public class JobInfoService implements IJobInfoService{
 			}
 		}
 		
+		//判断协议书状态和签约状态
+		if(ValidateUtil.notEmpty(protocalStateId)){
+			detachedCriteria.add(Restrictions.eq("protocalState", Integer.valueOf(protocalStateId)));  
+			detachedCriteria_A.add(Restrictions.eq("protocalState", Integer.valueOf(protocalStateId)));
+			detachedCriteria_B.add(Restrictions.eq("protocalState", Integer.valueOf(protocalStateId)));
+			detachedCriteria_C.add(Restrictions.eq("protocalState", Integer.valueOf(protocalStateId)));
+			detachedCriteria_D.add(Restrictions.eq("protocalState", Integer.valueOf(protocalStateId)));
+			detachedCriteria_E.add(Restrictions.eq("protocalState", Integer.valueOf(protocalStateId)));
+			detachedCriteria_F.add(Restrictions.eq("protocalState", Integer.valueOf(protocalStateId)));
+			detachedCriteria_G.add(Restrictions.eq("protocalState", Integer.valueOf(protocalStateId)));
+			detachedCriteria_H.add(Restrictions.eq("protocalState", Integer.valueOf(protocalStateId)));
+			detachedCriteria_I.add(Restrictions.eq("protocalState", Integer.valueOf(protocalStateId)));
+			detachedCriteria_J.add(Restrictions.eq("protocalState", Integer.valueOf(protocalStateId)));
+		}else{
+			if(ValidateUtil.notEmpty(contractStatusId)){
+				detachedCriteria.add(Restrictions.eq("contractStatus", Integer.valueOf(contractStatusId)));  
+				detachedCriteria_A.add(Restrictions.eq("contractStatus", Integer.valueOf(contractStatusId)));
+				detachedCriteria_B.add(Restrictions.eq("contractStatus", Integer.valueOf(contractStatusId)));
+				detachedCriteria_C.add(Restrictions.eq("contractStatus", Integer.valueOf(contractStatusId)));
+				detachedCriteria_D.add(Restrictions.eq("contractStatus", Integer.valueOf(contractStatusId)));
+				detachedCriteria_E.add(Restrictions.eq("contractStatus", Integer.valueOf(contractStatusId)));
+				detachedCriteria_F.add(Restrictions.eq("contractStatus", Integer.valueOf(contractStatusId)));
+				detachedCriteria_G.add(Restrictions.eq("contractStatus", Integer.valueOf(contractStatusId)));
+				detachedCriteria_H.add(Restrictions.eq("contractStatus", Integer.valueOf(contractStatusId)));
+				detachedCriteria_I.add(Restrictions.eq("contractStatus", Integer.valueOf(contractStatusId)));
+				detachedCriteria_J.add(Restrictions.eq("contractStatus", Integer.valueOf(contractStatusId)));
+			}
+		}
+		
+		//积极不积极
+		if(ValidateUtil.notEmpty(isPositive)){
+			detachedCriteria.add(Restrictions.eq("isPositive", Integer.valueOf(isPositive)));  
+			detachedCriteria_A.add(Restrictions.eq("isPositive", Integer.valueOf(isPositive)));
+			detachedCriteria_B.add(Restrictions.eq("isPositive", Integer.valueOf(isPositive)));
+			detachedCriteria_C.add(Restrictions.eq("isPositive", Integer.valueOf(isPositive)));
+			detachedCriteria_D.add(Restrictions.eq("isPositive", Integer.valueOf(isPositive)));
+			detachedCriteria_E.add(Restrictions.eq("isPositive", Integer.valueOf(isPositive)));
+			detachedCriteria_F.add(Restrictions.eq("isPositive", Integer.valueOf(isPositive)));
+			detachedCriteria_G.add(Restrictions.eq("isPositive", Integer.valueOf(isPositive)));
+			detachedCriteria_H.add(Restrictions.eq("isPositive", Integer.valueOf(isPositive)));
+			detachedCriteria_I.add(Restrictions.eq("isPositive", Integer.valueOf(isPositive)));
+			detachedCriteria_J.add(Restrictions.eq("isPositive", Integer.valueOf(isPositive)));
+		}
+		
+		//查询人数
 		List<SelectItem> selectList=new ArrayList<SelectItem>();
 		selectList.add(new SelectItem("查询人数",String.valueOf(jobInfoDao.getTotalCount(detachedCriteria))));
 		
+		//升学(考取) 
 		detachedCriteria_A.add(Restrictions.eq("contractStatus", Integer.parseInt(CodeBookConsts.CONTRACTSTATUS_TYPE_A)));
 		selectList.add(new SelectItem(CodeBookHelper.getNameByValueAndType(CodeBookConsts.CONTRACTSTATUS_TYPE_A, CodeBookConstsType.CONTRACTSTATUS_TYPE),String.valueOf(jobInfoDao.getTotalCount(detachedCriteria_A))));
 		
+		//升学(考取) 
 		detachedCriteria_B.add(Restrictions.eq("contractStatus", Integer.parseInt(CodeBookConsts.CONTRACTSTATUS_TYPE_B)));
 		selectList.add(new SelectItem(CodeBookHelper.getNameByValueAndType(CodeBookConsts.CONTRACTSTATUS_TYPE_B, CodeBookConstsType.CONTRACTSTATUS_TYPE),String.valueOf(jobInfoDao.getTotalCount(detachedCriteria_B))));
 
+		//已签
 		detachedCriteria_C.add(Restrictions.eq("contractStatus", Integer.parseInt(CodeBookConsts.CONTRACTSTATUS_TYPE_C)));
 		selectList.add(new SelectItem(CodeBookHelper.getNameByValueAndType(CodeBookConsts.CONTRACTSTATUS_TYPE_C, CodeBookConstsType.CONTRACTSTATUS_TYPE),String.valueOf(jobInfoDao.getTotalCount(detachedCriteria_C))));
 
+		//已签(公务员)
 		detachedCriteria_D.add(Restrictions.eq("contractStatus", Integer.parseInt(CodeBookConsts.CONTRACTSTATUS_TYPE_D)));
 		selectList.add(new SelectItem(CodeBookHelper.getNameByValueAndType(CodeBookConsts.CONTRACTSTATUS_TYPE_D, CodeBookConstsType.CONTRACTSTATUS_TYPE),String.valueOf(jobInfoDao.getTotalCount(detachedCriteria_D))));
 
+		//已签(出国)
 		detachedCriteria_E.add(Restrictions.eq("contractStatus", Integer.parseInt(CodeBookConsts.CONTRACTSTATUS_TYPE_E)));
 		selectList.add(new SelectItem(CodeBookHelper.getNameByValueAndType(CodeBookConsts.CONTRACTSTATUS_TYPE_E, CodeBookConstsType.CONTRACTSTATUS_TYPE),String.valueOf(jobInfoDao.getTotalCount(detachedCriteria_E))));
 
+		//未签
 		detachedCriteria_F.add(Restrictions.eq("contractStatus", Integer.parseInt(CodeBookConsts.CONTRACTSTATUS_TYPE_F)));
 		selectList.add(new SelectItem(CodeBookHelper.getNameByValueAndType(CodeBookConsts.CONTRACTSTATUS_TYPE_F, CodeBookConstsType.CONTRACTSTATUS_TYPE),String.valueOf(jobInfoDao.getTotalCount(detachedCriteria_F))));
 
+		//未签(考研)
 		detachedCriteria_G.add(Restrictions.eq("contractStatus", Integer.parseInt(CodeBookConsts.CONTRACTSTATUS_TYPE_G)));
 		selectList.add(new SelectItem(CodeBookHelper.getNameByValueAndType(CodeBookConsts.CONTRACTSTATUS_TYPE_G, CodeBookConstsType.CONTRACTSTATUS_TYPE),String.valueOf(jobInfoDao.getTotalCount(detachedCriteria_G))));
 
+		//未签(考研)
 		detachedCriteria_H.add(Restrictions.eq("contractStatus", Integer.parseInt(CodeBookConsts.CONTRACTSTATUS_TYPE_H)));
 		selectList.add(new SelectItem(CodeBookHelper.getNameByValueAndType(CodeBookConsts.CONTRACTSTATUS_TYPE_H, CodeBookConstsType.CONTRACTSTATUS_TYPE),String.valueOf(jobInfoDao.getTotalCount(detachedCriteria_H))));
 
+		//未签(拟出国)
 		detachedCriteria_I.add(Restrictions.eq("contractStatus", Integer.parseInt(CodeBookConsts.CONTRACTSTATUS_TYPE_I)));
 		selectList.add(new SelectItem(CodeBookHelper.getNameByValueAndType(CodeBookConsts.CONTRACTSTATUS_TYPE_I, CodeBookConstsType.CONTRACTSTATUS_TYPE),String.valueOf(jobInfoDao.getTotalCount(detachedCriteria_I))));
 
+		//不分
 		detachedCriteria_J.add(Restrictions.eq("contractStatus", Integer.parseInt(CodeBookConsts.CONTRACTSTATUS_TYPE_J)));
 		selectList.add(new SelectItem(CodeBookHelper.getNameByValueAndType(CodeBookConsts.CONTRACTSTATUS_TYPE_J, CodeBookConstsType.CONTRACTSTATUS_TYPE),String.valueOf(jobInfoDao.getTotalCount(detachedCriteria_J))));
 
+		//已签约平均工资
 		selectList.add(new SelectItem("已签约平均工资",String.valueOf(com.cb.system.util.NumberFormat.doubleFormat(jobInfoDao.getAverageCount(detachedCriteria, "salary")))));
+		//统计日期
 		selectList.add(new SelectItem("统计日期",DateUtil.getDay()));
 		
 		return selectList;

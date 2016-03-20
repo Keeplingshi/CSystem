@@ -238,8 +238,8 @@ public class MJobInfoController {
 		
 		if(userDomain!=null){
 			if(userDomain.getClassDomain()!=null){
-				List<JobInfoDomain> jobInfoDomains=jobInfoService.doSearchJobInfoList(null,null, null, userDomain.getClassDomain().getId());
-				List<SelectItem> selectItems=jobInfoService.doJobInfoCount(null,null, null, userDomain.getClassDomain().getId());
+				List<JobInfoDomain> jobInfoDomains=jobInfoService.doSearchJobInfoList(null,null, null, userDomain.getClassDomain().getId(),null,null,null);
+				List<SelectItem> selectItems=jobInfoService.doJobInfoCount(null,null, null, userDomain.getClassDomain().getId(),null,null,null);
 				String fileOutputName=DBToExcelUtil.jobInfoDBToExcel(jobInfoDomains, selectItems,Consts.DBTOEXCEL_PATH+filename,filename);
 				
 				if(fileOutputName.equals(filename)){
@@ -256,7 +256,7 @@ public class MJobInfoController {
 	 * @param response
 	 * @throws Exception
 	 */
-	@RequestMapping("/{fileOutputName}/downloadJobInfoInfo")
+	@RequestMapping("/{fileOutputName}/downloadJobInfo")
 	public void dodownloadJobInfoInfo(HttpServletResponse response,@PathVariable String fileOutputName)throws Exception{
 		FileUtil.fileDownload(response, Consts.DBTOEXCEL_PATH+fileOutputName, Consts.JOBINFO_EXCEL);
 		FileUtil.delFile(Consts.DBTOEXCEL_PATH+fileOutputName);
@@ -275,7 +275,7 @@ public class MJobInfoController {
 		UserDomain userDomain=userService.doGetUserByUsername(username);
 		if(userDomain!=null){
 			if(userDomain.getClassDomain()!=null){
-				List<SelectItem> jobInfoCountList=jobInfoService.doJobInfoCount(null, null, null, userDomain.getClassDomain().getId());
+				List<SelectItem> jobInfoCountList=jobInfoService.doJobInfoCount(null, null, null, userDomain.getClassDomain().getId(),null,null,null);
 //				if(ValidateUtil.isEmpty(classId)){
 //					jobInfoCountList=jobInfoService.doJobInfoCount(null, null, userDomain.getClassDomain().getMajor().getId(), null);
 //				}else{

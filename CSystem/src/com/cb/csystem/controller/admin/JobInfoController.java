@@ -365,7 +365,11 @@ public class JobInfoController {
 		List<SelectItem> majorList=majorService.dogetMajorsByCollegeId(null);
 		List<SelectItem> classList=classService.dogetClasssByMajorId(null);
 		List<GradeDomain> gradeList=gradeService.doGetFilterList();
-		
+		List<CodeBookDomain> contractStatusList=CodeBookHelper.getCodeBookByType(CodeBookConstsType.CONTRACTSTATUS_TYPE);
+		List<CodeBookDomain> protocalStateList=CodeBookHelper.getCodeBookByType(CodeBookConstsType.PROTOCALSTATE_TYPE);
+
+		model.addAttribute("contractStatusList", contractStatusList);
+		model.addAttribute("protocalStateList", protocalStateList);
 		model.addAttribute("collegeList", collegeList);
 		model.addAttribute("majorList", majorList);
 		model.addAttribute("classList", classList);
@@ -385,13 +389,14 @@ public class JobInfoController {
 	 */
 	@RequestMapping("/jobInfoDBToExcel")
 	@ResponseBody
-	public String dojobInfoDBToExcel(HttpSession session,String gradeId,String collegeId,String majorId,String classId)throws Exception{
+	public String dojobInfoDBToExcel(HttpSession session,String gradeId,String collegeId,String majorId,String classId
+			,String contractStatusId,String protocalStateId,String isPositive)throws Exception{
 		
 		String username=(String)session.getAttribute(Consts.CURRENT_USER);
 		String filename=username+"_"+System.currentTimeMillis()+".xls";
 		
-		List<JobInfoDomain> jobInfoDomains=jobInfoService.doSearchJobInfoList(gradeId,collegeId, majorId, classId);
-		List<SelectItem> selectItems=jobInfoService.doJobInfoCount(gradeId, collegeId, majorId, classId);
+		List<JobInfoDomain> jobInfoDomains=jobInfoService.doSearchJobInfoList(gradeId,collegeId, majorId, classId,contractStatusId,protocalStateId,isPositive);
+		List<SelectItem> selectItems=jobInfoService.doJobInfoCount(gradeId, collegeId, majorId, classId,contractStatusId,protocalStateId,isPositive);
 		String fileOutputName=DBToExcelUtil.jobInfoDBToExcel(jobInfoDomains, selectItems,Consts.DBTOEXCEL_PATH+filename,filename);
 		
 		if(fileOutputName.equals(filename)){
@@ -421,7 +426,7 @@ public class JobInfoController {
 	@RequestMapping("/jobInfoCountView")
 	public String dojobInfoCountView(Model model,String gradeId,String collegeId,String majorId,String classId)throws Exception{
 		
-		List<SelectItem> jobInfoCountList=jobInfoService.doJobInfoCount(gradeId, collegeId, majorId, classId);
+		List<SelectItem> jobInfoCountList=jobInfoService.doJobInfoCount(gradeId, collegeId, majorId, classId,null,null,null);
 		
 		List<CollegeDomain> collegeList=collegeService.doGetFilterList();
 		List<SelectItem> majorList=majorService.dogetMajorsByCollegeId(collegeId);

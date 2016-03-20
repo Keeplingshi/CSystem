@@ -88,9 +88,9 @@
 		</select>
 	
 		<label style="margin-left: 20px;">标记：</label>
-		<select id="isPositive_select_id" class="select_style">
+		<select id="isPositive_select_id" class="select_style" style="width: 100px;">
 			<option value="" selected="selected">选择</option>
-			<option value="2">不积极</option>
+			<option value="2">标记</option>
 		</select>
 	
 		<!-- <input id="jobInfoExcelToDBButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="导入数据"/> -->

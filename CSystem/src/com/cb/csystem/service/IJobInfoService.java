@@ -95,8 +95,8 @@ public interface IJobInfoService {
 	 * @param classId
 	 * @return
 	 */
-	public List<JobInfoDomain> doSearchJobInfoList(String gradeId,
-			String collegeId, String majorId, String classId)throws Exception;
+	public List<JobInfoDomain> doSearchJobInfoList(String gradeId,String collegeId, String majorId, 
+			String classId,String contractStatusId,String protocalStateId,String isPositive)throws Exception;
 	
 	/**
 	 * 就业信息统计
@@ -107,8 +107,8 @@ public interface IJobInfoService {
 	 * @return
 	 * @throws Exception
 	 */
-	public List<SelectItem> doJobInfoCount(String gradeId,
-			String collegeId, String majorId, String classId)throws Exception;
+	public List<SelectItem> doJobInfoCount(String gradeId,String collegeId, String majorId, String classId
+			,String contractStatusId,String protocalStateId,String isPositive)throws Exception;
 	
 	/**
 	 * 就业信息统计以班级导出
