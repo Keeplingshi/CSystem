@@ -82,9 +82,9 @@
 		if(stuIdVal==null||stuIdVal==''){
 			layer.tips('请选择学生', '#stuname');
 			return;
-		}
+		} 
 		
-		var linkNoteTypeVal=$("#linkNoteTypeId").val();
+ 		var linkNoteTypeVal=$("#linkNoteTypeId").val();
 		if(linkNoteTypeVal==null||linkNoteTypeVal==''){
 			layer.tips('联系笔记类型不能为空', '#linkNoteType_select_choose_id');
 			return;
