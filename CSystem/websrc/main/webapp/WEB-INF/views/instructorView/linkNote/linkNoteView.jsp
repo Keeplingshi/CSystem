@@ -11,6 +11,8 @@
 <script src="${pageContext.request.contextPath}/resources/layer/layer.js"></script>
 
 	<table>
+	
+		<c:if test="${linkNoteDomain.student!=null }">
 		<tr>
 			<td class="lesta-150">姓名：</td>
 			<td class="lestb">
@@ -21,14 +23,19 @@
 				${linkNoteDomain.student.stuId }
 			</td>
 		</tr>
+		</c:if>
+		<c:if test="${linkNoteDomain.student==null }">
+		<tr>
+			<td class="lesta-150">班级：</td>
+			<td class="lestb">
+				${linkNoteDomain.classDomain.name }
+			</td>
+		</tr>
+		</c:if>
 		<tr>
 			<td class="lesta-150">联系笔记：</td>
 			<td class="lestb">
 				${linkNoteDomain.linkNoteType.name }
-			</td>
-			<td class="lesta-150">班级：</td>
-			<td class="lestb">
-				${linkNoteDomain.student.classDomain.name }
 			</td>
 		</tr>
 		<tr>

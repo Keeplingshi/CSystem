@@ -12,10 +12,12 @@
 <script src="${pageContext.request.contextPath}/resources/plugins/datePicker/WdatePicker.js"></script>
 
 <form id="linkNoteEditFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/instructor/linkNote/save" method="post">
-<input type="hidden" id="id" name="id" value="${linkNoteDomain.id }"/>
+	<input type="hidden" id="id" name="id" value="${linkNoteDomain.id }"/>
 	<input type="hidden" id="stuId" name="student.id" value="${linkNoteDomain.student.id }"/>
+	<input type="hidden" id="classId" name="classDomain.id" value="${linkNoteDomain.classDomain.id }" />
 	<input type="hidden" id="linkNoteTypeId" name="linkNoteType.id" value="${linkNoteDomain.linkNoteType.id }"/>
 	<table>
+		<c:if test="${linkNoteDomain.student!=null }">
 		<tr>
 			<td class="lesta-150">姓名：</td>
 			<td class="lestb">
@@ -26,6 +28,15 @@
 				${linkNoteDomain.student.stuId }
 			</td>
 		</tr>
+		</c:if>
+		<c:if test="${linkNoteDomain.student==null }">
+		<tr>
+			<td class="lesta-150">班级：</td>
+			<td class="lestb">
+				${linkNoteDomain.classDomain.name }
+			</td>
+		</tr>
+		</c:if>
 		<tr>
 			<td class="lesta-150">联系笔记类型：</td>
 			<td class="lestb">
@@ -35,10 +46,6 @@
 						<option value="${linkNoteTypeDomain.id }">${linkNoteTypeDomain.name}</option>
 					</c:forEach>
 				</select>
-			</td>
-			<td class="lesta-150">班级：</td>
-			<td class="lestb">
-				${linkNoteDomain.student.classDomain.name }
 			</td>
 		</tr>
 		<tr>
@@ -76,18 +83,6 @@
 	});
 	
 	$("#saveButton").click(function(){
-		
-		var stuIdVal=$("#stuId").val();
-		if(stuIdVal==null||stuIdVal==''){
-			layer.tips('请选择学生', '#stuname');
-			return;
-		}
-		
-		var linkNoteTypeVal=$("#linkNoteTypeId").val();
-		if(linkNoteTypeVal==null||linkNoteTypeVal==''){
-			layer.tips('联系笔记类型不能为空', '#linkNoteType_select_choose_id');
-			return;
-		}
 		
 		var form = $("#linkNoteEditFormId");
 		form.ajaxSubmit(function(result){

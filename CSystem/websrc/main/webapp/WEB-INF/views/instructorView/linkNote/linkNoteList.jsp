@@ -55,8 +55,8 @@
 					</th>
 					<th style="width: 100px;">学号</th>
 					<th style="width: 100px;">姓名</th>
-					<th style="width: 160px;">联系笔记</th>
 					<th style="width: 120px;">班级</th>
+					<th style="width: 160px;">联系笔记</th>
 					<th style="width: 100px;">时间
 					<c:choose>
 						<c:when test="${sortMode=='asc'&&sortValue=='time' }">
@@ -81,10 +81,18 @@
 						<td class="center">
 						<label> <input type="checkbox" class="ace" value="${linkNoteDomain.id }"/> <span class="lbl"></span></label>
 						</td>
-						<td>${linkNoteDomain.student.stuId }</td>
-						<td>${linkNoteDomain.student.name }</td>
+						<c:if test="${linkNoteDomain.student!=null }">
+							<td>${linkNoteDomain.student.stuId }</td>
+							<td>${linkNoteDomain.student.name }</td>
+							<td>${linkNoteDomain.student.classDomain.name }</td>
+						</c:if>
+						<c:if test="${linkNoteDomain.student==null }">
+							<td></td>
+							<td></td>
+							<td>${linkNoteDomain.classDomain.name }</td>
+						</c:if>
+
 						<td>${linkNoteDomain.linkNoteType.name }</td>
-						<td>${linkNoteDomain.student.classDomain.name }</td>
 						<td><fmt:formatDate value="${linkNoteDomain.time }" type="date"/></td>
 						<td>${linkNoteDomain.note }</td>
 						<td style="width: 260px">

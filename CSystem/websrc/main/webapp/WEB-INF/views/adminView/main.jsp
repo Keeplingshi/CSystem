@@ -101,12 +101,12 @@
 								<span class="menu-text"> 学生管理 </span>
 							</a>
 						</li>
-						<li id="linkNote_manage">
+<!-- 						<li id="linkNote_manage">
 							<a href="javascript:void(0);">
 								<i class="icon-dashboard"></i>
 								<span class="menu-text"> 联系笔记 </span>
 							</a>
-						</li>
+						</li> -->
 						<li id="job_manage">
 							<a href="javascript:void(0);">
 								<i class="icon-dashboard"></i>
@@ -118,7 +118,7 @@
 								<i class="icon-dashboard"></i>
 								<span class="menu-text">
 									成长档案
-									<span class="badge badge-primary ">2</span>
+									<span class="badge badge-primary ">3</span>
 								</span>
 
 								<b class="arrow icon-angle-down"></b>
@@ -128,6 +128,12 @@
 									<a href="javascript:void(0);">
 										<i class="icon-double-angle-right"></i>
 										党建管理
+									</a>
+								</li>
+								<li id="awards_manage">
+									<a href="javascript:void(0);">
+										<i class="icon-double-angle-right"></i>
+										评奖评优
 									</a>
 								</li>
 								<li id="discipline_manage">
@@ -335,14 +341,17 @@
 			});
 		});
 	
-		
-		//联系笔记管理
+		//评奖评优
+		$("#awards_manage").click(function(){
+			layer.tips("功能开发中","#awards_manage");
+		});
+/* 		//联系笔记管理
 		$("#linkNote_manage").click(function(){
 			$.post("${pageContext.request.contextPath}/admin/linkNote/linkNoteList", function(result){
 				$("#content_page").empty();
 				$("#content_page").html(result);
 			});
-		});
+		}); */
 	</script>
 	
 </html>

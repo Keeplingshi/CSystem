@@ -181,6 +181,7 @@ public class LinkNoteService implements ILinkNoteService{
 			//小于等于
 			detachedCriteria.add(Restrictions.le("time", endTime));
 		}
+		detachedCriteria.addOrder(Order.desc("time"));
 		
 		return linkNoteDao.getFilterList(detachedCriteria);
 	}

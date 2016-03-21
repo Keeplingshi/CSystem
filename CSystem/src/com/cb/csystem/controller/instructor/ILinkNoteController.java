@@ -23,6 +23,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import com.cb.csystem.domain.LinkNoteDomain;
 import com.cb.csystem.domain.LinkNoteTypeDomain;
 import com.cb.csystem.domain.UserDomain;
+import com.cb.csystem.service.IClassService;
 import com.cb.csystem.service.ILinkNoteService;
 import com.cb.csystem.service.ILinkNoteTypeService;
 import com.cb.csystem.service.IUserService;
@@ -30,6 +31,7 @@ import com.cb.csystem.util.Consts;
 import com.cb.csystem.util.DBToExcelUtil;
 import com.cb.system.util.FileUtil;
 import com.cb.system.util.PageInfo;
+import com.cb.system.util.SelectItem;
 
 /**
  * 联系笔记控制层
@@ -41,6 +43,7 @@ import com.cb.system.util.PageInfo;
 public class ILinkNoteController {
 
 	@Resource private IUserService userService;
+	@Resource private IClassService classService;
 	@Resource private ILinkNoteService linkNoteService;
 	@Resource private ILinkNoteTypeService linkNoteTypeService;
 	
@@ -148,10 +151,23 @@ public class ILinkNoteController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/linkNoteAdd")
-	public String dolinkNoteAdd(Model model)throws Exception{
+	public String dolinkNoteAdd(Model model,HttpSession session)throws Exception{
 		
-		List<LinkNoteTypeDomain> linkNoteTypeList=linkNoteTypeService.doGetFilterList();
-		model.addAttribute("linkNoteTypeList", linkNoteTypeList);
+		String username=(String)session.getAttribute(Consts.CURRENT_USER);
+		UserDomain userDomain=userService.doGetUserByUsername(username);
+		if(userDomain!=null){
+			if(userDomain.getCollege()!=null&&userDomain.getGrade()!=null){
+				
+				String collegeId=userDomain.getCollege().getId();
+				String gradeId=userDomain.getGrade().getId();
+				
+				List<LinkNoteTypeDomain> linkNoteTypeList=linkNoteTypeService.doGetFilterList();
+				List<SelectItem> classList=classService.doGetClazzSelectItem(gradeId, collegeId, null);
+				
+				model.addAttribute("linkNoteTypeList", linkNoteTypeList);
+				model.addAttribute("classList", classList);
+			}
+		}
 		
 		return "/instructorView/linkNote/linkNoteAdd";
 	}

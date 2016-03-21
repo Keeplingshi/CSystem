@@ -105,7 +105,7 @@
 								<i class="icon-dashboard"></i>
 								<span class="menu-text">
 									成长档案
-									<span class="badge badge-primary ">2</span>
+									<span class="badge badge-primary ">3</span>
 								</span>
 
 								<b class="arrow icon-angle-down"></b>
@@ -115,6 +115,12 @@
 									<a href="javascript:void(0);">
 										<i class="icon-double-angle-right"></i>
 										党建管理
+									</a>
+								</li>
+								<li id="awards_manage">
+									<a href="javascript:void(0);">
+										<i class="icon-double-angle-right"></i>
+										评奖评优
 									</a>
 								</li>
 								<li id="discipline_manage">
@@ -259,6 +265,10 @@
 			});
 		});
 
+		//评奖评优
+		$("#awards_manage").click(function(){
+			layer.tips("功能开发中","#awards_manage");
+		});
 	</script>
 	
 </html>

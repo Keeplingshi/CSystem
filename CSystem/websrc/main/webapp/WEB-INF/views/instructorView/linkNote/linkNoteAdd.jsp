@@ -13,6 +13,7 @@
 
 <form id="linkNoteAddFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/instructor/linkNote/save" method="post">
 	<input type="hidden" id="stuId" name="student.id" value=""/>
+	<input type="hidden" id="classId" name="classDomain.id" value="" />
 	<input type="hidden" id="linkNoteTypeId" name="linkNoteType.id" value=""/>
 	<table>
 		<tr>
@@ -20,6 +21,17 @@
 			<td class="lestb">
 				<input type="text" id="stuname" class="input_text_a" placeholder="请选择学生" readonly="readonly"/>
 				<input type="button" id="chooseStudentButton" class="button button-primary button-rounded button-small" value="选择">
+			</td>
+		</tr>
+		<tr>
+			<td class="lesta-150">班级：</td>
+			<td class="lestb">
+				<select id="class_select_id" class="select_style">
+					<option value="" selected="selected">全部</option>
+					<c:forEach items="${classList }" var="classItem">
+						<option value="${classItem.selectText }">${classItem.selectValue}</option>
+					</c:forEach>
+				</select>
 			</td>
 		</tr>
 		<tr>
@@ -70,6 +82,12 @@
 	    }); 
 	});
 	
+	//下拉框选择后给隐藏域赋值
+	$("#class_select_id").change(function(){
+		var classIdVal=$(this).children('option:selected').val();
+		$("#classId").val(classIdVal);
+	});
+	
 	//联系笔记类型选择
 	$("#linkNoteType_select_choose_id").click(function(){
 		var linkNoteType_id=$(this).children('option:selected').val();
@@ -78,11 +96,11 @@
 	
 	$("#saveButton").click(function(){
 		
-		var stuIdVal=$("#stuId").val();
+/* 		var stuIdVal=$("#stuId").val();
 		if(stuIdVal==null||stuIdVal==''){
 			layer.tips('请选择学生', '#stuname');
 			return;
-		}
+		} */
 		
 		var linkNoteTypeVal=$("#linkNoteTypeId").val();
 		if(linkNoteTypeVal==null||linkNoteTypeVal==''){

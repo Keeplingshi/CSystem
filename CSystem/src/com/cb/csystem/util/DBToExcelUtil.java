@@ -541,7 +541,7 @@ public class DBToExcelUtil {
 	public static String linkNoteDBToExcel(
 			List<LinkNoteDomain> linkNoteDomains, String path, String filename,String title) {
 		// TODO Auto-generated method stub
-		String[] headers = { "学号", "姓名", "联系笔记", "班级","时间","备注"};
+		String[] headers = { "学号", "姓名", "班级", "联系笔记","时间","备注"};
 		// 声明一个工作薄
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		// 生成一个表格
@@ -598,14 +598,21 @@ public class DBToExcelUtil {
 				cells[i].setCellStyle(style);
 			}
 			// { "学号", "姓名", "联系笔记", "班级","时间","备注"};
-			//学号
-			cells[0].setCellValue(linkNoteDomain.getStudent().getStuId());
-			//姓名
-			cells[1].setCellValue(linkNoteDomain.getStudent().getName());
+			if(linkNoteDomain.getStudent()==null){
+				if(linkNoteDomain.getClassDomain()!=null){
+					//班级
+					cells[2].setCellValue(linkNoteDomain.getClassDomain().getName());
+				}
+			}else{
+				//学号
+				cells[0].setCellValue(linkNoteDomain.getStudent().getStuId());
+				//姓名
+				cells[1].setCellValue(linkNoteDomain.getStudent().getName());
+				//班级
+				cells[2].setCellValue(linkNoteDomain.getStudent().getClassDomain().getName());
+			}
 			//联系笔记
-			cells[2].setCellValue(linkNoteDomain.getLinkNoteType().getName());
-			//班级
-			cells[3].setCellValue(linkNoteDomain.getStudent().getClassDomain().getName());
+			cells[3].setCellValue(linkNoteDomain.getLinkNoteType().getName());
 			//时间
 			cells[4].setCellValue(DateUtil.getDayFormat(linkNoteDomain.getTime()));
 			//

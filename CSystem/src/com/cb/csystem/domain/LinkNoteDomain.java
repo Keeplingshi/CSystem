@@ -5,15 +5,12 @@ import java.util.Date;
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.ForeignKey;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.NotFound;
@@ -27,6 +24,7 @@ public class LinkNoteDomain {
 	private String id;
 	//private String studentId;	//学生
 	private StudentDomain student;
+	private ClassDomain classDomain;
 	private String familyId;	//家庭成员
 	//private String linknoteTypeId;	//类型
 	private LinkNoteTypeDomain linkNoteType;
@@ -122,6 +120,17 @@ public class LinkNoteDomain {
 	}
 	public void setUserId(String userId) {
 		this.userId = userId;
+	}
+	
+	@ForeignKey(name="null")
+	@NotFound(action=NotFoundAction.IGNORE)
+	@ManyToOne(cascade = CascadeType.REFRESH)
+	@JoinColumn(name = "CLASSID")
+	public ClassDomain getClassDomain() {
+		return classDomain;
+	}
+	public void setClassDomain(ClassDomain classDomain) {
+		this.classDomain = classDomain;
 	}
 	
 	
