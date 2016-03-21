@@ -5,6 +5,7 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
+import org.hibernate.FetchMode;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.MatchMode;
@@ -101,9 +102,9 @@ public class LinkNoteService implements ILinkNoteService{
 			return null;
 		}
 		detachedCriteria.add(Restrictions.eq("userId", userId));
-		detachedCriteria.createAlias("student", "qstu");
 		
 		if(ValidateUtil.notEmpty(searchText)){
+			detachedCriteria.createAlias("student", "qstu");
 			//多条件过滤，此处名字，学号，公司
 			Disjunction disjunction = Restrictions.disjunction();
 			disjunction.add(Restrictions.like("qstu.name", searchText,MatchMode.ANYWHERE).ignoreCase());  

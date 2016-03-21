@@ -12,8 +12,12 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 import org.hibernate.annotations.ForeignKey;
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.NotFound;
+import org.hibernate.annotations.NotFoundAction;
 import org.springframework.format.annotation.DateTimeFormat;
 
 @Entity
@@ -83,6 +87,8 @@ public class LinkNoteDomain {
 		this.note = note;
 	}
 	
+	@ForeignKey(name="null")
+	@NotFound(action=NotFoundAction.IGNORE)
 	@ManyToOne(cascade = CascadeType.REFRESH)
 	@JoinColumn(name = "STUDENTID")
 	public StudentDomain getStudent() {

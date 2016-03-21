@@ -78,11 +78,11 @@
 	
 	$("#saveButton").click(function(){
 		
-		var stuIdVal=$("#stuId").val();
+/* 		var stuIdVal=$("#stuId").val();
 		if(stuIdVal==null||stuIdVal==''){
 			layer.tips('请选择学生', '#stuname');
 			return;
-		} 
+		}  */
 		
  		var linkNoteTypeVal=$("#linkNoteTypeId").val();
 		if(linkNoteTypeVal==null||linkNoteTypeVal==''){
