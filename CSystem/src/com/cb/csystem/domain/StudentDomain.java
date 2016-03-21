@@ -49,6 +49,7 @@ public class StudentDomain {
 	private Integer isMonitor;	//是否为班长，0否1是
 	private JobInfoDomain jobInfo;	//就业
 	private PatyDomain paty;	//党建
+	private Set<FamilyDomain> families=new HashSet<FamilyDomain>(0);
 	private Set<DisciplineDomain> disciplines=new HashSet<DisciplineDomain>(0);
 	private Set<LinkNoteDomain> linknotes=new HashSet<LinkNoteDomain>(0);
 	
@@ -229,5 +230,14 @@ public class StudentDomain {
 	public void setLinknotes(Set<LinkNoteDomain> linknotes) {
 		this.linknotes = linknotes;
 	}
+	
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "student", fetch = FetchType.LAZY)
+	public Set<FamilyDomain> getFamilies() {
+		return families;
+	}
+	public void setFamilies(Set<FamilyDomain> families) {
+		this.families = families;
+	}
+	
 	
 }

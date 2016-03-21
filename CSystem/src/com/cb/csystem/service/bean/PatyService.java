@@ -18,7 +18,6 @@ import com.cb.csystem.domain.StudentDomain;
 import com.cb.csystem.service.IPatyService;
 import com.cb.csystem.service.IStudentService;
 import com.cb.csystem.util.CodeBookConsts;
-import com.cb.csystem.util.CodeBookConstsType;
 import com.cb.system.util.PageInfo;
 import com.cb.system.util.ValidateUtil;
 

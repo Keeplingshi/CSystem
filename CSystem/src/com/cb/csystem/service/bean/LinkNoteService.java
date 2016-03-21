@@ -5,7 +5,6 @@ import java.util.List;
 
 import javax.annotation.Resource;
 
-import org.hibernate.FetchMode;
 import org.hibernate.criterion.DetachedCriteria;
 import org.hibernate.criterion.Disjunction;
 import org.hibernate.criterion.MatchMode;
