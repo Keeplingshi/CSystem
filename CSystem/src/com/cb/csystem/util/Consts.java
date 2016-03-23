@@ -39,6 +39,9 @@ public class Consts {
 	 */
 	public static final String JOBCOUNT_EXCEL="jobcount.xls";
 	
+	/**
+	 * 联系笔记导出文件名
+	 */
 	public static final String LINKNOTE_EXCEL="联系笔记.xls";
 	
 	/**
@@ -57,14 +60,16 @@ public class Consts {
 	public static final String PATY_EXCEL="党建信息导入模板.xls";
 	
 	/**
-	 * student表下载模板
+	 * 下载模板
 	 */
 	public static final String DOWNLOAD_PATH=PathUtil.getWebappPath()+"downloadTemplate//";
 	
 	/**
-	 * student导出学生信息文件路径
+	 * 导出文件路径
 	 */
 	public static final String DBTOEXCEL_PATH=PathUtil.getWebappPath()+"downloadExcelInfo//";
+	
+	public static final String Family_EXCEL="family.xls";
 	
 	/**
 	 * 降序

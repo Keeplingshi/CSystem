@@ -32,7 +32,7 @@ public class FamilyDomain {
 	private String relation;	//与学生关系
 	private String occupation;	//职业
 	private String nationality;	//民族
-	private Integer politicalStatus;	//政治面貌
+	private String politicalStatus;	//政治面貌
 	private String IDnumber;	//身份证号
 	private String jobAddress;	//工作地址
 	private String telePhone;	//联系电话1
@@ -111,11 +111,17 @@ public class FamilyDomain {
 		this.nationality = nationality;
 	}
 	
+	/**
+	 * @return the politicalStatus
+	 */
 	@Column(name = "POLITICALSTATUS", nullable = true, length = 10)
-	public Integer getPoliticalStatus() {
+	public String getPoliticalStatus() {
 		return politicalStatus;
 	}
-	public void setPoliticalStatus(Integer politicalStatus) {
+	/**
+	 * @param politicalStatus the politicalStatus to set
+	 */
+	public void setPoliticalStatus(String politicalStatus) {
 		this.politicalStatus = politicalStatus;
 	}
 	

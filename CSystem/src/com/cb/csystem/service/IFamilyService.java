@@ -48,10 +48,14 @@ public interface IFamilyService {
 	/**
 	 * 家庭成员搜索
 	 * @param pageInfo
+	 * @param searchText 
+	 * @param gradeId 
+	 * @param collegeId 
 	 * @return
 	 * @throws Exception
 	 */
-	public List<FamilyDomain> doSearchPageList(PageInfo pageInfo) throws Exception;
+	public List<FamilyDomain> doSearchPageList(PageInfo pageInfo, String searchText
+			, String collegeId, String gradeId) throws Exception;
 
 	/**
 	 * 批量删除

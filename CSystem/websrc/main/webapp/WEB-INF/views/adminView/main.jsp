@@ -118,7 +118,7 @@
 								<i class="icon-dashboard"></i>
 								<span class="menu-text">
 									成长档案
-									<span class="badge badge-primary ">3</span>
+									<span class="badge badge-primary ">4</span>
 								</span>
 
 								<b class="arrow icon-angle-down"></b>
@@ -140,6 +140,12 @@
 									<a href="javascript:void(0);">
 										<i class="icon-double-angle-right"></i>
 										违纪管理
+									</a>
+								</li>
+								<li id="family_manage">
+									<a href="javascript:void(0);">
+										<i class="icon-double-angle-right"></i>
+										家庭成员管理
 									</a>
 								</li>
 							</ul>
@@ -345,6 +351,15 @@
 		$("#awards_manage").click(function(){
 			layer.tips("功能开发中","#awards_manage");
 		});
+		
+		//家庭成员管理
+		$("#family_manage").click(function(){
+			$.post("${pageContext.request.contextPath}/admin/family/familyList", function(result){
+				$("#content_page").empty();
+				$("#content_page").html(result);
+			});
+		});
+		
 /* 		//联系笔记管理
 		$("#linkNote_manage").click(function(){
 			$.post("${pageContext.request.contextPath}/admin/linkNote/linkNoteList", function(result){

@@ -161,6 +161,7 @@
 	    });
 	});
 	
+	//导入党建信息
  	$("#patyExcelToDBButton").click(function(){
 		//layer.tips('正在开发','#patyExcelToDBButton');
 		parent.layer.open({

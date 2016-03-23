@@ -66,6 +66,16 @@ public class MajorController {
 		return "/adminView/major/majorList";
 	}
 	
+	/**
+	 * 搜索列表
+	 * @param pageInfo
+	 * @param bindingResult
+	 * @param model
+	 * @param collegeId
+	 * @param searchText
+	 * @return
+	 * @throws Exception
+	 */
 	@RequestMapping("/majorSearchList")
 	public String domajorSearchList(@ModelAttribute("pageInfo") PageInfo pageInfo
 			,BindingResult bindingResult,Model model,String collegeId,String searchText)throws Exception{
