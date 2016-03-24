@@ -817,7 +817,7 @@ public class ExcelToDBUtil {
 			}
 		}
 		
-		String result="共"+allNum+"七位学生，成功导入"+successNum+"位家庭成员信息";
+		String result="共"+allNum+"位学生，成功导入"+successNum+"位家庭成员信息";
 		
 		return result;
 	}
