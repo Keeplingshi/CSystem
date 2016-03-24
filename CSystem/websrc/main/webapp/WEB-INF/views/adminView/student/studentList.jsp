@@ -129,8 +129,8 @@
 						<td class="center">
 						<label> <input type="checkbox" class="ace" value="${studentDomain.id }"/> <span class="lbl"></span></label>
 						</td>
-						<td>${studentDomain.stuId }</td>
-						<td>${studentDomain.name }</td>
+						<td><a href="${pageContext.request.contextPath}/studentinfo/studentIndex/${studentDomain.id }" target="_blank">${studentDomain.stuId }</a></td>
+						<td><a href="${pageContext.request.contextPath}/studentinfo/studentIndex/${studentDomain.id }" target="_blank">${studentDomain.name }</a></td>
 						<td>${cusfun:getNameByValueAndType(studentDomain.sex,"8002")}</td>
 						<%-- <td><fmt:formatDate value="${studentDomain.birthday }" type="date"/></td> --%>
 						<td>${cusfun:getNameByValueAndType(studentDomain.politicalStatus,"8001")}</td>
@@ -145,7 +145,10 @@
 						<td>${studentDomain.teachClass }</td> 
 						<%-- <td>${studentDomain.cellphone }</td> --%>
 						<td>
-							<input type="button" class="btn_list_view" value="查看" onclick="viewstudent('${studentDomain.id }')"/>
+<%-- 							<a href="${pageContext.request.contextPath}/studentinfo/studentIndex/${studentDomain.id }" target="_blank">
+								<input type="button" class="btn_list_view" value="详细"/>
+							</a> --%>
+							<input type="button" class="btn_list_view" value="查看" onclick="viewstudent('${studentDomain.id }')"/> 
 							<input type="button" class="btn_list_update" value="修改" onclick="updatestudent('${studentDomain.id }')"/>  
 							<input type="button" class="btn_list_delete" value="删除" onclick="deletestudent('${studentDomain.id }')"/>
 						</td>

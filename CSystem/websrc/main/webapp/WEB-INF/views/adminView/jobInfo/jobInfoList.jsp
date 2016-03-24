@@ -166,8 +166,8 @@
 						<td class="center">
 							<label> <input type="checkbox" class="ace" value="${jobInfoDomain.id }"/> <span class="lbl"></span></label>
 						</td>
-						<td>${jobInfoDomain.student.stuId }</td>
-						<td>${jobInfoDomain.student.name }</td>
+						<td><a href="${pageContext.request.contextPath}/studentinfo/studentIndex/${jobInfoDomain.student.id }" style="color: #000000;" target="_blank">${jobInfoDomain.student.stuId }</a></td>
+						<td><a href="${pageContext.request.contextPath}/studentinfo/studentIndex/${jobInfoDomain.student.id }" style="color: #000000;" target="_blank">${jobInfoDomain.student.name }</a></td>
 						<td>${cusfun:getNameByValueAndType(jobInfoDomain.student.sex,"8002")}</td>
 						<td>${jobInfoDomain.student.classDomain.name }</td>
 						<td>${cusfun:getNameByValueAndType(jobInfoDomain.contractStatus,"8003")}</td>
@@ -189,8 +189,8 @@
 						<td class="center">
 							<label> <input type="checkbox" class="ace" value="${jobInfoDomain.id }"/> <span class="lbl"></span></label>
 						</td>
-						<td>${jobInfoDomain.student.stuId }</td>
-						<td>${jobInfoDomain.student.name }</td>
+						<td><a href="${pageContext.request.contextPath}/studentinfo/studentIndex/${jobInfoDomain.student.id }" style="color: #FF0000;" target="_blank">${jobInfoDomain.student.stuId }</a></td>
+						<td><a href="${pageContext.request.contextPath}/studentinfo/studentIndex/${jobInfoDomain.student.id }" style="color: #FF0000;" target="_blank">${jobInfoDomain.student.name }</a></td>
 						<td>${cusfun:getNameByValueAndType(jobInfoDomain.student.sex,"8002")}</td>
 						<td>${jobInfoDomain.student.classDomain.name }</td>
 						<td>${cusfun:getNameByValueAndType(jobInfoDomain.contractStatus,"8003")}</td>

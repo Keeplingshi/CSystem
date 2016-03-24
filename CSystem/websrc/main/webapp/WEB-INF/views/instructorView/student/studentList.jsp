@@ -107,8 +107,8 @@
 						<td class="center">
 						<label> <input type="checkbox" class="ace" value="${studentDomain.id }"/> <span class="lbl"></span></label>
 						</td>
-						<td>${studentDomain.stuId }</td>
-						<td>${studentDomain.name }</td>
+						<td><a href="${pageContext.request.contextPath}/studentinfo/studentIndex/${studentDomain.id }" target="_blank">${studentDomain.stuId }</a></td>
+						<td><a href="${pageContext.request.contextPath}/studentinfo/studentIndex/${studentDomain.id }" target="_blank">${studentDomain.name }</a></td>
 						<td>${cusfun:getNameByValueAndType(studentDomain.sex,"8002")}</td>
 						<%-- <td><fmt:formatDate value="${studentDomain.birthday }" type="date"/></td> --%>
 						<td>${cusfun:getNameByValueAndType(studentDomain.politicalStatus,"8001")}</td>

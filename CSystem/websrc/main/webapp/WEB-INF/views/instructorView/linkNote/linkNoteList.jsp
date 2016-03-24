@@ -82,8 +82,8 @@
 						<label> <input type="checkbox" class="ace" value="${linkNoteDomain.id }"/> <span class="lbl"></span></label>
 						</td>
 						<c:if test="${linkNoteDomain.student!=null }">
-							<td>${linkNoteDomain.student.stuId }</td>
-							<td>${linkNoteDomain.student.name }</td>
+							<td><a href="${pageContext.request.contextPath}/studentinfo/studentIndex/${linkNoteDomain.student.id }" target="_blank">${linkNoteDomain.student.stuId }</a></td>
+							<td><a href="${pageContext.request.contextPath}/studentinfo/studentIndex/${linkNoteDomain.student.id }" target="_blank">${linkNoteDomain.student.name }</a></td>
 							<td>${linkNoteDomain.student.classDomain.name }</td>
 						</c:if>
 						<c:if test="${linkNoteDomain.student==null }">

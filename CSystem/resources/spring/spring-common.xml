@@ -107,6 +107,7 @@
             <value> 
                 /login=anon
                 /common/**=authc
+                /studentinfo/**=authc
                 /admin/**=authc,perms[0]
                 /instructor/**=authc,perms[1]
                 /monitor/**=authc,perms[3]
