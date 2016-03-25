@@ -38,7 +38,7 @@
 		<tr>
 			<td class="lesta-150">姓名：</td>
 			<td class="lestb">
-				<input type="text" id="stuname" name="name" class="input_text_a" placeholder="请输入学号" value="${studentDomain.name }">
+				<input type="text" id="stuname" name="name" class="input_text_a" placeholder="请输入姓名" value="${studentDomain.name }">
 			</td>
 			<td class="lesta-150">学院：</td>
 			<td class="lestb">

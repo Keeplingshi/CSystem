@@ -50,6 +50,8 @@
 						<td>${familyDomain.telePhone }</td>
 						<td>${familyDomain.cellphone }</td>
 						<td style="width: 330px">
+							<input type="button" class="btn_list_view" value="查看" onclick="viewfamily('${familyDomain.id }')"/>
+							<input type="button" class="btn_list_update" value="修改" onclick="updatefamily('${familyDomain.id }')"/>  
 <%-- 							<input type="button" class="btn_list_view" value="查看" onclick="viewfamily('${familyDomain.id }')"/>
 							<input type="button" class="btn_list_update" value="修改" onclick="updatefamily('${familyDomain.id }')"/>  
  --%>							<input type="button" class="btn_list_delete" value="删除" onclick="deletefamily('${familyDomain.id }')"/>
@@ -87,7 +89,7 @@
 		
 	});
 	
-	//新增家庭成员按钮
+/* 	//新增家庭成员按钮
 	$("#familyAddButton").click(function(){
 	    parent.layer.open({
 	        type: 2,
@@ -103,7 +105,7 @@
 	    		});
 	        }
 	    });
-	});
+	}); */
 	
 	//list中查看家庭成员按钮
 	function viewfamily(familyId)
@@ -112,7 +114,7 @@
 	        type: 2,
 	        title: '查看家庭成员',
 	        shadeClose: true,
-	        area : ['380px' , '360px'],
+	        area : ['640px' , '480px'],
 	        offset: ['150px'],
 	        content: '${pageContext.request.contextPath}/admin/family/familyView/'+familyId
 	    });
@@ -125,7 +127,7 @@
 	        type: 2,
 	        title: '修改家庭成员',
 	        shadeClose: true,
-	        area : ['380px' , '300px'],
+	        area : ['640px' , '480px'],
 	        offset: ['150px'],
 	        content: '${pageContext.request.contextPath}/admin/family/familyEdit/'+familyId,
 	        end: function(){

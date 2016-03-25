@@ -47,6 +47,7 @@ public class StudentDomain {
 	//private String telephone;	//联系电话
 	private String cellphone;	//手机
 	private Integer isMonitor;	//是否为班长，0否1是
+	private String headImg;		//头像
 	private JobInfoDomain jobInfo;	//就业
 	private PatyDomain paty;	//党建
 	private Set<FamilyDomain> families=new HashSet<FamilyDomain>(0);
@@ -237,6 +238,14 @@ public class StudentDomain {
 	}
 	public void setFamilies(Set<FamilyDomain> families) {
 		this.families = families;
+	}
+	
+	@Column(name = "HEADIMG", nullable = true, length = 200)
+	public String getHeadImg() {
+		return headImg;
+	}
+	public void setHeadImg(String headImg) {
+		this.headImg = headImg;
 	}
 	
 	
