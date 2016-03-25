@@ -83,7 +83,9 @@
 	        offset: ['100px'],
 	        content: '${pageContext.request.contextPath}/admin/family/familyExcelToDBView',
 	        end: function(){
-	        
+	    		$("#formId").ajaxSubmit(function(data){
+	    		 	$("#content_page").html(data);
+	    		});
 	        }
 	    });
 		
