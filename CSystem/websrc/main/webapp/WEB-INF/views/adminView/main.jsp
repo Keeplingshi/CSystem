@@ -118,7 +118,7 @@
 								<i class="icon-dashboard"></i>
 								<span class="menu-text">
 									成长档案
-									<span class="badge badge-primary ">4</span>
+									<span class="badge badge-primary ">3</span>
 								</span>
 
 								<b class="arrow icon-angle-down"></b>
@@ -140,12 +140,6 @@
 									<a href="javascript:void(0);">
 										<i class="icon-double-angle-right"></i>
 										违纪管理
-									</a>
-								</li>
-								<li id="family_manage">
-									<a href="javascript:void(0);">
-										<i class="icon-double-angle-right"></i>
-										家庭成员管理
 									</a>
 								</li>
 							</ul>
@@ -191,7 +185,7 @@
 							<a href="#" class="dropdown-toggle">
 								<i class="icon-dashboard"></i>
 								<span class="menu-text">
-									其他
+									字段管理
 									<span class="badge badge-primary ">2</span>
 								</span>
 
@@ -211,6 +205,12 @@
 									</a>
 								</li>
 							</ul>
+						</li>
+						<li id="family_manage">
+							<a href="javascript:void(0);">
+								<i class="icon-dashboard"></i>
+								家庭成员管理
+							</a>
 						</li>
 					</ul>
 					<div class="sidebar-collapse" id="sidebar-collapse">

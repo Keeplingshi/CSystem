@@ -593,10 +593,11 @@ public class ExcelToDBUtil {
 	}
 
 	/**
+	 * 家庭成员导入数据
 	 * @param file
 	 * @return
 	 */
-	public static String familyExcelToDB(MultipartFile file) throws Exception{
+	public static String familyExcelToDBTwo(MultipartFile file) throws Exception{
 		// TODO Auto-generated method stub
 		Workbook workbook=null;
 		
@@ -725,7 +726,7 @@ public class ExcelToDBUtil {
 									familyDomain.setOccupation(contentfamily[i]);
 								}else{
 									//民族
-									familyDomain.setNationality(contentfamily[i]);
+									//familyDomain.setNationality(contentfamily[i]);
 								}
 							}
 							
@@ -735,10 +736,10 @@ public class ExcelToDBUtil {
 							if(ValidateUtil.notEmpty(contentfamily[i])){
 								if(i==0){
 									//民族
-									familyDomain.setNationality(contentfamily[i]);
+									//familyDomain.setNationality(contentfamily[i]);
 								}else{
 									//政治面貌
-									familyDomain.setPoliticalStatus(contentfamily[i]);
+									//familyDomain.setPoliticalStatus(contentfamily[i]);
 								}
 							}
 							
@@ -748,7 +749,7 @@ public class ExcelToDBUtil {
 							if(ValidateUtil.notEmpty(contentfamily[i])){
 								if(i==0){
 									//政治面貌
-									familyDomain.setPoliticalStatus(contentfamily[i]);
+									//familyDomain.setPoliticalStatus(contentfamily[i]);
 								}else{
 									//工作地址
 									familyDomain.setJobAddress(contentfamily[i]);
@@ -822,4 +823,153 @@ public class ExcelToDBUtil {
 		return result;
 	}
 	
+	
+	/**
+	 * 家庭成员导入数据
+	 * @param file
+	 * @return
+	 */
+	public static String familyExcelToDB(MultipartFile file) throws Exception{
+		// TODO Auto-generated method stub
+		Workbook workbook=null;
+		
+		try {
+			workbook = WorkbookFactory.create(file.getInputStream());
+		} catch (EncryptedDocumentException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} catch (InvalidFormatException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		//获取excel的sheet
+		Sheet sheet = workbook.getSheetAt(0);
+		int allNum=0;
+		int successNum=0;
+		
+		for(Row row:sheet){
+			if(row.getRowNum()==0){
+				continue;
+			}
+			allNum++;
+			
+			//第0列，学号,读取非家庭成员信息
+			String content=null;
+			Cell cell = row.getCell(0, Row.CREATE_NULL_AS_BLANK); 
+			cell.setCellType(Cell.CELL_TYPE_STRING);
+			content=cell.getStringCellValue().trim();
+			
+			if(ValidateUtil.notEmpty(content)){
+				//通过学号获取学生
+				StudentDomain studentDomain=studentService.doGetByStudentId(content);
+				if(studentDomain!=null)
+				{
+					List<FamilyDomain> familyDomains=new ArrayList<FamilyDomain>(studentDomain.getFamilies());
+					int familySize=familyDomains.size();
+					
+					//获取家庭成员姓名
+					Cell cellfamily=row.getCell(6, Row.CREATE_NULL_AS_BLANK);
+					cellfamily.setCellType(Cell.CELL_TYPE_STRING);
+					String contentfamily=cellfamily.getStringCellValue().trim();
+					
+					if(ValidateUtil.notEmpty(contentfamily)){
+						//创建对象
+						FamilyDomain familyDomain=null;
+						boolean issame=false;
+						if(familyDomains!=null){
+							for(int j=0;j<familySize;j++){
+								//如果读入的家庭成员与数据库中姓名相同，更新
+								if(contentfamily.equals(familyDomains.get(j).getName())){
+									issame=true;
+									familyDomain=familyDomains.get(j);
+								}
+							}
+						}
+						if(!issame){
+							//如果数据库中没有，创建
+							familyDomain=new FamilyDomain();
+							familyDomain.setStudent(studentDomain);
+						}
+						familyDomain.setName(contentfamily);
+						
+						//生日
+						cellfamily=row.getCell(10, Row.CREATE_NULL_AS_BLANK);
+						cellfamily.setCellType(Cell.CELL_TYPE_STRING);
+						contentfamily=cellfamily.getStringCellValue().trim();
+						if(ValidateUtil.notEmpty(contentfamily)){
+							familyDomain.setBirthday(DateUtil.parseDate(contentfamily));
+						}
+						
+						//职务
+						cellfamily= row.getCell(19, Row.CREATE_NULL_AS_BLANK);
+						cellfamily.setCellType(Cell.CELL_TYPE_STRING);
+						contentfamily=cellfamily.getStringCellValue().trim();
+						if(ValidateUtil.notEmpty(contentfamily)){
+							familyDomain.setJob(contentfamily);
+						}
+						
+						//关系
+						cellfamily= row.getCell(7, Row.CREATE_NULL_AS_BLANK);
+						cellfamily.setCellType(Cell.CELL_TYPE_STRING);
+						contentfamily=cellfamily.getStringCellValue().trim();
+						if(ValidateUtil.notEmpty(contentfamily)){
+							familyDomain.setRelation(contentfamily);
+						}
+						
+						//职业
+						cellfamily= row.getCell(15, Row.CREATE_NULL_AS_BLANK);
+						cellfamily.setCellType(Cell.CELL_TYPE_STRING);
+						contentfamily=cellfamily.getStringCellValue().trim();
+						if(ValidateUtil.notEmpty(contentfamily)){
+							familyDomain.setOccupation(contentfamily);
+						}
+						
+						//身份证号
+						cellfamily= row.getCell(9, Row.CREATE_NULL_AS_BLANK);
+						cellfamily.setCellType(Cell.CELL_TYPE_STRING);
+						contentfamily=cellfamily.getStringCellValue().trim();
+						if(ValidateUtil.notEmpty(contentfamily)){
+							familyDomain.setIDnumber(contentfamily);
+						}
+						
+						//工作地址
+						cellfamily= row.getCell(20, Row.CREATE_NULL_AS_BLANK);
+						cellfamily.setCellType(Cell.CELL_TYPE_STRING);
+						contentfamily=cellfamily.getStringCellValue().trim();
+						if(ValidateUtil.notEmpty(contentfamily)){
+							familyDomain.setJobAddress(contentfamily);
+						}
+						
+						//联系电话
+						cellfamily= row.getCell(23, Row.CREATE_NULL_AS_BLANK);
+						cellfamily.setCellType(Cell.CELL_TYPE_STRING);
+						contentfamily=cellfamily.getStringCellValue().trim();
+						if(ValidateUtil.notEmpty(contentfamily)){
+							familyDomain.setTelePhone(contentfamily);
+						}
+						
+						//手机
+						cellfamily= row.getCell(18, Row.CREATE_NULL_AS_BLANK);
+						cellfamily.setCellType(Cell.CELL_TYPE_STRING);
+						contentfamily=cellfamily.getStringCellValue().trim();
+						if(ValidateUtil.notEmpty(contentfamily)){
+							familyDomain.setCellphone(contentfamily);
+						}
+						
+						if(familyService.doSave(familyDomain)){
+							successNum++;
+						}
+					}
+				}
+			}
+		}
+		
+		String result="共"+allNum+"位家庭成员，成功导入"+successNum+"位家庭成员信息";
+		
+		return result;
+	}
 }

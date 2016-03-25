@@ -31,8 +31,8 @@
 		<script type="text/javascript" src="${pageContext.request.contextPath}/resources/ui/hui/static/h-ui/js/H-ui.js"></script>
 
 		<style>
-			.table-font th{font-size:14px;}
-			.table-font td{font-size:14px;}
+			.table-font th{font-size:16px;}
+			.table-font td{font-size:16px;}
 		</style>
 	</head>
 	<body>
@@ -44,16 +44,17 @@
 			</div>
 		</div>
 	</header>
-	<div style="width: 80%;margin: 0 auto;" >
+	<div style="width: 70%;margin: 0 auto;" >
 		<div class="codeView docs-example">
+			<span style="margin-bottom: 20px;font-size: 26px;">学生基本信息</span>
 			<table id="studentinfoId" class="table table-border table-bordered radius table-font">
 				<thead>
-					<tr>
-						<th style="width: 15%;font-size:18px;">学生基本信息</th>
+ 					<tr>
+						<th style="width: 15%;"></th>
 						<th style="border-left:0px;"></th>
 						<th style="border-left:0px;width: 15%;"></th>
 						<th style="border-left:0px;"></th>
-					</tr>
+					</tr> 
 				</thead>
 				<tbody>
 					<tr>
@@ -93,6 +94,7 @@
 		</div>
 		
 		<div class="codeView docs-example">
+			<span style="margin-bottom: 20px;font-size: 26px;">家庭信息</span>
 			<c:forEach items="${studentDomain.families }" var="familyDomain" varStatus="status">
 			<table id="familyinfoId" class="table table-border table-bordered radius table-font" style="margin-top: 10px;">
 				<thead>
@@ -113,10 +115,6 @@
 						<th>身份证号：</th><td>${familyDomain.IDnumber }</td>
 					</tr>
 					<tr>
-						<th>民族：</th><td>${familyDomain.nationality }</td>
-						<th>政治面貌：</th><td>${familyDomain.politicalStatus }</td>
-					</tr>
-					<tr>
 						<th>职业：</th><td>${familyDomain.occupation }</td>
 						<th>职务：</th><td>${familyDomain.job }</td>
 					</tr>
@@ -132,7 +130,108 @@
 			</c:forEach>
 
 		</div>
+		
+		
+		<div class="codeView docs-example">
+			<span style="margin-bottom: 20px;font-size: 26px;">学生就业信息</span>
+			<table id="studentinfoId" class="table table-border table-bordered radius table-font">
+				<thead>
+					<tr>
+						<th style="width: 15%;"></th>
+						<th style="border-left:0px;"></th>
+						<th style="border-left:0px;width: 15%;"></th>
+						<th style="border-left:0px;"></th>
+					</tr> 
+				</thead>
+				<tbody>
+					<tr>
+						<th>姓名：</th><td>${studentDomain.name }</td>
+						<th>学号：</th><td>${studentDomain.stuId }</td>
+					</tr>
+					<tr>
+						<th>班级：</th><td>${studentDomain.classDomain.name }</td>
+						<th>当前状态：</th><td>${cusfun:getNameByValueAndType(studentDomain.jobInfo.nowState,"8005")}</td>
+					</tr>
+					<tr>
+						<th>签约状态：</th><td>${cusfun:getNameByValueAndType(studentDomain.jobInfo.contractStatus,"8003")}</td>
+						<th>协议书状态：</th><td>${cusfun:getNameByValueAndType(studentDomain.jobInfo.protocalState,"8004")}</td>
+					</tr>
+					<tr>
+						<th>签约单位：</th>
+						<td colspan="3">${studentDomain.jobInfo.company }</td>
+					</tr>
+					<tr>
+						<th>薪水：</th>
+						<td colspan="3">${studentDomain.jobInfo.salary }</td>
+					</tr>
+					<tr>
+						<th>派遣地址：</th>
+						<td colspan="3">${studentDomain.jobInfo.city }</td>
+					</tr>
+					<tr>
+						<th rowspan="2">备注：</th>
+						<td rowspan="2" colspan="3">${studentDomain.jobInfo.note }</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+
+		<div class="codeView docs-example">
+			<span style="margin-bottom: 20px;font-size: 26px;">党建信息</span>
+			<table id="studentinfoId" class="table table-border table-bordered radius table-font">
+				<thead>
+					<tr>
+						<th style="width: 15%;"></th>
+						<th style="border-left:0px;"></th>
+						<th style="border-left:0px;width: 15%;"></th>
+						<th style="border-left:0px;"></th>
+					</tr> 
+				</thead>
+				<tbody>
+					<tr>
+						<th>姓名：</th><td>${studentDomain.name }</td>
+						<th>学号：</th><td>${studentDomain.stuId }</td>
+					</tr>
+					<tr>
+						<th>班级：</th><td>${studentDomain.classDomain.name }</td>
+						<th>性别：</th><td>${cusfun:getNameByValueAndType(studentDomain.sex,"8002")}</td>
+					</tr>
+					<tr>
+						<th>提交入党申请书日期：</th>
+						<td colspan="3"><fmt:formatDate value="${studentDomain.paty.applicationDate }" type="date"/></td>
+					</tr>
+					<tr>
+						<th>确定积极份子日期：</th>
+						<td colspan="3"><fmt:formatDate value="${studentDomain.paty.activeDate }" type="date"/></td>
+					</tr>
+					<tr>
+						<th>中党是否通过：</th>
+						<td colspan="3">${cusfun:getNameByValueAndType(studentDomain.paty.isPassActive,"8007")} </td>
+					</tr>
+					<tr>
+						<th>确定发展对象日期：</th>
+						<td colspan="3"><fmt:formatDate value="${studentDomain.paty.developDate }" type="date"/></td>
+					</tr>
+					<tr>
+						<th>入党日期：</th>
+						<td colspan="3"><fmt:formatDate value="${studentDomain.paty.joinpatyDate }" type="date"/></td>
+					</tr>
+					<tr>
+						<th>转正日期：</th>
+						<td colspan="3"><fmt:formatDate value="${studentDomain.paty.confirmDate }" type="date"/></td>
+					</tr>
+					<tr>
+						<th rowspan="2">备注：</th>
+						<td rowspan="2" colspan="3">${studentDomain.paty.note }</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
 	</div>
+
+
 
 	<footer class="footer mt-20">
 		<div class="container">

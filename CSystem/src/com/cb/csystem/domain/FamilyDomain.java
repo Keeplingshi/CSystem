@@ -31,8 +31,8 @@ public class FamilyDomain {
 	private String job;		//职务
 	private String relation;	//与学生关系
 	private String occupation;	//职业
-	private String nationality;	//民族
-	private String politicalStatus;	//政治面貌
+	//private String nationality;	//民族
+	//private String politicalStatus;	//政治面貌
 	private String IDnumber;	//身份证号
 	private String jobAddress;	//工作地址
 	private String telePhone;	//联系电话1
@@ -103,27 +103,27 @@ public class FamilyDomain {
 		this.occupation = occupation;
 	}
 	
-	@Column(name = "NATIONALITY", nullable = true, length = 100)
-	public String getNationality() {
-		return nationality;
-	}
-	public void setNationality(String nationality) {
-		this.nationality = nationality;
-	}
+//	@Column(name = "NATIONALITY", nullable = true, length = 100)
+//	public String getNationality() {
+//		return nationality;
+//	}
+//	public void setNationality(String nationality) {
+//		this.nationality = nationality;
+//	}
 	
-	/**
-	 * @return the politicalStatus
-	 */
-	@Column(name = "POLITICALSTATUS", nullable = true, length = 10)
-	public String getPoliticalStatus() {
-		return politicalStatus;
-	}
-	/**
-	 * @param politicalStatus the politicalStatus to set
-	 */
-	public void setPoliticalStatus(String politicalStatus) {
-		this.politicalStatus = politicalStatus;
-	}
+//	/**
+//	 * @return the politicalStatus
+//	 */
+//	@Column(name = "POLITICALSTATUS", nullable = true, length = 10)
+//	public String getPoliticalStatus() {
+//		return politicalStatus;
+//	}
+//	/**
+//	 * @param politicalStatus the politicalStatus to set
+//	 */
+//	public void setPoliticalStatus(String politicalStatus) {
+//		this.politicalStatus = politicalStatus;
+//	}
 	
 	@Column(name = "IDNUMBER", nullable = true, length = 100)
 	public String getIDnumber() {

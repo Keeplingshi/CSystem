@@ -69,7 +69,10 @@ public class Consts {
 	 */
 	public static final String DBTOEXCEL_PATH=PathUtil.getWebappPath()+"downloadExcelInfo//";
 	
-	public static final String Family_EXCEL="family.xls";
+	/**
+	 * 家庭成员导入模板
+	 */
+	public static final String Family_EXCEL="家庭成员信息导入模板.xls";
 	
 	/**
 	 * 降序
