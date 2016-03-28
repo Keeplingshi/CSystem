@@ -38,7 +38,7 @@ public class DBToExcelUtil {
 	 */
 	public static String studnetinfoDBToExcel(List<StudentDomain> studentDomains,String path,String filename)
 	{
-		String[] headers = { "学号", "姓名", "性别", "出生日期","政治面貌","身份证号","籍贯","宿舍号","行政班级","电子邮件","教学班级","手机号" };
+		String[] headers = { "学号", "姓名", "性别", "出生日期","政治面貌","身份证号","籍贯","宿舍号","行政班级","QQ","教学班级","手机号" };
 		int columnNum=headers.length;
 		// 声明一个工作薄
 		HSSFWorkbook workbook = new HSSFWorkbook();

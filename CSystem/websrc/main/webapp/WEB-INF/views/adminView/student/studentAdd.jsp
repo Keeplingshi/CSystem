@@ -6,12 +6,36 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt" %>
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/button.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/addEditView.css" />
+<link rel="stylesheet" href="${pageContext.request.contextPath}/resources/plugins/webuploader/webuploader.css" />
+
+<script>
+	var BASE_URL='${pageContext.request.contextPath}/admin/';
+</script>
+
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 <script src="${pageContext.request.contextPath}/resources/js/jquery.form.js"></script>
 <script src="${pageContext.request.contextPath}/resources/layer/layer.js"></script>
 <script src="${pageContext.request.contextPath}/resources/plugins/datePicker/WdatePicker.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/plugins/validform/Validform_v5.3.2_min.js"></script>
 <script type="text/javascript" src="${pageContext.request.contextPath}/resources/js/validform.js"></script>
+<script src="${pageContext.request.contextPath}/resources/plugins/webuploader/webuploader.js"></script>
+<script src="${pageContext.request.contextPath}/resources/plugins/webuploader/csystem/userInfoHeadUpload.js"></script>
+
+<style>
+	.add_pic{
+	    width: 140px;
+	    height: 150px;
+	    border: 1px dashed #ccc;
+	    float: right;
+	    margin-right: 10px;
+	}
+	.filePicker {
+		float:left;
+	    margin-left: 60px;
+	    margin-top: 60px;
+	}
+	
+</style>
 
 <form id="studentAddFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/admin/student/save" method="post">
 	<input type="hidden" id="politicalStatusId" name="politicalStatus" value=""/>
@@ -22,7 +46,12 @@
 			<td class="lestb">
 				<input type="text" id="stuId" name="stuId" class="input_text_a" placeholder="请输入学号">
 			</td>
-
+			<td rowspan="4" colspan="2">
+				<!-- <div id="filePicker" class="filePicker">选择图片</div> -->
+				<div class="add_pic" id="add_pic">
+					<img id="head_img" src="${pageContext.request.contextPath}/resources/images/touxiang.png" width="140px;" height="150px;" style="border-radius:5px;"/>
+				</div>
+			</td>
 		</tr>
 		<tr>
 			<td class="lesta-150">姓名：</td>
@@ -71,9 +100,9 @@
 					</c:forEach>
 				</select>
 			</td>
-			<td class="lesta-150">电子邮件：</td>
+			<td class="lesta-150">QQ：</td>
 			<td class="lestb">
-				<input type="text" id="stuemail" name="email" class="input_text_a" datatype="e" ignore="ignore" placeholder="请输入邮箱" errormsg="请输入正确邮箱" />
+				<input type="text" id="stuemail" name="email" class="input_text_a" ignore="ignore" placeholder="请输入QQ"/>
 			</td>
 		</tr>
 		<tr>

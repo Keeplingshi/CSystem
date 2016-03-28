@@ -87,9 +87,9 @@
 			<td class="lestb">
 				<input type="text" id="stuIDnumber" name="IDnumber" class="input_text_a" placeholder="请输入身份证号" value="${studentDomain.IDnumber }"/>
 			</td>
-			<td class="lesta-150">电子邮件：</td>
+			<td class="lesta-150">QQ：</td>
 			<td class="lestb">
-				<input type="text" id="stuemail" name="email" class="input_text_a" datatype="e" ignore="ignore" errormsg="请输入正确邮箱" placeholder="请输入邮箱" value="${studentDomain.email }"/>
+				<input type="text" id="stuemail" name="email" class="input_text_a" ignore="ignore" placeholder="请输入QQ" value="${studentDomain.email }"/>
 			</td>
 
 		</tr>

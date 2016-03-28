@@ -108,15 +108,15 @@
 							</c:choose>
 						</span>
 					</th> --%>
-					<th style="width: 90px;">政治面貌</th>
+					<th>政治面貌</th>
 					<!-- <th>身份证号</th> -->
 					<th>籍贯</th>
 					<th style="width: 90px;">宿舍</th>
-					<th>年级</th>
+					<th style="width: 90px;">年级</th>
 <!-- 					<th>院系</th>
 					<th>专业</th> -->
 					<th>班级</th>
-					<!-- <th>电子邮件</th> -->
+					<!-- <th>QQ</th> -->
 					<th>教学班级</th>
 					<!-- <th>手机</th> -->
 					<th>操作</th>

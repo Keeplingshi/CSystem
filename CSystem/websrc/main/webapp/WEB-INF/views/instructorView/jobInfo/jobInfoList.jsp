@@ -116,7 +116,7 @@
 						</span>
 					</th>
 					<!-- <th>备注</th> -->
-					<th style="width: 160px;">最后修改时间
+					<th>最后修改时间
 						<span>
 							<c:choose>
 								<c:when test="${sortMode=='asc'&&sortValue=='modifyTime' }">

@@ -69,7 +69,7 @@
 			<td class="lestb" style="width:150px;">
 				${studentDomain.IDnumber }
 			</td>
-			<td class="lesta-150">电子邮件：</td>
+			<td class="lesta-150">QQ：</td>
 			<td class="lestb" style="width:150px;">
 				${studentDomain.email }
 			</td>

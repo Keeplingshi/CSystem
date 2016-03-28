@@ -79,7 +79,7 @@
 					</tr>
 					<tr>
 						<th>身份证号：</th><td>${studentDomain.IDnumber }</td>
-						<th>电子邮件：</th><td>${studentDomain.email }</td>
+						<th>QQ：</th><td>${studentDomain.email }</td>
 					</tr>
 					<tr>
 						<th>籍贯：</th><td>${studentDomain.nativePlace }</td>
