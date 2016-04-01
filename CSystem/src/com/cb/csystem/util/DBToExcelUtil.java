@@ -118,7 +118,7 @@ public class DBToExcelUtil {
 	 */
 	public static String jobInfoDBToExcel(List<JobInfoDomain> jobInfoDomains,List<SelectItem> selectList,String path,String filename)
 	{
-		String[] headers = { "学号", "姓名", "性别", "签约状态","签约单位","协议书状态","当前状态","派遣地址","薪金/月","备注"};
+		String[] headers = { "学号", "姓名", "性别", "签约状态","签约单位","协议书状态","当前状态","薪金/月","备注","派遣地址","派遣单位","派遣地址邮件","收件人姓名","收件人电话"};
 		int columnNum=headers.length;
 		// 声明一个工作薄
 		HSSFWorkbook workbook = new HSSFWorkbook();
@@ -180,14 +180,22 @@ public class DBToExcelUtil {
 				if(jobInfoDomain.getNowState()!=null){
 					cells[6].setCellValue(CodeBookHelper.getNameByValueAndType(jobInfoDomain.getNowState().toString(), CodeBookConstsType.NOWSTATE_TYPE));
 				}
-				//城市
-				cells[7].setCellValue(jobInfoDomain.getCity());
 				//薪金
 				if(jobInfoDomain.getSalary()!=null){
-					cells[8].setCellValue(jobInfoDomain.getSalary());
+					cells[7].setCellValue(jobInfoDomain.getSalary());
 				}
 				//备注
-				cells[9].setCellValue(jobInfoDomain.getNote());
+				cells[8].setCellValue(jobInfoDomain.getNote());
+				//派遣地址
+				cells[9].setCellValue(jobInfoDomain.getCity());
+				//派遣单位
+				cells[10].setCellValue(jobInfoDomain.getSendunit());
+				//派遣地址邮编
+				cells[11].setCellValue(jobInfoDomain.getSendPostCode());
+				//派遣收件人姓名
+				cells[12].setCellValue(jobInfoDomain.getSendRecipientName());
+				//派遣收件人电话
+				cells[13].setCellValue(jobInfoDomain.getSendRecipientPhone());
 			}
 		}
 		

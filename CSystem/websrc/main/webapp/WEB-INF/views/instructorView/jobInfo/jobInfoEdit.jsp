@@ -78,15 +78,39 @@
 			</td>
 		</tr>
 		<tr>
+			<td class="lesta-150">备注：</td>
+			<td class="lestb" colspan="3" rowspan="2">
+				<textarea rows="5" cols="50" id="note" name="note" style="margin-top: 20px;">${jobInfoDomain.note }</textarea>
+			</td>
+		</tr>
+		<tr></tr>
+		<tr><td colspan="5"><div class="line" style="margin-left: 50px;"></div></td></tr>
+		<tr>
 			<td class="lesta-150">派遣地址：</td>
 			<td class="lestb" colspan="3">
 				<input type="text" id="city" name="city" class="input_text_a" placeholder="便于统计档案派遣" value="${jobInfoDomain.city }" style="width:300px;"/>
 			</td>
 		</tr>
 		<tr>
-			<td class="lesta-150">备注：</td>
-			<td class="lestb" colspan="3" rowspan="2">
-				<textarea rows="5" cols="50" id="note" name="note" style="margin-top: 20px;">${jobInfoDomain.note }</textarea>
+			<td class="lesta-150">派遣单位：</td>
+			<td class="lestb" colspan="3">
+				<input type="text" id="sendunit" name="sendunit" class="input_text_a" placeholder="便于统计档案派遣" value="${jobInfoDomain.sendunit }" style="width:300px;"/>
+			</td>
+		</tr>
+		<tr>
+			<td class="lesta-150">派遣地址邮编：</td>
+			<td class="lestb" colspan="3">
+				<input type="text" id="sendPostCode" name="sendPostCode" class="input_text_a" placeholder="便于统计档案派遣" value="${jobInfoDomain.sendPostCode }" style="width:300px;"/>
+			</td>
+		</tr>
+		<tr>
+			<td class="lesta-150">收件人姓名：</td>
+			<td class="lestb">
+				<input type="text" id="sendRecipientName" name="sendRecipientName" class="input_text_a" placeholder="收件人姓名" value="${jobInfoDomain.sendRecipientName }"/>
+			</td>
+			<td class="lesta-150">收件人电话：</td>
+			<td class="lestb">
+				<input type="text" id="sendRecipientPhone" name="sendRecipientPhone" class="input_text_a" placeholder="收件人电话" value="${jobInfoDomain.sendRecipientPhone }"/>
 			</td>
 		</tr>
 	</table>

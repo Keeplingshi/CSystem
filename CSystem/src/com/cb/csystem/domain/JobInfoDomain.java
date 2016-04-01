@@ -28,11 +28,16 @@ public class JobInfoDomain {
 	private String company;	//公司
 	private Integer protocalState;	//协议书状态
 	private Integer nowState;	//当前状态
-	private String city;	//城市
 	private Integer salary;	//薪水
 	private String note;	//备注
 	private String modifyTime;	//最后修改时间
 	private Integer isPositive;	//是否积极
+	
+	private String city;	//派遣地址
+	private String sendunit;	//派遣单位
+	private String sendPostCode;	//派遣地址邮编
+	private String sendRecipientName;		//派遣收件人姓名
+	private String sendRecipientPhone;	//派遣收件人电话
 	
 //	  @Id  
 //	    @Column(name="pid")  
@@ -147,5 +152,38 @@ public class JobInfoDomain {
 	public void setIsPositive(Integer isPositive) {
 		this.isPositive = isPositive;
 	}
+	
+	@Column(name = "SENDUNIT", nullable = true, length = 500)
+	public String getSendunit() {
+		return sendunit;
+	}
+	public void setSendunit(String sendunit) {
+		this.sendunit = sendunit;
+	}
+	
+	@Column(name = "SENDPOSTCODE", nullable = true, length = 100)
+	public String getSendPostCode() {
+		return sendPostCode;
+	}
+	public void setSendPostCode(String sendPostCode) {
+		this.sendPostCode = sendPostCode;
+	}
+	
+	@Column(name = "SENDRECIPIENTNAME", nullable = true, length = 200)
+	public String getSendRecipientName() {
+		return sendRecipientName;
+	}
+	public void setSendRecipientName(String sendRecipientName) {
+		this.sendRecipientName = sendRecipientName;
+	}
+	
+	@Column(name = "SENDRECIPIENTPHONE", nullable = true, length = 100)
+	public String getSendRecipientPhone() {
+		return sendRecipientPhone;
+	}
+	public void setSendRecipientPhone(String sendRecipientPhone) {
+		this.sendRecipientPhone = sendRecipientPhone;
+	}
 
+	
 }

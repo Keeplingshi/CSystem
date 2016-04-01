@@ -12,3 +12,5 @@
 
 .select_style{padding: 3px 4px;height: 30px;width: 100px;}
 .select_style option{height:25px;}
+
+.line{  background: #555;height: 6px;  }

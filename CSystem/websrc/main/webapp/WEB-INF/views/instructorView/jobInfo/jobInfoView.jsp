@@ -53,15 +53,39 @@
 			</td>
 		</tr>
 		<tr>
+			<td class="lesta-150">备注：</td>
+			<td class="lestb" colspan="3" rowspan="2">
+				<textarea rows="5" cols="50" readonly="readonly" style="margin-top: 20px;">${jobInfoDomain.note }</textarea>
+			</td>
+		</tr>
+		<tr></tr>
+		<tr><td colspan="5"><div class="line" style="margin-left: 50px;"></div></td></tr>
+		<tr>
 			<td class="lesta-150">派遣地址：</td>
 			<td class="lestb" colspan="3">
 				${jobInfoDomain.city }
 			</td>
 		</tr>
 		<tr>
-			<td class="lesta-150">备注：</td>
-			<td class="lestb" colspan="3" rowspan="2">
-				<textarea rows="5" cols="50" readonly="readonly" style="margin-top: 20px;">${jobInfoDomain.note }</textarea>
+			<td class="lesta-150">派遣单位：</td>
+			<td class="lestb" colspan="3">
+				${jobInfoDomain.sendunit }
+			</td>
+		</tr>
+		<tr>
+			<td class="lesta-150">派遣地址邮编：</td>
+			<td class="lestb" colspan="3">
+				${jobInfoDomain.sendPostCode }
+			</td>
+		</tr>
+		<tr>
+			<td class="lesta-150">收件人姓名：</td>
+			<td class="lestb">
+				${jobInfoDomain.sendRecipientName }
+			</td>
+			<td class="lesta-150">收件人电话：</td>
+			<td class="lestb">
+				${jobInfoDomain.sendRecipientPhone }
 			</td>
 		</tr>
 	</table>
