@@ -399,4 +399,66 @@ public class StudentController {
 		FileUtil.delFile(Consts.DBTOEXCEL_PATH+fileOutputName);
 	}
 	
+	
+	/**
+	 * 上传图片
+	 * <p>The uploaderImg</p>
+	 * @param file
+	 * @param adverType
+	 * @return
+	 * @throws Exception
+	 * @author:Administrator 2016-2-17
+	 * @update: [updatedate] [changer][change description]
+	 */
+	@RequestMapping("/uploaderImg")
+	@ResponseBody
+	public String uploaderImg(@RequestParam(value = "file", required = false) MultipartFile file, String stuId)
+		throws Exception
+	{
+		String imgType = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."),
+			file.getOriginalFilename().length());
+		String fileName = stuId+"_"+System.currentTimeMillis() + imgType;
+//		String path = DcFileUtils.getWebFilePath(getRequest()) + headImageDir+ account +File.separator;
+//		System.out.println(path);
+//		
+//		// 创建四个文件夹分别存储小，中，大，特大 四种缩略图的路径
+//		String smallPath = DcFileUtils.getWebFilePath(getRequest()) + headImageDir + account + smallFolder
+//				+ File.separator;
+//		String midPath = DcFileUtils.getWebFilePath(getRequest()) + headImageDir + account + midFolder
+//				+ File.separator;
+//		String bigPath = DcFileUtils.getWebFilePath(getRequest()) + headImageDir + account + bigFolder
+//				+ File.separator;
+//		String largePath = DcFileUtils.getWebFilePath(getRequest()) + headImageDir + account + largeFolder
+//				+ File.separator;
+//
+//
+//		File targetFile = new File(path, fileName);
+//		if(!targetFile.exists())
+//		{
+//			targetFile.mkdirs();
+//		}
+//		// 保存
+//		try
+//		{
+//			//保存文件
+//			file.transferTo(targetFile);
+//			//以四种尺寸保存
+//			CompressPicUtil.compressPic(targetFile, smallPath, fileName, Integer.parseInt(smallWidth),
+//					Integer.parseInt(smallHeight), "");
+//			CompressPicUtil.compressPic(targetFile, midPath, fileName, Integer.parseInt(midWidth),
+//					Integer.parseInt(midHeight), "");
+//			CompressPicUtil.compressPic(targetFile, bigPath, fileName, Integer.parseInt(bigWidth),
+//					Integer.parseInt(bigHeight), "");
+//			CompressPicUtil.compressPic(targetFile, largePath, fileName, Integer.parseInt(largeWidth),
+//					Integer.parseInt(largeHeight), "");
+//
+//		//	CompressPicUtil.compressPic(targetFile, midPath, fileName, Integer.parseInt(midWidth),
+//			//	Integer.parseInt(midHeight), "");
+//		}
+//		catch (Exception e)
+//		{
+//			e.printStackTrace();
+//		}
+		return fileName;
+	}
 }

@@ -47,7 +47,8 @@
 				<input type="text" id="stuId" name="stuId" class="input_text_a" placeholder="请输入学号">
 			</td>
 			<td rowspan="4" colspan="2">
-				<!-- <div id="filePicker" class="filePicker">选择图片</div> -->
+				<input type="hidden" id="headImg" name="headImg" value=""/>
+				<div id="filePicker" class="filePicker">选择图片</div>
 				<div class="add_pic" id="add_pic">
 					<img id="head_img" src="${pageContext.request.contextPath}/resources/images/touxiang.png" width="140px;" height="150px;" style="border-radius:5px;"/>
 				</div>
@@ -58,7 +59,6 @@
 			<td class="lestb">
 				<input type="text" id="stuname" name="name" class="input_text_a" placeholder="请输入姓名">
 			</td>
-
 		</tr>
 		<tr>
 			<td class="lesta-150">性别：</td>
@@ -66,7 +66,6 @@
 				<input type="radio" name="sex" value="0" checked="checked"/>男
 				<input type="radio" name="sex" value="1" />女
 			</td>
-
 		</tr>
 		<tr>
 			<td class="lesta-150">出生日期：</td>
@@ -193,7 +192,7 @@
 		$("#classId").val(class_id);
 	});
 	
-	$("#saveButton").click(function(){
+/* 	$("#saveButton").click(function(){
 		
 		var stuIdVal=$("#stuId").val();		//学号
 		var stunameVal=$("#stuname").val();	//姓名
@@ -233,7 +232,7 @@
 			}
 		});
 		
-	});
+	}); */
 
 	//选择学院，得到专业
 	function getMajor(college_id)
