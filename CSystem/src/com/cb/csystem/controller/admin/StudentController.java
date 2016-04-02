@@ -1,5 +1,6 @@
 package com.cb.csystem.controller.admin;
 
+import java.io.File;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -35,6 +37,7 @@ import com.cb.csystem.util.CodeBookHelper;
 import com.cb.csystem.util.Consts;
 import com.cb.csystem.util.DBToExcelUtil;
 import com.cb.csystem.util.ExcelToDBUtil;
+import com.cb.system.util.CompressPicUtil;
 import com.cb.system.util.FileUtil;
 import com.cb.system.util.PageInfo;
 import com.cb.system.util.SelectItem;
@@ -53,6 +56,12 @@ public class StudentController {
 	@Resource private ICollegeService collegeService;
 	@Resource private IClassService classService;
 	@Resource private IStudentService studentService;
+	
+	@Value("#{envProperties['csystemupload']}") private String shareupload;
+	@Value("#{envProperties['headImageDir']}") private String headImageDir;
+	@Value("#{envProperties['midWidth']}") private String midWidth;
+	@Value("#{envProperties['midHeight']}") private String midHeight;
+	
 	
 	/**
 	 * 过滤起前台pageInfo
@@ -149,6 +158,10 @@ public class StudentController {
 		StudentDomain studentDomain=studentService.doGetById(id);
 		model.addAttribute("studentDomain", studentDomain);
 		
+		//头像路径
+		String headImgPath=shareupload+headImageDir;
+		model.addAttribute("headImgPath", headImgPath);
+		
 		return "/adminView/student/studentView";
 	}
 	
@@ -200,6 +213,9 @@ public class StudentController {
 		model.addAttribute("majorList", majorList);
 		model.addAttribute("collegeList", collegeList);
 		model.addAttribute("gradeList", gradeList);
+		//头像路径
+		String headImgPath=shareupload+headImageDir;
+		model.addAttribute("headImgPath", headImgPath);
 		
 		return "/adminView/student/studentEdit";
 	}
@@ -418,47 +434,23 @@ public class StudentController {
 		String imgType = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."),
 			file.getOriginalFilename().length());
 		String fileName = stuId+"_"+System.currentTimeMillis() + imgType;
-//		String path = DcFileUtils.getWebFilePath(getRequest()) + headImageDir+ account +File.separator;
-//		System.out.println(path);
-//		
-//		// 创建四个文件夹分别存储小，中，大，特大 四种缩略图的路径
-//		String smallPath = DcFileUtils.getWebFilePath(getRequest()) + headImageDir + account + smallFolder
-//				+ File.separator;
-//		String midPath = DcFileUtils.getWebFilePath(getRequest()) + headImageDir + account + midFolder
-//				+ File.separator;
-//		String bigPath = DcFileUtils.getWebFilePath(getRequest()) + headImageDir + account + bigFolder
-//				+ File.separator;
-//		String largePath = DcFileUtils.getWebFilePath(getRequest()) + headImageDir + account + largeFolder
-//				+ File.separator;
-//
-//
-//		File targetFile = new File(path, fileName);
-//		if(!targetFile.exists())
-//		{
-//			targetFile.mkdirs();
-//		}
-//		// 保存
-//		try
-//		{
-//			//保存文件
-//			file.transferTo(targetFile);
-//			//以四种尺寸保存
-//			CompressPicUtil.compressPic(targetFile, smallPath, fileName, Integer.parseInt(smallWidth),
-//					Integer.parseInt(smallHeight), "");
-//			CompressPicUtil.compressPic(targetFile, midPath, fileName, Integer.parseInt(midWidth),
-//					Integer.parseInt(midHeight), "");
-//			CompressPicUtil.compressPic(targetFile, bigPath, fileName, Integer.parseInt(bigWidth),
-//					Integer.parseInt(bigHeight), "");
-//			CompressPicUtil.compressPic(targetFile, largePath, fileName, Integer.parseInt(largeWidth),
-//					Integer.parseInt(largeHeight), "");
-//
-//		//	CompressPicUtil.compressPic(targetFile, midPath, fileName, Integer.parseInt(midWidth),
-//			//	Integer.parseInt(midHeight), "");
-//		}
-//		catch (Exception e)
-//		{
-//			e.printStackTrace();
-//		}
+		String path = shareupload + headImageDir+ stuId +File.separator;
+
+		File targetFile = new File(path, fileName);
+		if(!targetFile.exists()){
+			targetFile.mkdirs();
+		}
+		// 保存
+		try{
+			//保存文件
+			file.transferTo(targetFile);
+			//切割尺寸
+			CompressPicUtil.compressPic(targetFile, path, fileName, Integer.parseInt(midWidth),
+					Integer.parseInt(midHeight), "");
+
+		}catch (Exception e){
+			//e.printStackTrace();
+		}
 		return fileName;
 	}
 }

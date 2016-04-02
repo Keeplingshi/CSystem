@@ -37,7 +37,7 @@
 	
 </style>
 
-<form id="studentAddFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/admin/student/save" method="post">
+<form id="studentFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/admin/student/save" method="post">
 	<input type="hidden" id="politicalStatusId" name="politicalStatus" value=""/>
 	<input type="hidden" id="classId" name="classDomain.id" value=""/>
 	<table>
@@ -174,7 +174,7 @@
 		layer.tips(msg, obj);
 	};
 	
-	$("#studentAddFormId").Validform({
+	$("#studentFormId").Validform({
 		tiptype:function(msg,o){
 			showmsg(msg,o.obj[0]);
 		}
@@ -214,7 +214,7 @@
 		}
 
 		
-		var form = $("#studentAddFormId");
+		var form = $("#studentFormId");
 		form.ajaxSubmit(function(result){
 			if(result=='success'){
 

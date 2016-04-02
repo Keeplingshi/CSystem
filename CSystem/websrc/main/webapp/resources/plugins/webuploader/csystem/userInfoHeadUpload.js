@@ -86,8 +86,25 @@ jQuery(function() {
     // 文件上传成功，给item添加成功class, 用样式标记上传成功。
     uploader.on( 'uploadSuccess', function( file, data ) {
     	layer.msg("上传成功");
-    	console.info(data);
     	$("#headImg").val(data._raw);
+    	
+		var form = $("#studentFormId");
+		form.ajaxSubmit(function(result){
+			if(result=='success'){
+
+				parent.layer.msg('成功', {
+					offset: ['260px'],
+     		        time: 1500//1.5s后自动关闭
+     		    });
+				//关闭当前新增页面页
+				var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+				parent.layer.close(index); //再执行关闭    
+			}else{
+				layer.msg('新增失败',{
+					offset: ['260px']
+				});
+			}
+		});
     });
 
     // 文件上传失败，现实上传出错。
@@ -101,10 +118,7 @@ jQuery(function() {
     
     
    $("#saveButton").click(function(){
-    	
-    	uploader.upload();
-    	
-    	console.info("-----:"+$("#headImg").val());
+
     	
 		var stuIdVal=$("#stuId").val();		//学号
 		var stunameVal=$("#stuname").val();	//姓名
@@ -125,23 +139,8 @@ jQuery(function() {
 			return;
 		}
 
-		
-		var form = $("#studentAddFormId");
-		form.ajaxSubmit(function(result){
-			if(result=='success'){
-
-				parent.layer.msg('添加成功', {
-					offset: ['260px'],
-     		        time: 1500//1.5s后自动关闭
-     		    });
-				//关闭当前新增页面页
-				var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
-				parent.layer.close(index); //再执行关闭    
-			}else{
-				layer.msg('新增失败',{
-					offset: ['260px']
-				});
-			}
-		});
+	   	uploader.options.formData={stuId:stuIdVal}; 
+    	uploader.upload();
+    	
     });
 });
