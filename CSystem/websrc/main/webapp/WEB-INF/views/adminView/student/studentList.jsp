@@ -238,7 +238,7 @@
 	        type: 2,
 	        title: '查看学生',
 	        shadeClose: true,
-	        area : ['700px' , '500px'],
+	        area : ['700px' , '560px'],
 	        offset: ['100px'],
 	        content: '${pageContext.request.contextPath}/admin/student/studentView/'+studentId
 	    });

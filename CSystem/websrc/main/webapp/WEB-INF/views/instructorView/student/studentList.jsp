@@ -184,7 +184,7 @@
 	        type: 2,
 	        title: '新增学生',
 	        shadeClose: true, //点击遮罩关闭层
-	        area : ['700px' , '500px'],
+	        area : ['700px' , '560px'],
 	        offset: ['100px'],
 	        content: '${pageContext.request.contextPath}/instructor/student/studentAdd',
 	        end: function(){
@@ -203,7 +203,7 @@
 	        type: 2,
 	        title: '查看学生',
 	        shadeClose: true,
-	        area : ['700px' , '500px'],
+	        area : ['700px' , '560px'],
 	        offset: ['100px'],
 	        content: '${pageContext.request.contextPath}/instructor/student/studentView/'+studentId
 	    });
@@ -216,7 +216,7 @@
 	        type: 2,
 	        title: '修改学生',
 	        shadeClose: true,
-	        area : ['700px' , '500px'],
+	        area : ['700px' , '560px'],
 	        offset: ['100px'],
 	        content: '${pageContext.request.contextPath}/instructor/student/studentEdit/'+studentId,
 	        end: function(){

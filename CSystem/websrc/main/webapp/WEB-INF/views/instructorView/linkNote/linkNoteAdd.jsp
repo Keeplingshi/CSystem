@@ -15,7 +15,7 @@
 	<input type="hidden" id="stuId" name="student.id" value=""/>
 	<input type="hidden" id="classId" name="classDomain.id" value="" />
 	<input type="hidden" id="linkNoteTypeId" name="linkNoteType.id" value=""/>
-	<table>
+	<table style="float: left;">
 		<tr>
 			<td class="lesta-150">学生：</td>
 			<td class="lestb">
@@ -59,8 +59,10 @@
 			</td>
 		</tr>
 	</table>
-	
-	<input id="saveButton" type="button" class="button button-highlight button-rounded button-small" style="margin-top:20px; margin-left: 140px;" value="确定"/>
+	<div style="float: right;margin-right: 120px; margin-top: 30px;color: red;" >
+		<span>学生与班级二选一</span>
+	</div>
+	<input id="saveButton" type="button" class="button button-highlight button-rounded button-small" style="margin-left: -300px;margin-top: 300px;" value="确定"/>
 </form>
 
 <script>

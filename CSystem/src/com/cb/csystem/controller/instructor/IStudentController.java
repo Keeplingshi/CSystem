@@ -1,5 +1,6 @@
 package com.cb.csystem.controller.instructor;
 
+import java.io.File;
 import java.util.List;
 
 import javax.annotation.Resource;
@@ -7,6 +8,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -32,6 +34,7 @@ import com.cb.csystem.util.CodeBookHelper;
 import com.cb.csystem.util.Consts;
 import com.cb.csystem.util.DBToExcelUtil;
 import com.cb.csystem.util.ExcelToDBUtil;
+import com.cb.system.util.CompressPicUtil;
 import com.cb.system.util.FileUtil;
 import com.cb.system.util.PageInfo;
 import com.cb.system.util.SelectItem;
@@ -49,6 +52,11 @@ public class IStudentController {
 	@Resource private IMajorService majorService;
 	@Resource private IClassService classService;
 	@Resource private IStudentService studentService;
+	
+	@Value("#{envProperties['csystemupload']}") private String shareupload;
+	@Value("#{envProperties['headImageDir']}") private String headImageDir;
+	@Value("#{envProperties['midWidth']}") private String midWidth;
+	@Value("#{envProperties['midHeight']}") private String midHeight;
 	
 	/**
 	 * 过滤起前台pageInfo
@@ -145,6 +153,9 @@ public class IStudentController {
 		//获取student信息
 		StudentDomain studentDomain=studentService.doGetById(id);
 		model.addAttribute("studentDomain", studentDomain);
+		//头像路径
+		String headImgPath=shareupload+headImageDir;
+		model.addAttribute("headImgPath", headImgPath);
 		
 		return "/instructorView/student/studentView";
 	}
@@ -199,6 +210,9 @@ public class IStudentController {
 		model.addAttribute("studentDomain", studentDomain);
 		model.addAttribute("classList", classList);
 		model.addAttribute("majorList", majorList);
+		//头像路径
+		String headImgPath=shareupload+headImageDir;
+		model.addAttribute("headImgPath", headImgPath);
 		
 		return "/instructorView/student/studentEdit";
 	}
@@ -414,4 +428,41 @@ public class IStudentController {
 		FileUtil.delFile(Consts.DBTOEXCEL_PATH+fileOutputName);
 	}
 	
+	/**
+	 * 上传图片
+	 * <p>The uploaderImg</p>
+	 * @param file
+	 * @param adverType
+	 * @return
+	 * @throws Exception
+	 * @author:Administrator 2016-2-17
+	 * @update: [updatedate] [changer][change description]
+	 */
+	@RequestMapping("/uploaderImg")
+	@ResponseBody
+	public String uploaderImg(@RequestParam(value = "file", required = false) MultipartFile file, String stuId)
+		throws Exception
+	{
+		String imgType = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."),
+			file.getOriginalFilename().length());
+		String fileName = stuId+"_"+System.currentTimeMillis() + imgType;
+		String path = shareupload + headImageDir+ stuId +File.separator;
+
+		File targetFile = new File(path, fileName);
+		if(!targetFile.exists()){
+			targetFile.mkdirs();
+		}
+		// 保存
+		try{
+			//保存文件
+			file.transferTo(targetFile);
+			//切割尺寸
+			CompressPicUtil.compressPic(targetFile, path, fileName, Integer.parseInt(midWidth),
+					Integer.parseInt(midHeight), "");
+
+		}catch (Exception e){
+			//e.printStackTrace();
+		}
+		return fileName;
+	}
 }

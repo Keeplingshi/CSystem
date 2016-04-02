@@ -53,10 +53,10 @@
 				<input type="hidden" id="headImg" name="headImg" value="${studentDomain.headImg }"/>
 				<div id="filePicker" class="filePicker">选择图片</div>
 				<div class="add_pic" id="add_pic">
-					<c:if test="${studentDomain.headImg==null }">
+					<c:if test="${studentDomain.headImg==null||studentDomain.headImg=='' }">
 						<img id="head_img" src="${pageContext.request.contextPath}/resources/images/touxiang.png" width="140px;" height="150px;" style="border-radius:5px;"/>
 					</c:if>
-					<c:if test="${studentDomain.headImg!=null }">
+					<c:if test="${studentDomain.headImg!=null&&studentDomain.headImg!='' }">
 						<img id="head_img" src="${headImgPath}/${studentDomain.stuId }/${studentDomain.headImg }" width="140px;" height="150px;" style="border-radius:5px;"/>
 					</c:if>
 				</div>

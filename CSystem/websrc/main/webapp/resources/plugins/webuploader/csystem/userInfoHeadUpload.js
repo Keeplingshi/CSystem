@@ -119,7 +119,6 @@ jQuery(function() {
     
    $("#saveButton").click(function(){
 
-    	
 		var stuIdVal=$("#stuId").val();		//学号
 		var stunameVal=$("#stuname").val();	//姓名
 		var classIdVal=$("#classId").val();	//班级
@@ -138,9 +137,31 @@ jQuery(function() {
 			layer.tips('班级不能为空', '#class_select_add_id');
 			return;
 		}
+		
+		//如果有文件，则上传，成功后
+		if(uploader.getFiles()[0]!=null){
+		   	uploader.options.formData={stuId:stuIdVal}; 
+	    	uploader.upload();
+	    	return;
+		}
+		
+		var form = $("#studentFormId");
+		form.ajaxSubmit(function(result){
+			if(result=='success'){
 
-	   	uploader.options.formData={stuId:stuIdVal}; 
-    	uploader.upload();
+				parent.layer.msg('成功', {
+					offset: ['260px'],
+     		        time: 1500//1.5s后自动关闭
+     		    });
+				//关闭当前新增页面页
+				var index = parent.layer.getFrameIndex(window.name); //先得到当前iframe层的索引
+				parent.layer.close(index); //再执行关闭    
+			}else{
+				layer.msg('失败',{
+					offset: ['260px']
+				});
+			}
+		});
     	
     });
 });
