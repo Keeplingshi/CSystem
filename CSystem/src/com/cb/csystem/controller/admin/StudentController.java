@@ -58,6 +58,7 @@ public class StudentController {
 	@Resource private IStudentService studentService;
 	
 	@Value("#{envProperties['csystemupload']}") private String shareupload;
+	@Value("#{envProperties['uploadpath']}") private String uploadpath;
 	@Value("#{envProperties['headImageDir']}") private String headImageDir;
 	@Value("#{envProperties['midWidth']}") private String midWidth;
 	@Value("#{envProperties['midHeight']}") private String midHeight;
@@ -433,8 +434,8 @@ public class StudentController {
 		String imgType = file.getOriginalFilename().substring(file.getOriginalFilename().lastIndexOf("."),
 			file.getOriginalFilename().length());
 		String fileName = stuId+"_"+System.currentTimeMillis() + imgType;
-		String path = shareupload + headImageDir+ stuId +File.separator;
-
+		String path = uploadpath + headImageDir+ stuId +File.separator;
+		
 		File targetFile = new File(path, fileName);
 		if(!targetFile.exists()){
 			targetFile.mkdirs();
