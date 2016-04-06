@@ -118,7 +118,7 @@ public class DBToExcelUtil {
 	 */
 	public static String jobInfoDBToExcel(List<JobInfoDomain> jobInfoDomains,List<SelectItem> selectList,String path,String filename)
 	{
-		String[] headers = { "学号", "姓名", "性别", "签约状态","签约单位","协议书状态","当前状态","薪金/月","备注","派遣地址","派遣单位","派遣地址邮件","收件人姓名","收件人电话"};
+		String[] headers = { "学号", "姓名", "性别", "签约状态","签约单位","协议书状态","当前状态","薪金/月","备注","派遣地址","派遣单位","派遣地址邮编","收件人姓名","收件人电话"};
 		int columnNum=headers.length;
 		// 声明一个工作薄
 		HSSFWorkbook workbook = new HSSFWorkbook();

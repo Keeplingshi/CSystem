@@ -11,7 +11,7 @@
 		<link href="${pageContext.request.contextPath}/resources/ace/assets/css/bootstrap.min.css" rel="stylesheet" />
 		<link href="${pageContext.request.contextPath}/resources/ace/assets/css/font-awesome.min.css" rel="stylesheet"/>
 		<link href="${pageContext.request.contextPath}/resources/ace/assets/css/ace.min.css" rel="stylesheet"/>
-		<link href="${pageContext.request.contextPath}/resources/ace/assets\css\cyrillic.css" rel="stylesheet"/>
+		<%-- <link href="${pageContext.request.contextPath}/resources/ace/assets\css\cyrillic.css" rel="stylesheet"/> --%>
 
 		<script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 		<script src="${pageContext.request.contextPath}/resources/ace/assets/js/bootstrap.min.js"></script>

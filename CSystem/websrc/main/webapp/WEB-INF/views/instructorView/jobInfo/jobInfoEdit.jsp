@@ -106,7 +106,7 @@
 		<tr>
 			<td class="lesta-150">收件人姓名：</td>
 			<td class="lestb">
-				<input type="text" id="sendRecipientName" name="sendRecipientName" class="input_text_a" placeholder="收件人姓名" value="${jobInfoDomain.sendRecipientName }"/>
+				<input type="text" id="sendRecipientName" name="sendRecipientName" class="input_text_a" placeholder="档案以EMS寄出" value="${jobInfoDomain.sendRecipientName }"/>
 			</td>
 			<td class="lesta-150">收件人电话：</td>
 			<td class="lestb">
