@@ -132,8 +132,24 @@
 
 	<!--***************	session超时定义,单位为分钟   ********************** -->
 	<session-config>
-		<session-timeout>20</session-timeout>
+		<session-timeout>1</session-timeout>
 	</session-config>
+	
+	<filter>
+        <filter-name>sessionFilter</filter-name>
+        <filter-class>com.orchestrall.web.helper.session.SessionFilter</filter-class>
+	</filter>
+	<filter-mapping>
+		<filter-name>sessionFilter</filter-name>
+		<url-pattern>/login</url-pattern>
+	</filter-mapping>
+
+	<!--***************	监听session   ********************** -->
+<!-- 	<listener>     
+		<listener-class>     
+			com.cb.csystem.listener.SessionListener      
+		</listener-class>     
+	</listener>  -->
 
 	<!-- ************** 出错页面定义 ********************** -->
 	<error-page>

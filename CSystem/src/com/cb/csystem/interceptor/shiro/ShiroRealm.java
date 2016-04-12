@@ -94,9 +94,9 @@ public class ShiroRealm extends AuthorizingRealm {
      */
     private void setSession(Object key, Object value){
         Subject currentUser = SecurityUtils.getSubject();  
-        if(null != currentUser){  
+        if(null != currentUser){
             Session session = currentUser.getSession();  
-            if(null != session){  
+            if(null != session){
                 session.setAttribute(key, value);  
             }
         }  

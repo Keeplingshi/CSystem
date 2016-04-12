@@ -102,8 +102,8 @@
 						<td class="center">
 						<label> <input type="checkbox" class="ace" value="${disciplineDomain.id }"/> <span class="lbl"></span></label>
 						</td>
-						<td><a href="${pageContext.request.contextPath}/studentinfo/studentIndex/${studentDomain.id }" target="_blank">${disciplineDomain.student.stuId }</a></td>
-						<td><a href="${pageContext.request.contextPath}/studentinfo/studentIndex/${studentDomain.id }" target="_blank">${disciplineDomain.student.name }</a></td>
+						<td><a href="${pageContext.request.contextPath}/studentinfo/studentIndex/${disciplineDomain.student.id }" target="_blank">${disciplineDomain.student.stuId }</a></td>
+						<td><a href="${pageContext.request.contextPath}/studentinfo/studentIndex/${disciplineDomain.student.id }" target="_blank">${disciplineDomain.student.name }</a></td>
 						<td>${disciplineDomain.disciplineType.name }</td>
 						<td>${disciplineDomain.student.classDomain.name }</td>
 						<td><fmt:formatDate value="${disciplineDomain.time }" type="date"/></td>
