@@ -1,0 +1,112 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" 
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.xb.sys.model.CodeBook">
+    <!-- Result Map-->
+    <resultMap id="codeBookMap" type="com.xb.sys.model.CodeBook">
+    </resultMap>
+    
+    <!--添加数据-->
+    <insert id="save" parameterType="codeBook">
+		INSERT INTO CodeBook
+		(name,value,type,marke)
+		VALUES 
+		(#{name},#{value},#{type},#{marke})
+	</insert>
+	
+	
+	 <!-- 删除 -->
+  	<delete id="deleteByIds" parameterType="string">
+		DELETE FROM
+		CodeBook
+		WHERE ID in 
+		<foreach item="ids" collection="array" open="(" separator="," close=")"> 
+		#{ids}
+		</foreach> 
+	</delete>
+	
+	
+    <!--修改数据-->
+    <update id="update" parameterType="codeBook" >
+		UPDATE CodeBook SET
+name=#{name},value=#{value},type=#{type},marke=#{marke}
+		where id=#{id}
+	</update>
+	
+	
+	<!-- 根据ID查询 -->
+	<select id="getById" parameterType="String" resultMap="codeBookMap">
+		SELECT *
+		FROM CodeBook where id =  #{id}
+	</select>
+	
+	
+	
+	
+		<!-- 分页查询 -->
+	<select id="findPageBy" resultMap="codeBookMap" parameterType="codeBook">
+		SELECT
+		*
+		FROM
+		CodeBook
+		where 1=1
+		
+		 
+		 
+		 <if test="name != null and '' != name ">   
+            <![CDATA[   
+              AND name  like  '%${name}%'
+            ]]>
+		</if>
+		 
+		 
+		 <if test="value != null and '' != value ">   
+            <![CDATA[   
+              AND value  like  '%${value}%'
+            ]]>
+		</if>
+		 
+		 
+		 <if test="type != null and '' != type ">   
+            <![CDATA[   
+              AND type  like  '%${type}%'
+            ]]>
+		</if>
+		 
+		
+		
+		order by id asc
+		   <![CDATA[
+		LIMIT #{startRow} ,#{rows}  
+			  ]]>
+	</select>
+	<!-- 分页查询纪录查询总记录数 -->
+	<select id="getCountBy" resultType="int" parameterType="codeBook">
+		select count(ID)
+		from CodeBook WHERE 1 = 1
+		
+		 
+		 
+		 <if test="name != null and '' != name ">   
+            <![CDATA[   
+              AND name  like  '%${name}%'
+            ]]>
+		</if>
+		 
+		 
+		 <if test="value != null and '' != value ">   
+            <![CDATA[   
+              AND value  like  '%${value}%'
+            ]]>
+		</if>
+		 
+		 
+		 <if test="type != null and '' != type ">   
+            <![CDATA[   
+              AND type  like  '%${type}%'
+            ]]>
+		</if>
+		 
+		
+	</select>
+</mapper>
