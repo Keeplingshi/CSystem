@@ -209,7 +209,7 @@
 						<li id="family_manage">
 							<a href="javascript:void(0);">
 								<i class="icon-dashboard"></i>
-								家庭成员管理
+								<span class="menu-text">家庭成员管理</span>
 							</a>
 						</li>
 					</ul>

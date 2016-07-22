@@ -2,8 +2,6 @@ package com.cb.csystem.controller;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpSession;
-
 import org.apache.shiro.SecurityUtils;
 import org.apache.shiro.authc.AuthenticationException;
 import org.apache.shiro.authc.ExcessiveAttemptsException;
@@ -61,29 +59,30 @@ public class LoginController {
             currentUser.login(token);
         	UserDomain userDomain=userService.doGetUserByUsername(username);
         	model.addAttribute("userDomain", userDomain);
-        	if(userDomain.getRole()!=null){
-        		int authority=userDomain.getRole().getAuthority();
-        		
-            	if(authority==Consts.AUTHORITY_ADMIN){
-            		//管理员界面
-            		return "/adminView/main";
-            	}else if(authority==Consts.AUTHORITY_INSTRUCTOR){
-            		//辅导员界面
-            		return "/instructorView/main";
-            	}else if(authority==Consts.AUTHORITY_TEACHER){
-            		//老师界面
-            		return "/teacherView/main";
-            	}else if(authority==Consts.AUTHORITY_MONITOR){
-            		//班长界面
-            		return "/monitorView/main";
-            	}else if(authority==Consts.AUTHORITY_STUDENT){
-            		//学生界面
-            		return "/studentView/main";
-            	}else if(authority==Consts.AUTHORITY_DISCIPLINEADMIN){
-            		//违纪管理员
-            		return "/disciplineAdminView/main";
-            	}
-        	}
+        	return "/portalView/main";
+//        	if(userDomain.getRole()!=null){
+//        		int authority=userDomain.getRole().getAuthority();
+//        		
+//            	if(authority==Consts.AUTHORITY_ADMIN){
+//            		//管理员界面
+//            		return "/adminView/main";
+//            	}else if(authority==Consts.AUTHORITY_INSTRUCTOR){
+//            		//辅导员界面
+//            		return "/instructorView/main";
+//            	}else if(authority==Consts.AUTHORITY_TEACHER){
+//            		//老师界面
+//            		return "/teacherView/main";
+//            	}else if(authority==Consts.AUTHORITY_MONITOR){
+//            		//班长界面
+//            		return "/monitorView/main";
+//            	}else if(authority==Consts.AUTHORITY_STUDENT){
+//            		//学生界面
+//            		return "/studentView/main";
+//            	}else if(authority==Consts.AUTHORITY_DISCIPLINEADMIN){
+//            		//违纪管理员
+//            		return "/disciplineAdminView/main";
+//            	}
+//        	}
            // 验证通过
         }catch(UnknownAccountException uae){  
             //验证未通过,未知账户
