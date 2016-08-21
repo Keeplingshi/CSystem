@@ -62,29 +62,7 @@ public class PUserController {
 	 */
 	@RequestMapping("/userList")
 	public String getUserList(@ModelAttribute("pageInfo") PageInfo pageInfo
-			,BindingResult bindingResult,Model model) throws Exception{
-		//采用分页方式获取
-		List<UserDomain> userList=userService.doGetPageList(pageInfo);
-		List<RoleDomain> roleList=roleService.doGetFilterList();
-		
-		model.addAttribute("userList", userList);
-		model.addAttribute("roleList", roleList);
-		
-		return "/portalView/user/userList";
-	}
-	
-	/**
-	 * 根据查询条件返回用户列表
-	 * @param pageInfo
-	 * @param bindingResult
-	 * @param model
-	 * @param authority
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/userSearchList")
-	public String doUserSearchList(@ModelAttribute("pageInfo") PageInfo pageInfo
-			,BindingResult bindingResult,Model model,String roleId,String searchText)throws Exception{
+			,BindingResult bindingResult,Model model,String roleId,String searchText) throws Exception{
 		
 		//采用分页方式获取
 		List<UserDomain> userList=userService.doSearchUserPageList(pageInfo, roleId, searchText);

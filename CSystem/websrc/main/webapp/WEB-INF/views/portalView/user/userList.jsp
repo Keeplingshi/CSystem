@@ -7,8 +7,8 @@
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/globle.css" />
 <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/button.css" />
 
-<form id="formId" modelAttribute="pageInfo" action="${pageContext.request.contextPath}/admin/user/userSearchList" method="post">
-	<input type="hidden" id="roleId" name="roleId" value="" />
+<form id="formId" modelAttribute="pageInfo" action="${pageContext.request.contextPath}/portal/user/userList" method="post">
+	<!-- <input type="hidden" id="roleId" name="roleId" value="" /> -->
 	<div class="breadcrumbs" id="userListToolbar">
 		<span class="input-icon" style="margin: 5px;">
 			<input type="text" id="nav-search-input" name="searchText" placeholder="Search ..." class="nav-search-input" autocomplete="off" value="${searchText }"/> 
@@ -16,10 +16,10 @@
 		</span>
 		
 		<label style="margin-left: 30px;">角色：</label>
-		<select id="role_select_id" style="width: 100px;">
+		<select id="role_select_id" name="roleId" style="width: 100px;">
 			<option value="" selected="selected">全部</option>
 			<c:forEach items="${roleList }" var="roleDomain">
-				<option value="${roleDomain.id }">${roleDomain.name}</option>
+				<option value="${roleDomain.id }" ${roleId==roleDomain.id?'selected':'' }>${roleDomain.name}</option>
 			</c:forEach>
 		</select>
 		
@@ -71,7 +71,7 @@
 
 <script type="text/javascript">
 
-	//使权限下拉框默认选择
+/* 	//使权限下拉框默认选择
  	$(function(){
 		$("#role_select_id option[value='${roleId}']").attr("selected",true);
 	}); 
@@ -80,7 +80,7 @@
 	$("#role_select_id").change(function(){
 		var roleIdVal=$(this).children('option:selected').val();
 		$("#roleId").val(roleIdVal);
-	});
+	}); */
 	
  	//查询
 	$("#userQueryButton").click(function(){
