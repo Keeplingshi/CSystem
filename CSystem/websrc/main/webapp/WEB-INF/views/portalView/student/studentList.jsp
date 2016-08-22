@@ -11,7 +11,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery.min.js"></script>
 
 <div>
-<form id="formId" action="${pageContext.request.contextPath}/admin/student/studentSearchList" method="post">
+<form id="formId" action="${pageContext.request.contextPath}/portal/student/studentList" method="post">
 	<input type="hidden" id="gradeId" name="gradeId" value="${gradeId }" />
 	<input type="hidden" id="majorId" name="majorId" value="${majorId }" />
 	<input type="hidden" id="collegeId" name="collegeId" value="${collegeId }" />
@@ -31,38 +31,42 @@
 	</div>
 	<div class="breadcrumbs">
 	
-		<label style="margin-left: 20px;">年级：</label>
-		<select id="grade_select_id" style="width: 100px;">
-			<option value="" selected="selected">全部</option>
-			<c:forEach items="${gradeList }" var="gradeDomain">
-				<option value="${gradeDomain.id }">${gradeDomain.grade}</option>
-			</c:forEach>
-		</select>
-	
-		<label style="margin-left: 20px;">学院：</label>
-		<select id="college_select_id" style="width: 100px;" onchange="getMajor(this.value)">
-			<option value="" selected="selected">全部</option>
-			<c:forEach items="${collegeList }" var="collegeDomain">
-				<option value="${collegeDomain.id }">${collegeDomain.name}</option>
-			</c:forEach>
-		</select>
+		<!-- 只有管理员权限可以查看学院与年级 -->
+		<c:if test="${userDomain.role.authority==0}">
+			<label style="margin-left: 20px;">年级：</label>
+			<select id="grade_select_id" style="width: 100px;">
+				<option value="" selected="selected">全部</option>
+				<c:forEach items="${gradeList }" var="gradeDomain">
+					<option value="${gradeDomain.id }">${gradeDomain.grade}</option>
+				</c:forEach>
+			</select>
 		
-		<label style="margin-left: 20px;">专业：</label>
-		<select id="major_select_id" style="width: 100px;" onchange="getClass(this.value)">
-			<option value="" selected="selected">全部</option>
-			<c:forEach items="${majorList }" var="majorItem">
-				<option value="${majorItem.selectText }">${majorItem.selectValue}</option>
-			</c:forEach>
-		</select>
-	
-		<label style="margin-left: 20px;">班级：</label>
-		<select id="class_select_id" style="width: 100px;">
-			<option value="" selected="selected">全部</option>
-			<c:forEach items="${classList }" var="classItem">
-				<option value="${classItem.selectText }">${classItem.selectValue}</option>
-			</c:forEach>
-		</select>
+			<label style="margin-left: 20px;">学院：</label>
+			<select id="college_select_id" style="width: 100px;" onchange="getMajor(this.value)">
+				<option value="" selected="selected">全部</option>
+				<c:forEach items="${collegeList }" var="collegeDomain">
+					<option value="${collegeDomain.id }">${collegeDomain.name}</option>
+				</c:forEach>
+			</select>
+		</c:if>
 		
+		<c:if test="${userDomain.role.authority<=2}">
+			<label style="margin-left: 20px;">专业：</label>
+			<select id="major_select_id" style="width: 100px;" onchange="getClass(this.value)">
+				<option value="" selected="selected">全部</option>
+				<c:forEach items="${majorList }" var="majorItem">
+					<option value="${majorItem.selectText }">${majorItem.selectValue}</option>
+				</c:forEach>
+			</select>
+		
+			<label style="margin-left: 20px;">班级：</label>
+			<select id="class_select_id" style="width: 100px;">
+				<option value="" selected="selected">全部</option>
+				<c:forEach items="${classList }" var="classItem">
+					<option value="${classItem.selectText }">${classItem.selectValue}</option>
+				</c:forEach>
+			</select>
+		</c:if>
 	</div>
 	<div class="breadcrumbs">
 		<input id="studentExcelToDBButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="从excel中导入数据"/>
@@ -221,7 +225,7 @@
 	        shadeClose: true, //点击遮罩关闭层
 	        area : ['700px' , '560px'],
 	        offset: ['60px'],
-	        content: '${pageContext.request.contextPath}/admin/student/studentAdd',
+	        content: '${pageContext.request.contextPath}/portal/student/studentAdd',
 	        end: function(){
 				//默认加载学生列表
 	    		$("#formId").ajaxSubmit(function(data){
@@ -240,7 +244,7 @@
 	        shadeClose: true,
 	        area : ['700px' , '560px'],
 	        offset: ['100px'],
-	        content: '${pageContext.request.contextPath}/admin/student/studentView/'+studentId
+	        content: '${pageContext.request.contextPath}/portal/student/studentView/'+studentId
 	    });
 	}
 
@@ -253,7 +257,7 @@
 	        shadeClose: true,
 	        area : ['700px' , '560px'],
 	        offset: ['100px'],
-	        content: '${pageContext.request.contextPath}/admin/student/studentEdit/'+studentId,
+	        content: '${pageContext.request.contextPath}/portal/student/studentEdit/'+studentId,
 	        end: function(){
 	        	//默认加载用户列表
 	        	$("#formId").ajaxSubmit(function(data){
@@ -272,7 +276,7 @@
 		    btn: ['确定','取消'] //按钮
 		}, function(){
 	 		//默认加载学生列表
-			$.post("${pageContext.request.contextPath}/admin/student/delete/"+studentId, function(result){
+			$.post("${pageContext.request.contextPath}/portal/student/delete/"+studentId, function(result){
 				if(result=='success'){
 					//默认加载学生列表
 		        	$("#formId").ajaxSubmit(function(data){
@@ -317,7 +321,7 @@
 		    btn: ['确定','取消'] //按钮
 		}, function(){
 			$.ajax({
-				url : "${pageContext.request.contextPath}/admin/student/deleteStudents",
+				url : "${pageContext.request.contextPath}/portal/student/deleteStudents",
 				async: false,
 				data : {
 					"studentIds" : studentIds
@@ -359,7 +363,7 @@
 	        shadeClose: true,
 	        area : ['700px' , '500px'],
 	        offset: ['100px'],
-	        content: '${pageContext.request.contextPath}/admin/student/studentExcelView',
+	        content: '${pageContext.request.contextPath}/portal/student/studentExcelView',
 	        end: function(){
 	        	//默认加载用户列表
 	        	$("#formId").ajaxSubmit(function(data){
@@ -377,7 +381,7 @@
 	        shadeClose: true,
 	        area : ['700px' , '500px'],
 	        offset: ['100px'],
-	        content: '${pageContext.request.contextPath}/admin/student/studentDBToExcelView'
+	        content: '${pageContext.request.contextPath}/portal/student/studentDBToExcelView'
 	    });
 	});
 	
@@ -395,7 +399,7 @@
 	function getMajor(college_id)
 	{
     	$.ajax({
-			url:'${pageContext.request.contextPath}/admin/major/getMajorByCollege?college_id='+college_id,
+			url:'${pageContext.request.contextPath}/portal/major/getMajorByCollege?college_id='+college_id,
 			type:"post",
 			error:function(e){
 			},
@@ -415,7 +419,7 @@
 	function getClass(major_id)
 	{
     	$.ajax({
-			url:'${pageContext.request.contextPath}/admin/class/getClassByMajor?major_id='+major_id,
+			url:'${pageContext.request.contextPath}/portal/class/getClassByMajor?major_id='+major_id,
 			type:"post",
 			error:function(e){
 			},
