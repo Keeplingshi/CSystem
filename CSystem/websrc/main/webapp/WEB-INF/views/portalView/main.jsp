@@ -88,8 +88,8 @@
 								<i class="icon-dashboard"></i>
 								<span class="menu-text"> 菜单 </span>
 							</a>
-						</li><% %>
-						<c:if test="${userDomain.role.authority==0}">
+						</li>
+						<c:if test="${userDomain.role.authority==0}"> 
 							<li id="user_manage">
 								<a href="javascript:void(0);">
 									<i class="icon-dashboard"></i>

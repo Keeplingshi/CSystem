@@ -8,7 +8,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery.form.js"></script>
 <script src="${pageContext.request.contextPath}/resources/layer/layer.js"></script>
 
-<form id="userAddFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/admin/user/save" method="post">
+<form id="userAddFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/portal/user/save" method="post">
 	<input type="hidden" id="roleId" name="role.id" />
 	<input type="hidden" id="roleAuthority" />
 	<input type="hidden" id="collegeId" name="college.id" />

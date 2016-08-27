@@ -9,7 +9,7 @@
 <script src="${pageContext.request.contextPath}/resources/js/jquery.form.js"></script>
 <script src="${pageContext.request.contextPath}/resources/layer/layer.js"></script>
 
-<form id="userEditFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/admin/user/editSave" method="post">
+<form id="userEditFormId" modelAttribute="domain" action="${pageContext.request.contextPath}/portal/user/editSave" method="post">
 	<input type="hidden" id="id" name="id" value="${userDomain.id }"/>
 	<input type="hidden" id="username" name="username" value="${userDomain.username }"/>
 	<input type="hidden" id="password" name="password" value="${userDomain.password }"/>

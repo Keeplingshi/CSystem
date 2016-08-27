@@ -70,17 +70,6 @@
 </form>
 
 <script type="text/javascript">
-
-/* 	//使权限下拉框默认选择
- 	$(function(){
-		$("#role_select_id option[value='${roleId}']").attr("selected",true);
-	}); 
-
- 	//下拉框选择后给隐藏域赋值
-	$("#role_select_id").change(function(){
-		var roleIdVal=$(this).children('option:selected').val();
-		$("#roleId").val(roleIdVal);
-	}); */
 	
  	//查询
 	$("#userQueryButton").click(function(){
@@ -97,7 +86,7 @@
 	        shadeClose: true, //点击遮罩关闭层
 	        area : ['380px' , '340px'],
 	        offset: ['150px'],
-	        content: '${pageContext.request.contextPath}/admin/user/userAdd',
+	        content: '${pageContext.request.contextPath}/portal/user/userAdd',
 	        end: function(){
 				//默认加载用户列表
 	    		$("#formId").ajaxSubmit(function(data){
@@ -129,7 +118,7 @@
 		}, function(){
 			console.info("确定");
 			$.ajax({
-				url : "${pageContext.request.contextPath}/admin/user/deleteUsers",
+				url : "${pageContext.request.contextPath}/portal/user/deleteUsers",
 				async: false,
 				data : {
 					"userIds" : userIds
@@ -167,7 +156,7 @@
 	        shadeClose: true,
 	        area : ['380px' , '340px'],
 	        offset: ['150px'],
-	        content: '${pageContext.request.contextPath}/admin/user/userEdit/'+userId,
+	        content: '${pageContext.request.contextPath}/portal/user/userEdit/'+userId,
 	        end: function(){
 	        	//默认加载用户列表
 	        	$("#formId").ajaxSubmit(function(data){
@@ -186,7 +175,7 @@
 	        shadeClose: true,
 	        area : ['380px' , '340px'],
 	        offset: ['150px'],
-	        content: '${pageContext.request.contextPath}/admin/user/userView/'+userId
+	        content: '${pageContext.request.contextPath}/portal/user/userView/'+userId
 	    });
 	}
 	
@@ -198,7 +187,7 @@
 		    btn: ['确定','取消'] //按钮
 		}, function(){
 	 		//默认加载用户列表
-			$.post("${pageContext.request.contextPath}/admin/user/delete/"+userId, function(result){
+			$.post("${pageContext.request.contextPath}/portal/user/delete/"+userId, function(result){
 				if(result=='success'){
 					//默认加载用户列表
 		        	$("#formId").ajaxSubmit(function(data){
