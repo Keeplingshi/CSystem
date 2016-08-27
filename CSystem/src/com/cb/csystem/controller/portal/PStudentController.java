@@ -90,7 +90,8 @@ public class PStudentController {
 	 */
 	@RequestMapping("/studentList")
 	public String getstudentList(@ModelAttribute("pageInfo") PageInfo pageInfo,BindingResult bindingResult
-			,Model model,HttpSession session)throws Exception{
+			,Model model,HttpSession session,String gradeId,String collegeId,String majorId
+			,String classId,String searchText,String sortMode,String sortValue)throws Exception{
 		
 		//获取当前登录用户名
 		String username=(String)session.getAttribute(Consts.CURRENT_USER);
@@ -108,24 +109,37 @@ public class PStudentController {
 				//管理员权限，查看所有
 				collegeList=collegeService.doGetFilterList();
 				gradeList=gradeService.doGetFilterList();
-				majorList=majorService.dogetMajorsByCollegeId(null);
-				classList=classService.dogetClasssByMajorId(null);
-				studentList=studentService.doGetPageList(pageInfo);
+				majorList=majorService.dogetMajorsByCollegeId(collegeId);
+				classList=classService.dogetClasssByMajorId(majorId);
+				//根据条件过滤学生列表
+				studentList=studentService.doSearchstudentPageList(pageInfo,gradeId,collegeId
+						,majorId,classId,searchText,sortMode,sortValue);
 				
 			}else if(authority==Consts.AUTHORITY_INSTRUCTOR){
 				//辅导员权限，查看本学院本年级的
 				majorList=majorService.dogetMajorsByCollegeId(userDomain.getCollege().getId());
-				classList=classService.doGetClazzSelectItem(userDomain.getGrade().getId(), userDomain.getCollege().getId(), null);
+				classList=classService.doGetClazzSelectItem(userDomain.getGrade().getId(), userDomain.getCollege().getId(), majorId);
 				studentList=studentService.doSearchstudentPageList(pageInfo, userDomain.getGrade().getId() 
-						,userDomain.getCollege().getId(), null, null, null, null, null);
+						,userDomain.getCollege().getId(), majorId, classId, searchText, sortMode, sortValue);
 				
 			}else if(authority==Consts.AUTHORITY_MONITOR){
 				//班长权限，查看本班级的
 				if(userDomain.getClassDomain()!=null){
-					studentList=studentService.doSearchstudentPageList(pageInfo,null,null,null,userDomain.getClassDomain().getId(),null,null,null);
+					studentList=studentService.doSearchstudentPageList(pageInfo,null,null,null
+							,userDomain.getClassDomain().getId(),searchText,sortMode,sortValue);
 				}
 				
 			}
+			
+			model.addAttribute("userDomain", userDomain);
+			
+			model.addAttribute("classId", classId);
+			model.addAttribute("gradeId", gradeId);
+			model.addAttribute("majorId", majorId);
+			model.addAttribute("collegeId", collegeId);
+			model.addAttribute("searchText", searchText);
+			model.addAttribute("sortMode", sortMode);
+			model.addAttribute("sortValue", sortValue);
 			
 			model.addAttribute("gradeList", gradeList);
 			model.addAttribute("collegeList", collegeList);
@@ -138,46 +152,46 @@ public class PStudentController {
 		return "/portalView/student/studentList";
 	}
 	
-	/**
-	 * 搜索
-	 * @param pageInfo
-	 * @param bindingResult
-	 * @param model
-	 * @param gradeId
-	 * @param collegeId
-	 * @param majorId
-	 * @param searchText
-	 * @param sortMode
-	 * @param sortValue
-	 * @return
-	 * @throws Exception
-	 */
-	@RequestMapping("/studentSearchList")
-	public String dostudentSearchList(@ModelAttribute("pageInfo") PageInfo pageInfo
-			,BindingResult bindingResult,Model model,String gradeId,String collegeId,String majorId
-			,String classId,String searchText,String sortMode,String sortValue)throws Exception{
-		
-		List<StudentDomain> studentList=studentService.doSearchstudentPageList(pageInfo,gradeId,collegeId,majorId,classId,searchText,sortMode,sortValue);
-		List<CollegeDomain> collegeList=collegeService.doGetFilterList();
-		List<SelectItem> majorList=majorService.dogetMajorsByCollegeId(collegeId);
-		List<SelectItem> classList=classService.dogetClasssByMajorId(majorId);
-		List<GradeDomain> gradeList=gradeService.doGetFilterList();
-
-		model.addAttribute("studentList", studentList);
-		model.addAttribute("classList", classList);
-		model.addAttribute("collegeList", collegeList);
-		model.addAttribute("gradeList", gradeList);
-		model.addAttribute("majorList", majorList);
-		model.addAttribute("classId", classId);
-		model.addAttribute("gradeId", gradeId);
-		model.addAttribute("majorId", majorId);
-		model.addAttribute("collegeId", collegeId);
-		model.addAttribute("searchText", searchText);
-		model.addAttribute("sortMode", sortMode);
-		model.addAttribute("sortValue", sortValue);
-	
-		return "/portalView/student/studentList";
-	}
+//	/**
+//	 * 搜索
+//	 * @param pageInfo
+//	 * @param bindingResult
+//	 * @param model
+//	 * @param gradeId
+//	 * @param collegeId
+//	 * @param majorId
+//	 * @param searchText
+//	 * @param sortMode
+//	 * @param sortValue
+//	 * @return
+//	 * @throws Exception
+//	 */
+//	@RequestMapping("/studentSearchList")
+//	public String dostudentSearchList(@ModelAttribute("pageInfo") PageInfo pageInfo
+//			,BindingResult bindingResult,Model model,String gradeId,String collegeId,String majorId
+//			,String classId,String searchText,String sortMode,String sortValue)throws Exception{
+//		
+//		List<StudentDomain> studentList=studentService.doSearchstudentPageList(pageInfo,gradeId,collegeId,majorId,classId,searchText,sortMode,sortValue);
+//		List<CollegeDomain> collegeList=collegeService.doGetFilterList();
+//		List<SelectItem> majorList=majorService.dogetMajorsByCollegeId(collegeId);
+//		List<SelectItem> classList=classService.dogetClasssByMajorId(majorId);
+//		List<GradeDomain> gradeList=gradeService.doGetFilterList();
+//
+//		model.addAttribute("studentList", studentList);
+//		model.addAttribute("classList", classList);
+//		model.addAttribute("collegeList", collegeList);
+//		model.addAttribute("gradeList", gradeList);
+//		model.addAttribute("majorList", majorList);
+//		model.addAttribute("classId", classId);
+//		model.addAttribute("gradeId", gradeId);
+//		model.addAttribute("majorId", majorId);
+//		model.addAttribute("collegeId", collegeId);
+//		model.addAttribute("searchText", searchText);
+//		model.addAttribute("sortMode", sortMode);
+//		model.addAttribute("sortValue", sortValue);
+//	
+//		return "/portalView/student/studentList";
+//	}
 	
 	/**
 	 * 学生详情页面
@@ -207,19 +221,53 @@ public class PStudentController {
 	 * @throws Exception
 	 */
 	@RequestMapping("/studentAdd")
-	public String dostudentAdd(Model model)throws Exception{
+	public String dostudentAdd(Model model,HttpSession session)throws Exception{
 		
-		List<CodeBookDomain> politicalStatusList=CodeBookHelper.getCodeBookByType(CodeBookConstsType.POLITICALSTATUE_TYPE);
-		List<GradeDomain> gradeList=gradeService.doGetFilterList();
-		List<ClassDomain> classList=classService.doGetFilterList();
-		List<MajorDomain> majorList=majorService.doGetFilterList();
-		List<CollegeDomain> collegeList=collegeService.doGetFilterList();
+		//获取当前登录用户名
+		String username=(String)session.getAttribute(Consts.CURRENT_USER);
+		UserDomain userDomain=userService.doGetUserByUsername(username);
+		if(userDomain!=null){
+			
+			List<CodeBookDomain> politicalStatusList=CodeBookHelper.getCodeBookByType(CodeBookConstsType.POLITICALSTATUE_TYPE);
+			List<GradeDomain> gradeList=null;
+			List<CollegeDomain> collegeList=null;
+			List<ClassDomain> classList=null;
+			List<MajorDomain> majorList=null;
+			
+			Integer authority=userDomain.getRole().getAuthority();
+			if(authority==Consts.AUTHORITY_ADMIN){
+				//管理员权限，查看所有
+				collegeList=collegeService.doGetFilterList();
+				gradeList=gradeService.doGetFilterList();
+				majorList=majorService.doGetFilterList();
+				classList=classService.doGetFilterList();
+				
+			}else if(authority==Consts.AUTHORITY_INSTRUCTOR){
+//				//辅导员权限，查看本学院本年级的
+//				majorList=majorService.dogetMajorsByCollegeId(userDomain.getCollege().getId());
+//				classList=classService.doGetClazzSelectItem(userDomain.getGrade().getId(), userDomain.getCollege().getId(), majorId);
+//				studentList=studentService.doSearchstudentPageList(pageInfo, userDomain.getGrade().getId() 
+//						,userDomain.getCollege().getId(), majorId, classId, searchText, sortMode, sortValue);
+				
+			}else if(authority==Consts.AUTHORITY_MONITOR){
+//				//班长权限，查看本班级的
+//				if(userDomain.getClassDomain()!=null){
+//					studentList=studentService.doSearchstudentPageList(pageInfo,null,null,null
+//							,userDomain.getClassDomain().getId(),searchText,sortMode,sortValue);
+//				}
+				
+			}
+			
+			model.addAttribute("politicalStatusList", politicalStatusList);
+			model.addAttribute("gradeList", gradeList);
+			model.addAttribute("classList", classList);
+			model.addAttribute("majorList", majorList);
+			model.addAttribute("collegeList", collegeList);
+		}
 		
-		model.addAttribute("politicalStatusList", politicalStatusList);
-		model.addAttribute("gradeList", gradeList);
-		model.addAttribute("classList", classList);
-		model.addAttribute("majorList", majorList);
-		model.addAttribute("collegeList", collegeList);
+
+		
+
 		
 		return "/portalView/student/studentAdd";
 	}
