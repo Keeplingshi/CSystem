@@ -98,6 +98,7 @@ public class ClassController {
 		//获取专业列表
 		List<SelectItem> majorList=majorService.dogetMajorsByCollegeId(collegeId);
 		
+		//传值到前台
 		model.addAttribute("collegeList", collegeList);
 		model.addAttribute("majorList", majorList);
 		model.addAttribute("classList", classList);
