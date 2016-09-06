@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project-module
+  type="WEB"
+  name="CSystem"
+  id="myeclipse.1457766418028"
+  context-root="/CSystem"
+  j2ee-spec="6.0"
+  archive="CSystem.war">
+  <attributes>
+    <attribute name="webrootdir" value="websrc/main/webapp" />
+  </attributes>
+</project-module>
+
