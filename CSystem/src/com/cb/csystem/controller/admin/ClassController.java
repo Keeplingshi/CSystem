@@ -95,6 +95,7 @@ public class ClassController {
 		List<ClassDomain> classList=classService.doSearchclassPageList(pageInfo,null,collegeId,majorId, searchText);
 		//获取学院列表
 		List<CollegeDomain> collegeList=collegeService.doGetFilterList();
+		//获取专业列表
 		List<SelectItem> majorList=majorService.dogetMajorsByCollegeId(collegeId);
 		
 		model.addAttribute("collegeList", collegeList);
