@@ -93,6 +93,7 @@ public class ClassController {
 		
 		//获取班级列表
 		List<ClassDomain> classList=classService.doSearchclassPageList(pageInfo,null,collegeId,majorId, searchText);
+		//获取学院列表
 		List<CollegeDomain> collegeList=collegeService.doGetFilterList();
 		List<SelectItem> majorList=majorService.dogetMajorsByCollegeId(collegeId);
 		
