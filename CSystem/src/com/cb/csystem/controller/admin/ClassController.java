@@ -91,6 +91,7 @@ public class ClassController {
 	public String doclassSearchList(@ModelAttribute("pageInfo") PageInfo pageInfo
 			,BindingResult bindingResult,Model model,String collegeId,String majorId,String searchText)throws Exception{
 		
+		//获取班级列表
 		List<ClassDomain> classList=classService.doSearchclassPageList(pageInfo,null,collegeId,majorId, searchText);
 		List<CollegeDomain> collegeList=collegeService.doGetFilterList();
 		List<SelectItem> majorList=majorService.dogetMajorsByCollegeId(collegeId);
