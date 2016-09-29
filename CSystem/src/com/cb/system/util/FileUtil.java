@@ -69,7 +69,6 @@ public class FileUtil {
 
 	/**
 	 * 创建文件
-	 * @param path 路径
 	 * @param filename 文件名称
 	 * @return
 	 */
