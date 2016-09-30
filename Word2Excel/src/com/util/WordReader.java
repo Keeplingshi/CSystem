@@ -24,6 +24,9 @@ import org.apache.poi.hwpf.usermodel.Table;
 import org.apache.poi.hwpf.usermodel.TableCell;
 import org.apache.poi.hwpf.usermodel.TableIterator;
 import org.apache.poi.hwpf.usermodel.TableRow;
+import org.apache.poi.ss.usermodel.CellStyle;
+import org.apache.poi.ss.usermodel.HorizontalAlignment;
+import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
@@ -68,11 +71,14 @@ public class WordReader {
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		// 生成一个表格
 		HSSFSheet sheet = workbook.createSheet("报名表");
-		// 设置表格默认列宽度为15个字节
-		sheet.setDefaultColumnWidth(15);
+//		// 设置表格默认列宽度为15个字节
+//		sheet.setDefaultColumnWidth(15);
 		
 		//表格样式
 		HSSFCellStyle style = workbook.createCellStyle();
+		style.setWrapText(true);
+		style.setAlignment(HorizontalAlignment.LEFT);
+		style.setVerticalAlignment(VerticalAlignment.CENTER);
 		HSSFFont font  = workbook.createFont();
 		//设置字体
 		font.setFontHeightInPoints((short)12);
@@ -104,6 +110,11 @@ public class WordReader {
 				int k=0;
 				for(String str:next.getValue())
 				{
+					//word中读取的换行，回车符用换行符替换
+					if(str.contains("\r"))
+					{
+						str=str.replaceAll ("\\r", "\n");
+					}
 					cells[k]=row.createCell(k);
 					cells[k].setCellStyle(style);
 					cells[k].setCellValue(str);
@@ -120,6 +131,11 @@ public class WordReader {
 			cells[13]=row.createCell(13);
 			cells[13].setCellStyle(style);
 			cells[13].setCellValue(next.getKey());
+		}
+		
+		//自动调整列宽
+		for (int i = 0; i < columnNum; i++) {
+			sheet.autoSizeColumn(i);
 		}
 		
 		try {
