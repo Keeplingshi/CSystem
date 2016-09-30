@@ -65,7 +65,7 @@ public class WordReader {
 	@SuppressWarnings("resource")
 	private static void writeExcel(String excelPath,HashMap<String, List<String>> map)
 	{
-		String[] headers = { "姓名", "所在单位", "职务", "通信地址","性别","职称","邮编","手机","办公电话","电子邮箱","获奖情况","备注","","文档名称","处理结果" };
+		String[] headers = { "姓名", "所在单位", "职务", "通信地址","性别","职称","邮编","手机","办公电话","电子邮箱","获奖情况","备注","文档名称","处理结果" };
 		int columnNum=headers.length;
 		// 声明一个工作薄
 		HSSFWorkbook workbook = new HSSFWorkbook();
@@ -120,17 +120,17 @@ public class WordReader {
 					cells[k].setCellValue(str);
 					k++;
 				}
-				cells[14]=row.createCell(14);
-				cells[14].setCellStyle(style);
-				cells[14].setCellValue("成功");
+				cells[13]=row.createCell(13);
+				cells[13].setCellStyle(style);
+				cells[13].setCellValue("成功");
 			}else{
-				cells[14]=row.createCell(14);
-				cells[14].setCellStyle(style);
-				cells[14].setCellValue("失败");
+				cells[13]=row.createCell(14);
+				cells[13].setCellStyle(style);
+				cells[13].setCellValue("失败");
 			}
-			cells[13]=row.createCell(13);
-			cells[13].setCellStyle(style);
-			cells[13].setCellValue(next.getKey());
+			cells[12]=row.createCell(12);
+			cells[12].setCellStyle(style);
+			cells[12].setCellValue(next.getKey());
 		}
 		
 		//自动调整列宽
@@ -146,7 +146,7 @@ public class WordReader {
 				out.close();
 			}
 		} catch (IOException e) {
-			
+			e.printStackTrace();
 		}
 	}
 	
@@ -296,7 +296,7 @@ public class WordReader {
         }  
         if (destFileName.endsWith(File.separator)) {  
             return false;  
-        }  
+        }
         //判断目标文件所在的目录是否存在  
         if(!file.getParentFile().exists()) {  
             //如果目标文件所在的目录不存在，则创建父目录  
