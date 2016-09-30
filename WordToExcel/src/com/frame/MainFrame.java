@@ -33,24 +33,24 @@ public class MainFrame extends JFrame{
 
 	public MainFrame()
 	{
-		mainFrame.setTitle("wordÅúÁ¿´¦Àí");
+		mainFrame.setTitle("wordæ‰¹é‡å¤„ç†");
 		mainFrame.setSize(600,420);
-		//ÉèÖÃÆÁÄ»¾ÓÖĞ
+		//è®¾ç½®å±å¹•å±…ä¸­
 		mainFrame.setLocationRelativeTo(null);
 		
-		//ÉèÖÃÃæ°åPanel
+		//è®¾ç½®é¢æ¿Panel
 		JPanel jp=new JPanel();
 		jp.setLayout(null);
 		
-		templetJb=new JButton("µ¼ÈëÄ£°å");
-		templetJlb=new JLabel("Ä£°åÎ´µ¼Èë£¨¹¦ÄÜ´ı¿ª·¢£©");
-		wordpathJlb=new JLabel("Ñ¡ÔñwordÎÄ¼şÂ·¾¶");
+		templetJb=new JButton("å¯¼å…¥æ¨¡æ¿");
+		templetJlb=new JLabel("æ¨¡æ¿æœªå¯¼å…¥ï¼ˆåŠŸèƒ½å¾…å¼€å‘ï¼‰");
+		wordpathJlb=new JLabel("é€‰æ‹©wordæ–‡ä»¶è·¯å¾„");
 		wordpathJtf=new JTextField();
-		wordPathJb=new JButton("Ñ¡ÔñÎÄ¼ş¼Ğ");
-		excelJlb=new JLabel("Ñ¡Ôñexcelµ¼³öÂ·¾¶");
+		wordPathJb=new JButton("é€‰æ‹©æ–‡ä»¶å¤¹");
+		excelJlb=new JLabel("é€‰æ‹©excelå¯¼å‡ºè·¯å¾„");
 		excelPathJtf=new JTextField();
-		excelPathJb=new JButton("Ñ¡ÔñÎÄ¼ş¼Ğ");
-		jb=new JButton("È·¶¨");
+		excelPathJb=new JButton("é€‰æ‹©æ–‡ä»¶å¤¹");
+		jb=new JButton("ç¡®å®š");
 		
 		templetJb.setBounds(40, 20, 100, 35);
 		jp.add(templetJb);
@@ -61,12 +61,12 @@ public class MainFrame extends JFrame{
 		wordpathJlb.setBounds(40, 80, 150, 60);
 		jp.add(wordpathJlb);
 		
-		//´æ´¢wordËùÔÚÎÄ¼ş¼ĞÂ·¾¶
+		//å­˜å‚¨wordæ‰€åœ¨æ–‡ä»¶å¤¹è·¯å¾„
 		wordpathJtf.setBounds(40, 140, 300, 32);
 		wordpathJtf.setEditable(false);
 		jp.add(wordpathJtf);
 		
-		//µã»÷Ñ¡ÔñwordÎÄ¼ş¼Ğ£¬½«Â·¾¶·Åµ½wordpathJtfÎÄ±¾¿òÖĞ
+		//ç‚¹å‡»é€‰æ‹©wordæ–‡ä»¶å¤¹ï¼Œå°†è·¯å¾„æ”¾åˆ°wordpathJtfæ–‡æœ¬æ¡†ä¸­
 		wordPathJb.addActionListener(new ActionListener() {
 			
 			@Override
@@ -74,7 +74,7 @@ public class MainFrame extends JFrame{
 				
 		        JFileChooser jfc=new JFileChooser();  
 		        jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY );  
-		        int value=jfc.showDialog(new JLabel(), "Ñ¡Ôñ");
+		        int value=jfc.showDialog(new JLabel(), "é€‰æ‹©");
 		        if(value==JFileChooser.APPROVE_OPTION){
 			        File file=jfc.getSelectedFile();  
 			        if(file.isDirectory()){
@@ -89,24 +89,24 @@ public class MainFrame extends JFrame{
 		excelJlb.setBounds(40, 200, 150, 60);
 		jp.add(excelJlb);
 		
-		//ÓÃÓÚ´æ·ÅexcelÂ·¾¶
+		//ç”¨äºå­˜æ”¾excelè·¯å¾„
 		excelPathJtf.setBounds(40, 260, 300, 32);
 		excelPathJtf.setEditable(false);
 		jp.add(excelPathJtf);
 		
-		//Ñ¡Ôñµ¼³öexcelÂ·¾¶
+		//é€‰æ‹©å¯¼å‡ºexcelè·¯å¾„
 		excelPathJb.addActionListener(new ActionListener() {
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
-				//ÎÄ¼şÑ¡Ôñ¿ò
+				//æ–‡ä»¶é€‰æ‹©æ¡†
 		        JFileChooser jfc=new JFileChooser();  
 		        jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);  
-		        int value=jfc.showDialog(new JLabel(), "Ñ¡Ôñ");
+		        int value=jfc.showDialog(new JLabel(), "é€‰æ‹©");
 		        if(value==JFileChooser.APPROVE_OPTION){
 			        File file=jfc.getSelectedFile();  
 			        if(file.isDirectory()){
-			        	excelPathJtf.setText(file.getAbsolutePath()+File.separator+"word´¦ÀíÍ³¼Æ±í.xls");
+			        	excelPathJtf.setText(file.getAbsolutePath()+File.separator+"wordå¤„ç†ç»Ÿè®¡è¡¨.xls");
 			        }
 		        }
 			}
@@ -114,7 +114,7 @@ public class MainFrame extends JFrame{
 		excelPathJb.setBounds(360, 260, 120, 35);
 		jp.add(excelPathJb);
 		
-		//µ¼³ö
+		//å¯¼å‡º
 		jb.setBounds(230, 330, 120, 35);
 		jb.addActionListener(new ActionListener() {
 			
@@ -123,11 +123,11 @@ public class MainFrame extends JFrame{
 				String direcToryPath=wordpathJtf.getText();
 				String excelPath=excelPathJtf.getText();
 				if(direcToryPath==null||"".equals(direcToryPath)){
-					JOptionPane.showMessageDialog(null, "ÇëÑ¡ÔñwordËù´¦Â·¾¶");
+					JOptionPane.showMessageDialog(null, "è¯·é€‰æ‹©wordæ‰€å¤„è·¯å¾„");
 					return ;
 				}
 				if(excelPath==null||"".equals(excelPath)){
-					JOptionPane.showMessageDialog(null, "ÇëÑ¡Ôñexcelµ¼³öÂ·¾¶");
+					JOptionPane.showMessageDialog(null, "è¯·é€‰æ‹©excelå¯¼å‡ºè·¯å¾„");
 					return ;
 				}
 				WordReader.doWordReader(direcToryPath,excelPath);
