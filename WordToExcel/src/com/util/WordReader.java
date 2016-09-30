@@ -33,24 +33,17 @@ import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
 /**
- * word¶ÁÈ¡
+ * wordè¯»å–
  * 
  * @author chenbin
  * 
  */
 public class WordReader {
-
-	public static void main(String[] args) {
-		
-		String direcToryPath="D:/Data";
-		String excelPath="D:/Data/ttt.xls";
-		doWordReader(direcToryPath,excelPath);
-	}
 	
 	/**
-	 * ½Ó¿Úµ÷ÓÃ·â×°
-	 * @param direcToryPath wordÎÄ¼şËùÔÚÎÄ¼ş¼Ğ
-	 * @param excelPath excelÊäÈëÂ·¾¶
+	 * æ¥å£è°ƒç”¨å°è£…
+	 * @param direcToryPath wordæ–‡ä»¶æ‰€åœ¨æ–‡ä»¶å¤¹
+	 * @param excelPath excelè¾“å…¥è·¯å¾„
 	 */
 	public static void doWordReader(String direcToryPath,String excelPath)
 	{
@@ -59,33 +52,33 @@ public class WordReader {
 	}
 	
 	/**
-	 * Ğ´ÈëexcelÎÄ¼ş
+	 * å†™å…¥excelæ–‡ä»¶
 	 * @param excelPath
 	 */
 	@SuppressWarnings("resource")
 	private static void writeExcel(String excelPath,HashMap<String, List<String>> map)
 	{
-		String[] headers = { "ĞÕÃû", "ËùÔÚµ¥Î»", "Ö°Îñ", "Í¨ĞÅµØÖ·","ĞÔ±ğ","Ö°³Æ","ÓÊ±à","ÊÖ»ú","°ì¹«µç»°","µç×ÓÓÊÏä","»ñ½±Çé¿ö","±¸×¢","ÎÄµµÃû³Æ","´¦Àí½á¹û" };
+		String[] headers = { "å§“å", "æ‰€åœ¨å•ä½", "èŒåŠ¡", "é€šä¿¡åœ°å€","æ€§åˆ«","èŒç§°","é‚®ç¼–","æ‰‹æœº","åŠå…¬ç”µè¯","ç”µå­é‚®ç®±","è·å¥–æƒ…å†µ","å¤‡æ³¨","æ–‡æ¡£åç§°","å¤„ç†ç»“æœ" };
 		int columnNum=headers.length;
-		// ÉùÃ÷Ò»¸ö¹¤×÷±¡
+		// å£°æ˜ä¸€ä¸ªå·¥ä½œè–„
 		HSSFWorkbook workbook = new HSSFWorkbook();
-		// Éú³ÉÒ»¸ö±í¸ñ
-		HSSFSheet sheet = workbook.createSheet("±¨Ãû±í");
-//		// ÉèÖÃ±í¸ñÄ¬ÈÏÁĞ¿í¶ÈÎª15¸ö×Ö½Ú
+		// ç”Ÿæˆä¸€ä¸ªè¡¨æ ¼
+		HSSFSheet sheet = workbook.createSheet("æŠ¥åè¡¨");
+//		// è®¾ç½®è¡¨æ ¼é»˜è®¤åˆ—å®½åº¦ä¸º15ä¸ªå­—èŠ‚
 //		sheet.setDefaultColumnWidth(15);
 		
-		//±í¸ñÑùÊ½
+		//è¡¨æ ¼æ ·å¼
 		HSSFCellStyle style = workbook.createCellStyle();
 		style.setWrapText(true);
 		style.setAlignment(HorizontalAlignment.LEFT);
 		style.setVerticalAlignment(VerticalAlignment.CENTER);
 		HSSFFont font  = workbook.createFont();
-		//ÉèÖÃ×ÖÌå
+		//è®¾ç½®å­—ä½“
 		font.setFontHeightInPoints((short)12);
-		font.setFontName("ËÎÌå");
+		font.setFontName("å®‹ä½“");
 		style.setFont(font);
 		
-		// ²úÉú±í¸ñ±êÌâĞĞ
+		// äº§ç”Ÿè¡¨æ ¼æ ‡é¢˜è¡Œ
 		HSSFRow row = sheet.createRow(0);
 		for (int i = 0; i < columnNum; i++) {
 			HSSFCell cell = row.createCell(i);
@@ -94,7 +87,7 @@ public class WordReader {
 			cell.setCellStyle(style);
 		}
 		
-		//µü´ú»ñÈ¡µ±Ç°mapÖĞµÄÊı¾İ
+		//è¿­ä»£è·å–å½“å‰mapä¸­çš„æ•°æ®
 		Iterator<Entry<String, List<String>>> iterator=map.entrySet().iterator();
 		int index=0;
 		while(iterator.hasNext())
@@ -102,19 +95,20 @@ public class WordReader {
 			index++;
 			Entry<String, List<String>> next = iterator.next();
 			HSSFCell[] cells=new HSSFCell[columnNum];
-			//´´½¨Ò»ĞĞ±í¸ñ
+			//åˆ›å»ºä¸€è¡Œè¡¨æ ¼
 			row = sheet.createRow(index);
-			//Èç¹û¶ÁÈ¡µ½Ïà¹ØĞÅÏ¢
+			//å¦‚æœè¯»å–åˆ°ç›¸å…³ä¿¡æ¯
 			if(next.getValue()!=null)
 			{
 				int k=0;
 				for(String str:next.getValue())
 				{
-					//wordÖĞ¶ÁÈ¡µÄ»»ĞĞ£¬»Ø³µ·ûÓÃ»»ĞĞ·ûÌæ»»
+					//wordä¸­è¯»å–çš„æ¢è¡Œï¼Œå›è½¦ç¬¦ç”¨æ¢è¡Œç¬¦æ›¿æ¢
 					if(str.contains("\r"))
 					{
 						str=str.replaceAll ("\\r", "\n");
 					}
+
 					cells[k]=row.createCell(k);
 					cells[k].setCellStyle(style);
 					cells[k].setCellValue(str);
@@ -122,24 +116,24 @@ public class WordReader {
 				}
 				cells[13]=row.createCell(13);
 				cells[13].setCellStyle(style);
-				cells[13].setCellValue("³É¹¦");
+				cells[13].setCellValue("æˆåŠŸ");
 			}else{
 				cells[13]=row.createCell(14);
 				cells[13].setCellStyle(style);
-				cells[13].setCellValue("Ê§°Ü");
+				cells[13].setCellValue("å¤±è´¥");
 			}
 			cells[12]=row.createCell(12);
 			cells[12].setCellStyle(style);
 			cells[12].setCellValue(next.getKey());
 		}
 		
-		//×Ô¶¯µ÷ÕûÁĞ¿í
+		//è‡ªåŠ¨è°ƒæ•´åˆ—å®½
 		for (int i = 0; i < columnNum; i++) {
 			sheet.autoSizeColumn(i);
 		}
 		
 		try {
-			//Ê×ÏÈ´´½¨ÎÄ¼ş
+			//é¦–å…ˆåˆ›å»ºæ–‡ä»¶
 			if(createFile(excelPath)){
 				OutputStream out = new FileOutputStream(excelPath);
 				workbook.write(out);
@@ -151,7 +145,7 @@ public class WordReader {
 	}
 	
 	/**
-	 * ¶ÁÈ¡ÎÄ¼ş¼ĞÏÂËùÓĞword£¬¶ÁÈ¡ËùÓĞÓĞÓÃÊı¾İ
+	 * è¯»å–æ–‡ä»¶å¤¹ä¸‹æ‰€æœ‰wordï¼Œè¯»å–æ‰€æœ‰æœ‰ç”¨æ•°æ®
 	 * @param direcToryPath
 	 * @return
 	 */
@@ -161,20 +155,20 @@ public class WordReader {
 		
 		File file=new File(direcToryPath);
 		if(file.isDirectory()){
-			//±éÀúÎÄ¼ş¼ĞÏÂËùÓĞÎÄ¼ş
+			//éå†æ–‡ä»¶å¤¹ä¸‹æ‰€æœ‰æ–‡ä»¶
 			for(String fileName:file.list())
 			{
-				//ÅĞ¶ÏwordÎÄ¼ş
+				//åˆ¤æ–­wordæ–‡ä»¶
 				if("doc".equals(getExtension(fileName))||"docx".equals(getExtension(fileName)))
 				{
-					//»ñÈ¡wordÎÄ¼şÄÚÈİ
+					//è·å–wordæ–‡ä»¶å†…å®¹
 					List<String> infoList = null;
 					try {
 						infoList = wordTableReader(direcToryPath+File.separator+fileName);
 					} catch (Exception e) {
 						
 					}finally{
-						//ÎŞÂÛ³É¹¦Óë·ñ£¬wordÎÄµµÈ«²¿¼ÇÂ¼
+						//æ— è®ºæˆåŠŸä¸å¦ï¼Œwordæ–‡æ¡£å…¨éƒ¨è®°å½•
 						map.put(fileName, infoList);
 					}
 				}
@@ -185,8 +179,8 @@ public class WordReader {
 	}
 
 	/**
-	 * ¶ÁÈ¡wordÎÄ¼ş
-	 * @param path ÊäÈëÎÄ¼şÂ·¾¶
+	 * è¯»å–wordæ–‡ä»¶
+	 * @param path è¾“å…¥æ–‡ä»¶è·¯å¾„
 	 * @return
 	 * @throws FileNotFoundException
 	 * @throws IOException
@@ -195,54 +189,54 @@ public class WordReader {
 	private static List<String> wordTableReader(String path)
 			throws FileNotFoundException, IOException {
 
-		/** 1. ¶ÁÈ¡WORD±í¸ñÄÚÈİ */
+		/** 1. è¯»å–WORDè¡¨æ ¼å†…å®¹ */
 		File file=new File(path);
 		FileInputStream fis=new FileInputStream(file);
 		List<String> infoList = new ArrayList<>(0);
-		//Èç¹ûÊÇdoc¸ñÊ½µÄwordÎÄ¼ş
+		//å¦‚æœæ˜¯docæ ¼å¼çš„wordæ–‡ä»¶
 		if("doc".equals(getExtension(file.getName())))
 		{
 			HWPFDocument doc = new HWPFDocument(fis);
 
-			// ±éÀúrange·¶Î§ÄÚµÄtable¡£
+			// éå†rangeèŒƒå›´å†…çš„tableã€‚
 			TableIterator tableIter = new TableIterator(doc.getRange());
 			Table table;
 			TableRow row;
 			TableCell cell;
 			
 			while (tableIter.hasNext()) {
-				// »ñÈ¡µ±Ç°µÄ±í¸ñ¶ÔÏó
+				// è·å–å½“å‰çš„è¡¨æ ¼å¯¹è±¡
 				table = tableIter.next();
-				int rowNum = table.numRows(); // »ñÈ¡±í¸ñÓĞ¶àÉÙĞĞ
+				int rowNum = table.numRows(); // è·å–è¡¨æ ¼æœ‰å¤šå°‘è¡Œ
 				for (int j = 0; j < rowNum; j++) {
-					// »ñÈ¡Ã¿Ò»ĞĞ±í¸ñ
+					// è·å–æ¯ä¸€è¡Œè¡¨æ ¼
 					row = table.getRow(j);
-					// »ñÈ¡¸ÃĞĞ±í¸ñÖĞµÄ±í¸ñµ¥Ôª
+					// è·å–è¯¥è¡Œè¡¨æ ¼ä¸­çš„è¡¨æ ¼å•å…ƒ
 					int cellNum = row.numCells();
 					for (int k = 0; k < cellNum; k++) {
 						cell = row.getCell(k);
-						// Êä³öµ¥Ôª¸ñµÄÎÄ±¾
+						// è¾“å‡ºå•å…ƒæ ¼çš„æ–‡æœ¬
 						if (k % 2 == 1) {
 							infoList.add(cell.text().trim());
 						}
 					}
 				}
 			}
-			//¹Ø±ÕÎÄ¼şÁ÷
+			//å…³é—­æ–‡ä»¶æµ
 			fis.close();
 		}else if("docx".equals(getExtension(file.getName()))){
-			//Èç¹ûÊÇdocxÎÄ¼ş
+			//å¦‚æœæ˜¯docxæ–‡ä»¶
 			XWPFDocument docx = new XWPFDocument(fis);
 			
-			// »ñÈ¡ÎÄµµÖĞËùÓĞµÄ±í¸ñ
+			// è·å–æ–‡æ¡£ä¸­æ‰€æœ‰çš„è¡¨æ ¼
 			List<XWPFTable> tables = docx.getTables();
 			List<XWPFTableRow> rows;
 			List<XWPFTableCell> cells;
 			for (XWPFTable table : tables) {
-				// »ñÈ¡±í¸ñ¶ÔÓ¦µÄĞĞ
+				// è·å–è¡¨æ ¼å¯¹åº”çš„è¡Œ
 				rows = table.getRows();
 				for (XWPFTableRow row : rows) {
-					// »ñÈ¡ĞĞ¶ÔÓ¦µÄµ¥Ôª¸ñ
+					// è·å–è¡Œå¯¹åº”çš„å•å…ƒæ ¼
 					int k = 0;
 					cells = row.getTableCells();
 					for (XWPFTableCell cell : cells) 
@@ -254,7 +248,7 @@ public class WordReader {
 					}
 				}
 			}
-			//¹Ø±ÕÎÄ¼şÁ÷
+			//å…³é—­æ–‡ä»¶æµ
 			fis.close();
 		}else{
 			return null;
@@ -264,7 +258,7 @@ public class WordReader {
 	}
 
     /** 
-     * »ñÈ¡ÎÄ¼şµÄÀ©Õ¹Ãû 
+     * è·å–æ–‡ä»¶çš„æ‰©å±•å 
      *  
      * @param filename 
      * @param defExt 
@@ -283,28 +277,28 @@ public class WordReader {
     } 
     
 	/**
-	 * ´´½¨ÎÄ¼ş
-	 * @param filename ÎÄ¼şÃû³Æ
+	 * åˆ›å»ºæ–‡ä»¶
+	 * @param filename æ–‡ä»¶åç§°
 	 * @return
 	 */
 	public static boolean createFile(String destFileName){
 		
 		File file = new File(destFileName); 
-		//Èç¹û´æÔÚ£¬·µ»Øtrue
+		//å¦‚æœå­˜åœ¨ï¼Œè¿”å›true
         if(file.exists()) {  
             return true;  
         }  
         if (destFileName.endsWith(File.separator)) {  
             return false;  
         }
-        //ÅĞ¶ÏÄ¿±êÎÄ¼şËùÔÚµÄÄ¿Â¼ÊÇ·ñ´æÔÚ  
+        //åˆ¤æ–­ç›®æ ‡æ–‡ä»¶æ‰€åœ¨çš„ç›®å½•æ˜¯å¦å­˜åœ¨  
         if(!file.getParentFile().exists()) {  
-            //Èç¹ûÄ¿±êÎÄ¼şËùÔÚµÄÄ¿Â¼²»´æÔÚ£¬Ôò´´½¨¸¸Ä¿Â¼  
+            //å¦‚æœç›®æ ‡æ–‡ä»¶æ‰€åœ¨çš„ç›®å½•ä¸å­˜åœ¨ï¼Œåˆ™åˆ›å»ºçˆ¶ç›®å½•  
             if(!file.getParentFile().mkdirs()) {  
                 return false;  
             }  
         }
-        //´´½¨Ä¿±êÎÄ¼ş  
+        //åˆ›å»ºç›®æ ‡æ–‡ä»¶  
         try {  
             if (file.createNewFile()) {  
                 return true;  
