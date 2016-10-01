@@ -3,6 +3,7 @@ package com.frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.File;
+import java.io.IOException;
 
 import javax.swing.JButton;
 import javax.swing.JFileChooser;
@@ -11,8 +12,10 @@ import javax.swing.JLabel;
 import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
+import javax.swing.filechooser.FileNameExtensionFilter;
 
 import com.util.WordReader;
+import com.util.WordTemplet;
 
 public class MainFrame extends JFrame{
 
@@ -44,7 +47,7 @@ public class MainFrame extends JFrame{
 		jp.setLayout(null);
 		
 		templetJb=new JButton("导入模板");
-		templetJlb=new JLabel("模板未导入（功能待开发）");
+		templetJlb=new JLabel("模板未导入");
 		wordpathJlb=new JLabel("选择word文件路径");
 		wordpathJtf=new JTextField();
 		wordPathJb=new JButton("选择文件夹");
@@ -53,7 +56,37 @@ public class MainFrame extends JFrame{
 		excelPathJb=new JButton("选择文件夹");
 		jb=new JButton("确定");
 		
+		//导入模板
 		templetJb.setBounds(40, 20, 100, 35);
+		templetJb.addActionListener(new ActionListener() {
+			
+			@Override
+			public void actionPerformed(ActionEvent e) {
+				
+				templetJlb.setText("模板未导入");
+				
+		        JFileChooser jfc=new JFileChooser();  
+		        FileNameExtensionFilter filter = new FileNameExtensionFilter("word文件", "doc", "docx");
+		        jfc.setFileFilter(filter);
+		        int value=jfc.showDialog(new JLabel(), "选择");
+		        if(value==JFileChooser.APPROVE_OPTION){
+			        File file=jfc.getSelectedFile();
+			        try {
+			        	String xmlPath=file.getParent()+File.separator;
+			        	//保存模板信息
+						if(WordTemplet.templetXmlSave(file.getAbsolutePath(), xmlPath))
+						{
+							templetJlb.setText("导出成功");
+						}else{
+							templetJlb.setText("导出失败");
+						}
+					} catch (IOException e1) {
+						
+					}
+		        }
+				
+			}
+		});
 		jp.add(templetJb);
 		
 		templetJlb.setBounds(150, 20, 180, 35);

@@ -2,11 +2,8 @@ package com.util;
 
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.FileWriter;
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Iterator;
@@ -18,7 +15,6 @@ import org.apache.poi.hwpf.usermodel.TableCell;
 import org.apache.poi.hwpf.usermodel.TableIterator;
 import org.apache.poi.hwpf.usermodel.TableRow;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
-import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
@@ -33,33 +29,37 @@ import org.dom4j.io.XMLWriter;
 public class WordTemplet {
 	
 	private static final String templetFlag="1";
+	private static final String wordPropertiesXmlName="wordProperties.xml";
 
-	public static void main(String[] args) {
-
-		try {
-			templetXmlSave("C:/Users/chen/Desktop/test/templet2.doc");
-		} catch (IOException e) {
-			e.printStackTrace();
-		}
-		// read
-		// readTempletXML("C:/Users/chen/Desktop/test/templet1.xml");
-		// write
-		// writeXML(document,"E:\\testFiles\\test.xml");
-		// update
-		// updateXML();
-
-		// String wordPath = "";
-		// templetSave(wordPath);
-	}
+//	public static void main(String[] args) {
+//
+////		try {
+////			templetXmlSave("C:/Users/chen/Desktop/test/templet2.doc");
+////		} catch (IOException e) {
+////			e.printStackTrace();
+////		}
+//		// read
+//		// readTempletXML("C:/Users/chen/Desktop/test/templet1.xml");
+//		// write
+//		// writeXML(document,"E:\\testFiles\\test.xml");
+//		// update
+//		// updateXML();
+//
+//		// String wordPath = "";
+//		// templetSave(wordPath);
+//	}
 
 	/**
 	 * 模板信息保存
 	 * @param wordPath word模板路径
+	 * @param xmlSavePath xml的保存路径
 	 * @throws IOException 
 	 */
 	@SuppressWarnings("resource")
-	public static boolean templetXmlSave(String wordPath) throws IOException {
+	public static boolean templetXmlSave(String wordPath,String xmlSavePath) throws IOException {
 
+		boolean isSuccess=true;
+		
 		//读取word内容，写入xml中
 		/** 1. 读取WORD表格内容 */
 		File file=new File(wordPath);
@@ -139,12 +139,15 @@ public class WordTemplet {
 			//关闭文件流
 			fis.close();
 		}else{
-			
+			isSuccess=false;
 		}
 		
-		saveDocumentToFile(doc, "C:/Users/chen/Desktop/test/", "test1.xml");
+		//保存word表格信息
+		if(isSuccess){
+			isSuccess=saveDocumentToFile(doc, xmlSavePath, wordPropertiesXmlName);
+		}
 
-		return false;
+		return isSuccess;
 	}
 
 	/**
