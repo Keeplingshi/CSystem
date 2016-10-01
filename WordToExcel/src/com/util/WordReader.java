@@ -24,10 +24,10 @@ import org.apache.poi.hwpf.usermodel.Table;
 import org.apache.poi.hwpf.usermodel.TableCell;
 import org.apache.poi.hwpf.usermodel.TableIterator;
 import org.apache.poi.hwpf.usermodel.TableRow;
-import org.apache.poi.ss.usermodel.CellStyle;
 import org.apache.poi.ss.usermodel.HorizontalAlignment;
 import org.apache.poi.ss.usermodel.VerticalAlignment;
 import org.apache.poi.xwpf.usermodel.XWPFDocument;
+import org.apache.poi.xwpf.usermodel.XWPFParagraph;
 import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
@@ -39,6 +39,12 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
  * 
  */
 public class WordReader {
+	
+	public static void main(String[] args) {
+		String direcToryPath="C:/Users/chen/Desktop/test";
+		String excelPath="C:/Users/chen/Desktop/test/ttt.xls";
+		doWordReader(direcToryPath, excelPath);
+	}
 	
 	/**
 	 * 接口调用封装
@@ -242,7 +248,17 @@ public class WordReader {
 					for (XWPFTableCell cell : cells) 
 					{
 						if(k%2==1){
-							infoList.add(cell.getText().trim());
+							List<XWPFParagraph> paragraphs = cell.getParagraphs();
+							//处理docx文件中的换行问题
+							String s="";
+							for(XWPFParagraph xwpfParagraph:paragraphs){
+								if("".equals(s)){
+									s=s+xwpfParagraph.getParagraphText();
+								}else{
+									s=s+"\r"+xwpfParagraph.getParagraphText();
+								}
+							}
+							infoList.add(s);
 						}
 						k++;
 					}
