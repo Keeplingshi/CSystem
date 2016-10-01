@@ -16,6 +16,7 @@ import com.util.WordReader;
 
 public class MainFrame extends JFrame{
 
+	private static final long serialVersionUID = 1L;
 	JFrame mainFrame=new JFrame();
 	JTextField wordpathJtf=null;
 	JButton templetJb=null;

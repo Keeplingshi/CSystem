@@ -40,12 +40,6 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
  */
 public class WordReader {
 	
-	public static void main(String[] args) {
-		String direcToryPath="C:/Users/chen/Desktop/test";
-		String excelPath="C:/Users/chen/Desktop/test/ttt.xls";
-		doWordReader(direcToryPath, excelPath);
-	}
-	
 	/**
 	 * 接口调用封装
 	 * @param direcToryPath word文件所在文件夹
@@ -223,7 +217,8 @@ public class WordReader {
 						cell = row.getCell(k);
 						// 输出单元格的文本
 						if (k % 2 == 1) {
-							infoList.add(cell.text().trim());
+							//去掉超链接等属性，保留文本
+							infoList.add(TableCell.stripFields(cell.text()).trim());
 						}
 					}
 				}
@@ -255,7 +250,7 @@ public class WordReader {
 								if("".equals(s)){
 									s=s+xwpfParagraph.getParagraphText();
 								}else{
-									s=s+"\r"+xwpfParagraph.getParagraphText();
+									s=s+"\n"+xwpfParagraph.getParagraphText();
 								}
 							}
 							infoList.add(s);
