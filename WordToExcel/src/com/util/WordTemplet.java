@@ -26,6 +26,11 @@ import org.dom4j.io.OutputFormat;
 import org.dom4j.io.SAXReader;
 import org.dom4j.io.XMLWriter;
 
+/**
+ * 导入word模板
+ * @author chen
+ *
+ */
 public class WordTemplet {
 	
 	private static final String templetFlag="read";

@@ -31,6 +31,11 @@ import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
+/**
+ * 将word中的内容读取到excel中
+ * @author chen
+ *
+ */
 public class Word2Excel {
 
 //	public static void main(String[] args) {
