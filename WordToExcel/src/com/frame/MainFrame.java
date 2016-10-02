@@ -14,7 +14,7 @@ import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
 
-import com.util.WordReader;
+import com.util.Word2Excel;
 import com.util.WordTemplet;
 
 public class MainFrame extends JFrame{
@@ -23,7 +23,7 @@ public class MainFrame extends JFrame{
 	JFrame mainFrame=new JFrame();
 	JTextField wordpathJtf=null;
 	JButton templetJb=null;
-	JLabel templetJlb=null;
+	JTextField templetJtf=null;
 	JLabel wordpathJlb=null;
 	JButton wordPathJb=null;
 	JLabel excelJlb=null;
@@ -47,7 +47,7 @@ public class MainFrame extends JFrame{
 		jp.setLayout(null);
 		
 		templetJb=new JButton("导入模板");
-		templetJlb=new JLabel("模板未导入");
+		templetJtf=new JTextField();
 		wordpathJlb=new JLabel("选择word文件路径");
 		wordpathJtf=new JTextField();
 		wordPathJb=new JButton("选择文件夹");
@@ -63,8 +63,6 @@ public class MainFrame extends JFrame{
 			@Override
 			public void actionPerformed(ActionEvent e) {
 				
-				templetJlb.setText("模板未导入");
-				
 		        JFileChooser jfc=new JFileChooser();  
 		        FileNameExtensionFilter filter = new FileNameExtensionFilter("word文件", "doc", "docx");
 		        jfc.setFileFilter(filter);
@@ -76,9 +74,7 @@ public class MainFrame extends JFrame{
 			        	//保存模板信息
 						if(WordTemplet.templetXmlSave(file.getAbsolutePath(), xmlPath))
 						{
-							templetJlb.setText("导出成功");
-						}else{
-							templetJlb.setText("导出失败");
+							templetJtf.setText(xmlPath+File.separator+WordTemplet.wordPropertiesXmlName);
 						}
 					} catch (IOException e1) {
 						
@@ -89,8 +85,9 @@ public class MainFrame extends JFrame{
 		});
 		jp.add(templetJb);
 		
-		templetJlb.setBounds(150, 20, 180, 35);
-		jp.add(templetJlb);
+		templetJtf.setBounds(150, 20, 300, 35);
+		templetJtf.setEditable(false);
+		jp.add(templetJtf);
 		
 		wordpathJlb.setBounds(40, 80, 150, 60);
 		jp.add(wordpathJlb);
@@ -154,8 +151,17 @@ public class MainFrame extends JFrame{
 			
 			@Override
 			public void actionPerformed(ActionEvent e) {
+				
+				//获取word文档路径和excel导出路径
+				String xmlPath=templetJtf.getText();
 				String direcToryPath=wordpathJtf.getText();
 				String excelPath=excelPathJtf.getText();
+				
+				if(xmlPath==null||"".equals(xmlPath)){
+					JOptionPane.showMessageDialog(null, "请导入模板");
+					return ;
+				}
+				
 				if(direcToryPath==null||"".equals(direcToryPath)){
 					JOptionPane.showMessageDialog(null, "请选择word所处路径");
 					return ;
@@ -164,7 +170,8 @@ public class MainFrame extends JFrame{
 					JOptionPane.showMessageDialog(null, "请选择excel导出路径");
 					return ;
 				}
-				WordReader.doWordReader(direcToryPath,excelPath);
+				//执行读取word操作
+				Word2Excel.doWord2Excel(xmlPath, direcToryPath, excelPath);
 			}
 		});
 		jp.add(jb);

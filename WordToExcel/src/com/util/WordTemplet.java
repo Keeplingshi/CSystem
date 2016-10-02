@@ -28,26 +28,8 @@ import org.dom4j.io.XMLWriter;
 
 public class WordTemplet {
 	
-	private static final String templetFlag="1";
-	private static final String wordPropertiesXmlName="wordProperties.xml";
-
-//	public static void main(String[] args) {
-//
-////		try {
-////			templetXmlSave("C:/Users/chen/Desktop/test/templet2.doc");
-////		} catch (IOException e) {
-////			e.printStackTrace();
-////		}
-//		// read
-//		// readTempletXML("C:/Users/chen/Desktop/test/templet1.xml");
-//		// write
-//		// writeXML(document,"E:\\testFiles\\test.xml");
-//		// update
-//		// updateXML();
-//
-//		// String wordPath = "";
-//		// templetSave(wordPath);
-//	}
+	private static final String templetFlag="read";
+	public static final String wordPropertiesXmlName="wordProperties.xml";
 
 	/**
 	 * 模板信息保存
@@ -69,7 +51,7 @@ public class WordTemplet {
 		Element root = doc.addElement("root");
 		
 		//如果是doc格式的word文件
-		if("doc".equals(WordReader.getExtension(file.getName())))
+		if("doc".equals(FileUtil.getExtension(file.getName())))
 		{
 			HWPFDocument hwpfDocument = new HWPFDocument(fis);
 
@@ -106,7 +88,7 @@ public class WordTemplet {
 			}
 			//关闭文件流
 			fis.close();
-		}else if("docx".equals(WordReader.getExtension(file.getName()))){
+		}else if("docx".equals(FileUtil.getExtension(file.getName()))){
 			//如果是docx文件
 			XWPFDocument xwpfDocument = new XWPFDocument(fis);
 			
@@ -156,7 +138,7 @@ public class WordTemplet {
 	 * @param xmlFilePath 路径
 	 * @param xmlFileName 保存文件名
 	 */
-	public static boolean saveDocumentToFile(Document document,
+	private static boolean saveDocumentToFile(Document document,
 			String xmlFilePath, String xmlFileName) {
 		
 		if (document == null || xmlFilePath == null || "".equals(xmlFileName)) {

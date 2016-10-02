@@ -15,7 +15,6 @@ import java.util.Map.Entry;
 import org.apache.poi.hssf.usermodel.HSSFCell;
 import org.apache.poi.hssf.usermodel.HSSFCellStyle;
 import org.apache.poi.hssf.usermodel.HSSFFont;
-import org.apache.poi.hssf.usermodel.HSSFRichTextString;
 import org.apache.poi.hssf.usermodel.HSSFRow;
 import org.apache.poi.hssf.usermodel.HSSFSheet;
 import org.apache.poi.hssf.usermodel.HSSFWorkbook;
@@ -32,40 +31,44 @@ import org.apache.poi.xwpf.usermodel.XWPFTable;
 import org.apache.poi.xwpf.usermodel.XWPFTableCell;
 import org.apache.poi.xwpf.usermodel.XWPFTableRow;
 
-/**
- * word读取
- * 
- * @author chenbin
- * 
- */
-public class WordReader {
+public class Word2Excel {
+
+//	public static void main(String[] args) {
+//		
+//		String xmlPath="C:/Users/chen/Desktop/test/wordProperties.xml";
+//		String direcToryPath="C:/Users/chen/Desktop/test/templet3";
+//		String excelPath="C:/Users/chen/Desktop/test/aaa.xls";
+//		
+//		doWord2Excel(xmlPath,direcToryPath,excelPath);
+//	}
 	
 	/**
-	 * 接口调用封装
-	 * @param direcToryPath word文件所在文件夹
-	 * @param excelPath excel输入路径
+	 * word提取信息到excel
+	 * @param xmlPath
+	 * @param direcToryPath
+	 * @param excelPath
 	 */
-	public static void doWordReader(String direcToryPath,String excelPath)
+	public static void doWord2Excel(String xmlPath,String direcToryPath,String excelPath)
 	{
-		HashMap<String, List<String>> map=wordDirRead(direcToryPath);
+		HashMap<Integer, List<String>> templetMap=WordTemplet.readTempletXML(xmlPath);
+		
+		HashMap<String, List<String>> map=wordDirRead(direcToryPath, templetMap);
+		
 		writeExcel(excelPath,map);
 	}
 	
 	/**
-	 * 写入excel文件
+	 * 将map信息写入excel
 	 * @param excelPath
+	 * @param map
 	 */
 	@SuppressWarnings("resource")
 	private static void writeExcel(String excelPath,HashMap<String, List<String>> map)
 	{
-		String[] headers = { "姓名", "所在单位", "职务", "通信地址","性别","职称","邮编","手机","办公电话","电子邮箱","获奖情况","备注","文档名称","处理结果" };
-		int columnNum=headers.length;
 		// 声明一个工作薄
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		// 生成一个表格
 		HSSFSheet sheet = workbook.createSheet("报名表");
-//		// 设置表格默认列宽度为15个字节
-//		sheet.setDefaultColumnWidth(15);
 		
 		//表格样式
 		HSSFCellStyle style = workbook.createCellStyle();
@@ -78,31 +81,30 @@ public class WordReader {
 		font.setFontName("宋体");
 		style.setFont(font);
 		
-		// 产生表格标题行
 		HSSFRow row = sheet.createRow(0);
-		for (int i = 0; i < columnNum; i++) {
-			HSSFCell cell = row.createCell(i);
-			HSSFRichTextString text = new HSSFRichTextString(headers[i]);
-			cell.setCellValue(text);
-			cell.setCellStyle(style);
-		}
 		
 		//迭代获取当前map中的数据
 		Iterator<Entry<String, List<String>>> iterator=map.entrySet().iterator();
-		int index=0;
+		//记录excel当前写入的是第多少行数据
+		int index=1;
+		//记录共多少列数据
+		int columnNum=0;
 		while(iterator.hasNext())
 		{
-			index++;
 			Entry<String, List<String>> next = iterator.next();
-			HSSFCell[] cells=new HSSFCell[columnNum];
-			//创建一行表格
 			row = sheet.createRow(index);
 			//如果读取到相关信息
 			if(next.getValue()!=null)
 			{
-				int k=0;
-				for(String str:next.getValue())
+				List<String> valueList=next.getValue();
+				columnNum=valueList.size()>columnNum?valueList.size():columnNum;
+				//后两格用来存储文档名，处理结果
+				HSSFCell[] cells=new HSSFCell[columnNum+1];
+				
+				//创建每一格
+				for(int k=0;k<columnNum;k++)
 				{
+					String str=valueList.get(k);
 					//word中读取的换行，回车符用换行符替换
 					if(str.contains("\r"))
 					{
@@ -112,29 +114,26 @@ public class WordReader {
 					cells[k]=row.createCell(k);
 					cells[k].setCellStyle(style);
 					cells[k].setCellValue(str);
-					k++;
 				}
-				cells[13]=row.createCell(13);
-				cells[13].setCellStyle(style);
-				cells[13].setCellValue("成功");
-			}else{
-				cells[13]=row.createCell(14);
-				cells[13].setCellStyle(style);
-				cells[13].setCellValue("失败");
+				
+				cells[columnNum]=row.createCell(columnNum);
+				cells[columnNum].setCellStyle(style);
+				cells[columnNum].setCellValue(next.getKey());
+				
 			}
-			cells[12]=row.createCell(12);
-			cells[12].setCellStyle(style);
-			cells[12].setCellValue(next.getKey());
+			
+			//切换下一行
+			index++;
 		}
 		
 		//自动调整列宽
-		for (int i = 0; i < columnNum; i++) {
+		for (int i = 0; i < columnNum+1; i++) {
 			sheet.autoSizeColumn(i);
 		}
 		
 		try {
 			//首先创建文件
-			if(createFile(excelPath)){
+			if(FileUtil.createFile(excelPath)){
 				OutputStream out = new FileOutputStream(excelPath);
 				workbook.write(out);
 				out.close();
@@ -144,12 +143,13 @@ public class WordReader {
 		}
 	}
 	
+	
 	/**
 	 * 读取文件夹下所有word，读取所有有用数据
 	 * @param direcToryPath
 	 * @return
 	 */
-	private static HashMap<String, List<String>> wordDirRead(String direcToryPath)
+	private static HashMap<String, List<String>> wordDirRead(String direcToryPath, HashMap<Integer, List<String>> templetMap)
 	{
 		HashMap<String, List<String>> map=new HashMap<String, List<String>>();
 		
@@ -159,12 +159,12 @@ public class WordReader {
 			for(String fileName:file.list())
 			{
 				//判断word文件
-				if("doc".equals(getExtension(fileName))||"docx".equals(getExtension(fileName)))
+				if("doc".equals(FileUtil.getExtension(fileName))||"docx".equals(FileUtil.getExtension(fileName)))
 				{
 					//获取word文件内容
 					List<String> infoList = null;
 					try {
-						infoList = wordTableReader(direcToryPath+File.separator+fileName);
+						infoList = wordTableReader(direcToryPath+File.separator+fileName,templetMap);
 					} catch (Exception e) {
 						
 					}finally{
@@ -177,7 +177,7 @@ public class WordReader {
 		
 		return map;
 	}
-
+	
 	/**
 	 * 读取word文件
 	 * @param path 输入文件路径
@@ -186,7 +186,7 @@ public class WordReader {
 	 * @throws IOException
 	 */
 	@SuppressWarnings("resource")
-	private static List<String> wordTableReader(String path)
+	private static List<String> wordTableReader(String path, HashMap<Integer, List<String>> templetMap)
 			throws FileNotFoundException, IOException {
 
 		/** 1. 读取WORD表格内容 */
@@ -194,7 +194,7 @@ public class WordReader {
 		FileInputStream fis=new FileInputStream(file);
 		List<String> infoList = new ArrayList<>(0);
 		//如果是doc格式的word文件
-		if("doc".equals(getExtension(file.getName())))
+		if("doc".equals(FileUtil.getExtension(file.getName())))
 		{
 			HWPFDocument doc = new HWPFDocument(fis);
 
@@ -203,10 +203,15 @@ public class WordReader {
 			Table table;
 			TableRow row;
 			TableCell cell;
+			//表格计数，是第几个表格
+			int index=0;	
 			
 			while (tableIter.hasNext()) {
 				// 获取当前的表格对象
 				table = tableIter.next();
+				//获得需要获取的格子编号
+				List<String> list=templetMap.get(index);
+				int t=0;
 				int rowNum = table.numRows(); // 获取表格有多少行
 				for (int j = 0; j < rowNum; j++) {
 					// 获取每一行表格
@@ -215,17 +220,20 @@ public class WordReader {
 					int cellNum = row.numCells();
 					for (int k = 0; k < cellNum; k++) {
 						cell = row.getCell(k);
-						// 输出单元格的文本
-						if (k % 2 == 1) {
-							//去掉超链接等属性，保留文本
+						//如果是需要获取的格子
+						if(list.contains(String.valueOf(t)))
+						{
 							infoList.add(TableCell.stripFields(cell.text()).trim());
 						}
+						t++;
 					}
 				}
+				//下一个表格
+				index++;
 			}
 			//关闭文件流
 			fis.close();
-		}else if("docx".equals(getExtension(file.getName()))){
+		}else if("docx".equals(FileUtil.getExtension(file.getName()))){
 			//如果是docx文件
 			XWPFDocument docx = new XWPFDocument(fis);
 			
@@ -233,16 +241,27 @@ public class WordReader {
 			List<XWPFTable> tables = docx.getTables();
 			List<XWPFTableRow> rows;
 			List<XWPFTableCell> cells;
+			
+			//表格计数，是第几个表格
+			int index=0;	
+			
 			for (XWPFTable table : tables) {
+				
+				//获得需要获取的格子编号
+				List<String> list=templetMap.get(index);
+				int k = 0;
 				// 获取表格对应的行
 				rows = table.getRows();
+				
 				for (XWPFTableRow row : rows) {
 					// 获取行对应的单元格
-					int k = 0;
+					
 					cells = row.getTableCells();
 					for (XWPFTableCell cell : cells) 
 					{
-						if(k%2==1){
+						//如果是需要获取的格子
+						if(list.contains(String.valueOf(k)))
+						{
 							List<XWPFParagraph> paragraphs = cell.getParagraphs();
 							//处理docx文件中的换行问题
 							String s="";
@@ -258,6 +277,9 @@ public class WordReader {
 						k++;
 					}
 				}
+				
+				//下一个表格
+				index++;
 			}
 			//关闭文件流
 			fis.close();
@@ -267,57 +289,6 @@ public class WordReader {
 
 		return infoList;
 	}
+	
 
-    /** 
-     * 获取文件的扩展名 
-     *  
-     * @param filename 
-     * @param defExt 
-     * @return 
-     */  
-    public static String getExtension(String fileName) {  
-        if ((fileName != null) && (fileName.length() > 0)) {  
-            int i = fileName.lastIndexOf('.');  
-  
-  
-            if ((i > -1) && (i < (fileName.length() - 1))) {  
-                return fileName.substring(i + 1);  
-            }  
-        }  
-        return null;  
-    } 
-    
-	/**
-	 * 创建文件
-	 * @param filename 文件名称
-	 * @return
-	 */
-	public static boolean createFile(String destFileName){
-		
-		File file = new File(destFileName); 
-		//如果存在，返回true
-        if(file.exists()) {  
-            return true;  
-        }  
-        if (destFileName.endsWith(File.separator)) {  
-            return false;  
-        }
-        //判断目标文件所在的目录是否存在  
-        if(!file.getParentFile().exists()) {  
-            //如果目标文件所在的目录不存在，则创建父目录  
-            if(!file.getParentFile().mkdirs()) {  
-                return false;  
-            }  
-        }
-        //创建目标文件  
-        try {  
-            if (file.createNewFile()) {  
-                return true;  
-            } else {  
-                return false;  
-            }  
-        } catch (IOException e) {  
-            return false;  
-        }
-	}
 }
