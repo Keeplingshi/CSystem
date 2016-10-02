@@ -171,7 +171,13 @@ public class MainFrame extends JFrame{
 					return ;
 				}
 				//执行读取word操作
-				Word2Excel.doWord2Excel(xmlPath, direcToryPath, excelPath);
+				if(Word2Excel.doWord2Excel(xmlPath, direcToryPath, excelPath))
+				{
+					JOptionPane.showMessageDialog(null, "导出成功");
+				}else{
+					JOptionPane.showMessageDialog(null, "导出失败");
+				}
+				
 			}
 		});
 		jp.add(jb);

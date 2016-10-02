@@ -184,7 +184,8 @@ public class WordTemplet {
 		SAXReader saxReader = new SAXReader();// 获取读取xml的对象。
 
 		try {
-			Document document = saxReader.read(xmlPath);
+			File xmlFile = new File(xmlPath);
+			Document document = saxReader.read(xmlFile);
 			// 向外取数据，获取xml的根节点。
 			Element root = document.getRootElement();
 			// 从根节点下依次遍历，获取根节点下所有子节点

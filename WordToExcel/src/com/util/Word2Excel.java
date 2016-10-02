@@ -48,13 +48,17 @@ public class Word2Excel {
 	 * @param direcToryPath
 	 * @param excelPath
 	 */
-	public static void doWord2Excel(String xmlPath,String direcToryPath,String excelPath)
+	public static boolean doWord2Excel(String xmlPath,String direcToryPath,String excelPath)
 	{
 		HashMap<Integer, List<String>> templetMap=WordTemplet.readTempletXML(xmlPath);
 		
+		if(templetMap==null){
+			return false;
+		}
+		
 		HashMap<String, List<String>> map=wordDirRead(direcToryPath, templetMap);
 		
-		writeExcel(excelPath,map);
+		return writeExcel(excelPath,map);
 	}
 	
 	/**
@@ -63,8 +67,9 @@ public class Word2Excel {
 	 * @param map
 	 */
 	@SuppressWarnings("resource")
-	private static void writeExcel(String excelPath,HashMap<String, List<String>> map)
+	private static boolean writeExcel(String excelPath,HashMap<String, List<String>> map)
 	{
+		boolean isSuccess=true;
 		// 声明一个工作薄
 		HSSFWorkbook workbook = new HSSFWorkbook();
 		// 生成一个表格
@@ -139,8 +144,10 @@ public class Word2Excel {
 				out.close();
 			}
 		} catch (IOException e) {
-			e.printStackTrace();
+			isSuccess=false;
 		}
+		
+		return isSuccess;
 	}
 	
 	
