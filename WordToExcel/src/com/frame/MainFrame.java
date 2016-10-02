@@ -137,7 +137,17 @@ public class MainFrame extends JFrame{
 		        if(value==JFileChooser.APPROVE_OPTION){
 			        File file=jfc.getSelectedFile();  
 			        if(file.isDirectory()){
-			        	excelPathJtf.setText(file.getAbsolutePath()+File.separator+"word处理统计表.xls");
+			        	String excelPath=file.getAbsolutePath()+File.separator+"word处理统计表.xls";
+			        	//如果存在处理过的文件，提示是否覆盖
+			        	File excelFile=new File(excelPath);
+			        	if(excelFile.exists()){
+							int isExists=JOptionPane.showConfirmDialog(null, "已存在word处理文件，是否覆盖？");
+							//如果是
+							if(isExists==JOptionPane.YES_OPTION){
+								excelPathJtf.setText(excelPath);
+							}
+			        	}
+			        	
 			        }
 		        }
 			}
