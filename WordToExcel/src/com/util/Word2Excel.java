@@ -103,13 +103,14 @@ public class Word2Excel {
 		{
 			Entry<String, List<String>> next = iterator.next();
 			row = sheet.createRow(index);
+			List<String> valueList=next.getValue();
+			
 			//如果读取到相关信息
-			if(next.getValue()!=null)
+			if(valueList!=null&&valueList.size()!=0)
 			{
-				List<String> valueList=next.getValue();
 				columnNum=valueList.size()>columnNum?valueList.size():columnNum;
 				//后两格用来存储文档名，处理结果
-				HSSFCell[] cells=new HSSFCell[columnNum+1];
+				HSSFCell[] cells=new HSSFCell[columnNum+2];
 				
 				//创建每一格
 				for(int k=0;k<columnNum;k++)
@@ -130,6 +131,32 @@ public class Word2Excel {
 				cells[columnNum].setCellStyle(style);
 				cells[columnNum].setCellValue(next.getKey());
 				
+				cells[columnNum+1]=row.createCell(columnNum+1);
+				cells[columnNum+1].setCellStyle(style);
+				cells[columnNum+1].setCellValue("成功");
+			}else{
+				
+				//表格样式
+				HSSFCellStyle errorStyle = workbook.createCellStyle();
+				errorStyle.setWrapText(true);
+				errorStyle.setAlignment(HorizontalAlignment.LEFT);
+				errorStyle.setVerticalAlignment(VerticalAlignment.CENTER);
+				HSSFFont errorFont  = workbook.createFont();
+				//设置字体
+				errorFont.setFontHeightInPoints((short)12);
+				errorFont.setFontName("宋体");
+				errorFont.setColor(HSSFFont.COLOR_RED);
+				errorStyle.setFont(errorFont);
+				
+				//后两格用来存储文档名，处理结果
+				HSSFCell[] cells=new HSSFCell[2];
+				cells[0]=row.createCell(0);
+				cells[0].setCellStyle(errorStyle);
+				cells[0].setCellValue(next.getKey());
+				
+				cells[1]=row.createCell(1);
+				cells[1].setCellStyle(errorStyle);
+				cells[1].setCellValue("失败，文档结构有错误");
 			}
 			
 			//切换下一行
@@ -236,13 +263,22 @@ public class Word2Excel {
 						if(list.contains(String.valueOf(t)))
 						{
 							infoList.add(TableCell.stripFields(cell.text()).trim());
+							//list.remove(String.valueOf(t));
 						}
 						t++;
 					}
 				}
+				
+				//读取的数据与需要读取的数据数量不一致
+				if(list.size()!=infoList.size()){
+					fis.close();
+					return null;
+				}
+				
 				//下一个表格
 				index++;
 			}
+			
 			//关闭文件流
 			fis.close();
 		}else if("docx".equals(FileUtil.getExtension(file.getName()))){
@@ -288,6 +324,12 @@ public class Word2Excel {
 						}
 						k++;
 					}
+				}
+				
+				//读取的数据与需要读取的数据数量不一致
+				if(list.size()!=infoList.size()){
+					fis.close();
+					return null;
 				}
 				
 				//下一个表格

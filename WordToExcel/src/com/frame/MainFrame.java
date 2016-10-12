@@ -13,9 +13,22 @@ import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.swing.filechooser.FileSystemView;
 
 import com.util.Word2Excel;
 import com.util.WordTemplet;
+
+
+//提高使用效率：
+//1.选取文件夹从桌面开始或者从上次打开的文件夹开始，现在起始的文件夹比较麻烦；
+//
+//2.导出时候，如果已经之前生成了一个文件，第二次又导出没有提示已经存在是否覆盖，有时候误操作比较麻烦；
+//
+//3.对整个文件夹里word进行判断，错误或者导入失败得提示；
+//
+//非必要改功能：
+//
+//1.上传模板提示是否成功，加一个检测功能？--如果麻烦就算了
 
 public class MainFrame extends JFrame{
 
@@ -30,6 +43,11 @@ public class MainFrame extends JFrame{
 	JTextField excelPathJtf=null;
 	JButton excelPathJb=null;
 	JButton jb=null;
+	JLabel templetInfoJlb=null;
+	
+	//获取桌面路径
+	FileSystemView fsv = FileSystemView.getFileSystemView();  //注意了，这里重要的一句  
+	File deskTopPathFile=fsv.getHomeDirectory();
 	
 	public static void main(String[] args) {
 		new MainFrame();
@@ -55,6 +73,7 @@ public class MainFrame extends JFrame{
 		excelPathJtf=new JTextField();
 		excelPathJb=new JButton("选择文件夹");
 		jb=new JButton("确定");
+		templetInfoJlb=new JLabel();
 		
 		//导入模板
 		templetJb.setBounds(40, 20, 100, 35);
@@ -64,6 +83,8 @@ public class MainFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				
 		        JFileChooser jfc=new JFileChooser();  
+		        //设置默认桌面路径
+		        jfc.setCurrentDirectory(deskTopPathFile);
 		        FileNameExtensionFilter filter = new FileNameExtensionFilter("word文件", "doc", "docx");
 		        jfc.setFileFilter(filter);
 		        int value=jfc.showDialog(new JLabel(), "选择");
@@ -75,9 +96,10 @@ public class MainFrame extends JFrame{
 						if(WordTemplet.templetXmlSave(file.getAbsolutePath(), xmlPath))
 						{
 							templetJtf.setText(xmlPath+File.separator+WordTemplet.wordPropertiesXmlName);
+							templetInfoJlb.setText("导入成功");
 						}
 					} catch (IOException e1) {
-						
+						templetInfoJlb.setText("导入失败");
 					}
 		        }
 				
@@ -88,6 +110,10 @@ public class MainFrame extends JFrame{
 		templetJtf.setBounds(150, 20, 300, 35);
 		templetJtf.setEditable(false);
 		jp.add(templetJtf);
+		
+		templetInfoJlb.setBounds(480, 20, 100, 35);
+		templetInfoJlb.setText("未导入");
+		jp.add(templetInfoJlb);
 		
 		wordpathJlb.setBounds(40, 80, 150, 60);
 		jp.add(wordpathJlb);
@@ -104,6 +130,8 @@ public class MainFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				
 		        JFileChooser jfc=new JFileChooser();  
+		        //设置默认桌面路径
+		        jfc.setCurrentDirectory(deskTopPathFile);
 		        jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY );  
 		        int value=jfc.showDialog(new JLabel(), "选择");
 		        if(value==JFileChooser.APPROVE_OPTION){
@@ -132,6 +160,8 @@ public class MainFrame extends JFrame{
 			public void actionPerformed(ActionEvent e) {
 				//文件选择框
 		        JFileChooser jfc=new JFileChooser();  
+		        //设置默认桌面路径
+		        jfc.setCurrentDirectory(deskTopPathFile);
 		        jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);  
 		        int value=jfc.showDialog(new JLabel(), "选择");
 		        if(value==JFileChooser.APPROVE_OPTION){
@@ -146,6 +176,8 @@ public class MainFrame extends JFrame{
 							if(isExists==JOptionPane.YES_OPTION){
 								excelPathJtf.setText(excelPath);
 							}
+			        	}else{
+			        		excelPathJtf.setText(excelPath);
 			        	}
 			        	
 			        }
