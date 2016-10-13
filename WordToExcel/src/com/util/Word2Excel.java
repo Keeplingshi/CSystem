@@ -37,15 +37,6 @@ import org.apache.poi.xwpf.usermodel.XWPFTableRow;
  *
  */
 public class Word2Excel {
-
-//	public static void main(String[] args) {
-//		
-//		String xmlPath="C:/Users/chen/Desktop/test/wordProperties.xml";
-//		String direcToryPath="C:/Users/chen/Desktop/test/templet3";
-//		String excelPath="C:/Users/chen/Desktop/test/aaa.xls";
-//		
-//		doWord2Excel(xmlPath,direcToryPath,excelPath);
-//	}
 	
 	/**
 	 * word提取信息到excel
