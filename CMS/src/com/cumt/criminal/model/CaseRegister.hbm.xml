@@ -1,0 +1,106 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-4-15 16:21:14 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping package="com.cumt.criminal.model">
+ <class catalog="cms" name="CaseRegisterDomain" table="case_register">
+  <id name="id" type="integer">
+   <column name="id" not-null="true"/>
+   <generator class="identity"/>
+  </id>
+  <property generated="never" lazy="false" name="sex" type="boolean">
+   <column name="sex"/>
+  </property>
+  <property generated="never" lazy="false" name="idcard" type="string">
+   <column length="18" name="IDCard" not-null="true">
+    <comment>èº«ä»½è¯å·</comment>
+   </column>
+  </property>
+  <property generated="never" lazy="false" name="name" type="string">
+   <column length="36" name="name" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="birthday" type="java.util.Date">
+   <column length="10" name="birthday" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="day" type="java.util.Date">
+   <column length="10" name="day" not-null="true">
+    <comment>ç¯ç½ªæ¶é´</comment>
+   </column>
+  </property>
+  <property generated="never" lazy="false" name="birthPalce" type="string">
+   <column length="36" name="birthPalce" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="workPalce" type="string">
+   <column length="36" name="WorkPalce"/>
+  </property>
+  <property generated="never" lazy="false" name="degreeEducation" type="string">
+   <column length="16" name="degree_education">
+    <comment>å­¦å</comment>
+   </column>
+  </property>
+  <property generated="never" lazy="false" name="nation" type="string">
+   <column length="16" name="nation" not-null="true">
+    <comment>æ°æ</comment>
+   </column>
+  </property>
+  <property generated="never" lazy="false" name="politicsStatus" type="string">
+   <column length="8" name="politics_status" not-null="true">
+    <comment>æ¿æ²»é¢è²</comment>
+   </column>
+  </property>
+  <property generated="never" lazy="false" name="isCriminalRecord" type="boolean">
+   <column name="is_CriminalRecord" not-null="true">
+    <comment>æ¯å¦æåç§</comment>
+   </column>
+  </property>
+  <property generated="never" lazy="false" name="charge" type="string">
+   <column length="64" name="charge" not-null="true">
+    <comment>æ¶å«ç½ªå</comment>
+   </column>
+  </property>
+  <property generated="never" lazy="false" name="chargeMain" type="string">
+   <column length="32" name="charge_main" not-null="true">
+    <comment>ä¸»è¦ç½ªç¯</comment>
+   </column>
+  </property>
+  <property generated="never" lazy="false" name="chargeNext" type="string">
+   <column length="128" name="charge_next" not-null="true">
+    <comment>ä»ç¯</comment>
+   </column>
+  </property>
+  <property generated="never" lazy="false" name="victimName" type="string">
+   <column length="32" name="victim_name" not-null="true">
+    <comment>è¢«å®³äººå§å</comment>
+   </column>
+  </property>
+  <property generated="never" lazy="false" name="sueName" type="string">
+   <column length="32" name="Sue_name">
+    <comment>èµ·è¯äººå§å</comment>
+   </column>
+  </property>
+  <property generated="never" lazy="false" name="nativePalace" type="string">
+   <column length="16" name="native_palace" not-null="true">
+    <comment>ç±è´¯</comment>
+   </column>
+  </property>
+  <property generated="never" lazy="false" name="suePhone" type="string">
+   <column length="11" name="Sue_phone">
+    <comment>æ§åäººèç³»æ¹å¼</comment>
+   </column>
+  </property>
+  <property generated="never" lazy="false" name="chargeFamilyName" type="string">
+   <column length="64" name="charge_familyName" not-null="true">
+    <comment>ç¯ç½ªèå®¶å±å§å</comment>
+   </column>
+  </property>
+  <property generated="never" lazy="false" name="chargeFamilyPhone" type="string">
+   <column length="11" name="charge_familyPhone" not-null="true">
+    <comment>ç¯ç½ªèå®¶å±èç³»æ¹å¼</comment>
+   </column>
+  </property>
+  <property generated="never" lazy="false" name="state" type="boolean">
+   <column name="state" not-null="true"/>
+  </property>
+ <!--   <one-to-one name="arrestDomain" class="com.cumt.criminal.model.ArrestDomain" property-ref="caseRegisterDomain" cascade="delete" ></one-to-one>  -->
+ </class>
+</hibernate-mapping>

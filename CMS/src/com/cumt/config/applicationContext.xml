@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>  
+<beans  
+    xmlns="http://www.springframework.org/schema/beans"  
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"  
+    xmlns:aop="http://www.springframework.org/schema/aop"   
+    xmlns:tx="http://www.springframework.org/schema/tx"  
+    xsi:schemaLocation="http://www.springframework.org/schema/beans 
+    					http://www.springframework.org/schema/beans/spring-beans.xsd  
+   					    http://www.springframework.org/schema/tx   
+					    http://www.springframework.org/schema/tx/spring-tx-3.2.xsd  
+					    http://www.springframework.org/schema/aop   
+					    http://www.springframework.org/schema/aop/spring-aop-3.2.xsd">
+	
+
+<!-- 					    
+	在容器中配置bean  
+					bean元素的作用当spring框架加载的时候，spring就会自动的实例化这个bean即创建这个bean对象
+					并放入内存  ；相当于StaffDomain obj = new StaffDomain(); -->
+	<!-- <bean id="staffDomain" class="com.cumt.criminal.model.StaffDomain" >
+	这句话相当于调用obj的某个为name的属性，赋值为value，体现了注入的概念，将属性值注入
+		<property name="Id" value="" />
+		<property name="Idcard"  value="" />
+		<property name="StaffName"  value="" />
+		<property name="LoginName"  value="" />
+		<property name="LoginPwd"  value="" />
+		<property name="Identify"  value="" />
+	</bean> -->
+	
+</beans>

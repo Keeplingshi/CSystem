@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE hibernate-configuration PUBLIC
+		"-//Hibernate/Hibernate Configuration DTD 3.0//EN"
+		"http://hibernate.sourceforge.net/hibernate-configuration-3.0.dtd">
+<hibernate-configuration>
+    <session-factory name="CMS">
+        <property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
+        <property name="hibernate.connection.password">root</property>
+        <property name="hibernate.connection.url">jdbc:mysql://localhost:3306/cms?useUnicode=true&amp;characterEncoding=utf-8</property>
+        <property name="hibernate.connection.username">root</property>
+        <property name="hibernate.dialect">org.hibernate.dialect.MySQLDialect</property>
+        <property name="hbm2ddl.auto">update</property>
+        <property name="show_sql">true</property>
+        <mapping resource="com/cumt/criminal/model/Staff.hbm.xml"/><!-- 职工表 -->
+        <mapping resource="com/cumt/criminal/model/CaseRegister.hbm.xml"/><!--刑事案件登记表  -->
+         <mapping resource="com/cumt/criminal/model/LegalInstrument.hbm.xml"/><!-- 刑事法律呈请文书 -->
+         <mapping resource="com/cumt/criminal/model/Qrecord.hbm.xml"/><!--询问笔录  -->
+         <mapping resource="com/cumt/criminal/model/Checkrecord.hbm.xml"/><!-- 检查笔录 -->
+          <mapping resource="com/cumt/criminal/model/Detention.hbm.xml"/> <!-- 拘留证 -->
+           <mapping resource="com/cumt/criminal/model/Arrest.hbm.xml"/> <!-- 逮捕证 -->
+    </session-factory>
+</hibernate-configuration>

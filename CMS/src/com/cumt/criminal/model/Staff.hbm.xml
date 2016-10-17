@@ -1,0 +1,49 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-4-11 23:40:05 by Hibernate Tools 3.4.0.CR1 -->
+<hibernate-mapping package="com.cumt.criminal.model">
+    <class name="StaffDomain" table="staff" catalog="cms">
+        <id name="Id" type="integer">
+            <column name="id" />
+        	 <generator class="identity" /> 
+        </id>
+        <property name="Idcard" type="string">
+            <column name="IDCard" length="18" not-null="true">
+                <comment>&#232;&#186;&#171;&#228;&#187;&#189;&#232;&#175;&#129;&#229;&#143;&#183;</comment>
+            </column>
+        </property>
+        <property name="StaffName" type="string">
+            <column name="staffName" length="10" not-null="true">
+                <comment>&#229;&#183;&#165;&#228;&#189;&#156;&#228;&#186;&#186;&#229;&#145;&#152;&#229;&#167;&#147;&#229;&#144;&#141;</comment>
+            </column>
+        </property>
+        <property name="LoginName" type="string">
+            <column name="LoginName" length="10" not-null="true">
+                <comment>&#231;&#179;&#187;&#231;&#187;&#159;&#231;&#153;&#187;&#229;&#189;&#149;&#229;&#144;&#141;</comment>
+            </column>
+        </property>
+        <property name="LoginPwd" type="string">
+            <column name="LoginPwd" length="32" not-null="true">
+                <comment>&#231;&#179;&#187;&#231;&#187;&#159;&#231;&#153;&#187;&#229;&#189;&#149;&#229;&#175;&#134;&#231;&#160;&#129;</comment>
+            </column>
+        </property>
+        <property name="Identify" type="string">
+            <column name="Identify" length="12" not-null="true">
+                <comment>&#232;&#186;&#171;&#228;&#187;&#189;</comment>
+            </column>
+        </property>
+        <property generated="never" lazy="false" name="loginState" type="boolean">
+   			<column length="1" name="loginState" not-null="true">
+   			</column>
+  		</property>
+  		 <property name="ip" type="string">
+            <column name="ip" length="26" >
+            </column>
+        </property>
+         <property name="BigIP" type="string">
+            <column name="BigIP" length="26" >
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

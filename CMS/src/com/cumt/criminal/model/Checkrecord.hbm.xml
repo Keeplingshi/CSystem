@@ -1,0 +1,30 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-4-29 14:48:38 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping package="com.cumt.criminal.model">
+    <class name="CheckrecordDomian" table="checkrecord" catalog="cms">
+        <id name="id" type="java.lang.Integer">
+            <column name="id" />
+           <generator class="identity"/>
+        </id>
+        <property name="caseRegisterId" type="int">
+            <column name="case_registerID" not-null="true" />
+        </property>
+        <property name="content" type="string">
+            <column name="content" length="1000" not-null="true">
+                <comment>&#232;&#191;&#135;&#231;&#168;&#139;</comment>
+            </column>
+        </property>
+        <property name="state" type="boolean">
+            <column name="state" not-null="true">
+                <comment>&#229;&#174;&#161;&#230;&#160;&#184;&#231;&#138;&#182;&#230;&#128;&#129;</comment>
+            </column>
+        </property>
+        <property name="resultState" type="boolean">
+            <column name="result_state" not-null="true">
+                <comment>&#229;&#174;&#161;&#230;&#160;&#184;&#231;&#187;&#147;&#230;&#158;&#156;</comment>
+            </column>
+        </property>
+    </class>
+</hibernate-mapping>

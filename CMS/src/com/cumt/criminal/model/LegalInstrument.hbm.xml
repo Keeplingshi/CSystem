@@ -1,0 +1,35 @@
+<?xml version="1.0"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+                                   "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd">
+<!-- Generated 2016-4-18 9:42:04 by Hibernate Tools 4.0.0 -->
+<hibernate-mapping package="com.cumt.criminal.model">
+ <class catalog="cms" name="LegalInstrumentDomain" table="legal_instrument">
+  <id name="id" type="java.lang.Integer">
+   <column name="id"/>
+   <generator class="identity"/>
+  </id>
+  <property generated="never" lazy="false" name="caseRegisterId" type="int">
+   <column name="case_registerID" not-null="true"/>
+  </property>
+  <property generated="never" lazy="false" name="content" type="string">
+   <column length="10000" name="content" not-null="true">
+    <comment>åå®¹</comment>
+   </column>
+  </property>
+  <property generated="never" lazy="false" name="staffName" type="string">
+   <column length="36" name="staffName" not-null="true">
+    <comment>è´è´£äºº</comment>
+   </column>
+  </property>
+  <property generated="never" lazy="false" name="state" type="boolean">
+   <column length="1" name="state" not-null="true">
+    <comment>è´è´£äºº</comment>
+   </column>
+  </property>
+  <property generated="never" lazy="false" name="result_state" type="boolean">
+   <column length="1" name="result_state" not-null="true">
+    <comment>è´è´£äºº</comment>
+   </column>
+  </property>
+ </class>
+</hibernate-mapping>
