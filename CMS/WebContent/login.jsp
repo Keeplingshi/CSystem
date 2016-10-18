@@ -83,7 +83,7 @@
 	<div class="container"> 
 		<div class="form row">
 			<form action="doLogin.do" class="form-horizontal col-sm-offset-3 col-md-offset-3" id="login_form"  method="post">
-				<h3 class="form-title">CMS</h3>
+				<h3 class="form-title">CCMS</h3>
 				<div class="col-sm-9 col-md-9">
 					<div class="form-group">
 						<i class="fa fa-user fa-lg"></i>

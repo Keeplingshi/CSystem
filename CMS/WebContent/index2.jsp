@@ -45,13 +45,13 @@
 	   		 </div>
 		    <ul class="iconlist">
 			    <li><a href="imgtable.jsp"><img src="images/ico01.png" /><p>刑事案件登记档案</p></a></li>
-			    <li><a href="legal.jsp"><img src="images/ico02.png" /><p>刑事呈请法律文书档案</p></a></li>
 			    <li><a href="imglist.jsp"><img src="images/ico03.png" /><p>询问笔录档案</p></a></li>
+			     <li><a href="checkImglist.jsp"><img src="images/ico04.png" /><p>搜查笔录档案</p></a></li>
 		    </ul>
 		    <ul class="iconlist1">
-			      <li><a href="checkImglist.jsp"><img src="images/ico04.png" /><p>搜查笔录档案</p></a></li>
 			    <li><a href="tools.jsp"><img src="images/ico05.png" /><p>拘留申请档案</p></a></li>
 			    <li><a href="arresttools.jsp"><img src="images/ico06.png" /><p>逮捕申请档案</p></a></li> 
+			    <li><a href="legal.jsp"><img src="images/ico02.png" /><p>移送起诉申请</p></a></li>
 		    </ul>
 	    </div>
 	    

@@ -39,11 +39,11 @@ $(function(){
 	    <dd>
 	    	<ul class="menuson">
 		       <li><cite></cite><a href="AdminImgtable.jsp" target="rightFrame">刑事案件登记申请</a></li>
-		       <li><cite></cite><a href="AdminLegalImgtable.jsp" target="rightFrame">刑事法律文书呈请</a></li>
 		       <li><cite></cite><a href="adminImglist.jsp" target="rightFrame">询问笔录</a></li>
 		       <li><cite></cite><a href="adminCheckImglist.jsp" target="rightFrame">搜查笔录</a></li>
 		         <li><cite></cite><a href="adminTools.jsp"  target="rightFrame">拘留申请</a></li>
 		         <li><cite></cite><a href="adminArrestTools.jsp"  target="rightFrame">逮捕申请</a></li>
+		         <li><cite></cite><a href="AdminLegalImgtable.jsp" target="rightFrame">移送起诉申请</a></li>
 	        </ul>    
 	    </dd>
     </dl>
