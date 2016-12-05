@@ -24,14 +24,6 @@
 						</c:forEach>
 					</select>
 					
-					<label style="margin-left: 15px;">学院：</label>
-					<select id="college_jobCount_select_id" class="select_style" onchange="getMajor(this.value)">
-						<option value="" selected="selected">全部</option>
-						<c:forEach items="${collegeList }" var="collegeDomain">
-							<option value="${collegeDomain.id }">${collegeDomain.name}</option>
-						</c:forEach>
-					</select>
-					
 					<label style="margin-left: 15px;">专业：</label>
 					<select id="major_jobCount_select_id" class="select_style" onchange="getClass(this.value)">
 						<option value="" selected="selected">全部</option>

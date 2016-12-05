@@ -15,10 +15,8 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.cb.csystem.dao.IStudentDao;
 import com.cb.csystem.domain.JobInfoDomain;
-import com.cb.csystem.domain.PatyDomain;
 import com.cb.csystem.domain.StudentDomain;
 import com.cb.csystem.service.IJobInfoService;
-import com.cb.csystem.service.IPatyService;
 import com.cb.csystem.service.IStudentService;
 import com.cb.csystem.util.Consts;
 import com.cb.system.util.PageInfo;
@@ -35,7 +33,6 @@ public class StudentService implements IStudentService{
 
 	private @Resource IStudentDao studentDao;
 	private @Resource IJobInfoService jobInfoService;
-	private @Resource IPatyService patyService;
 	
 	/**
 	 * @see com.cb.csystem.service.IStudentService#doGetById(java.lang.String)
@@ -81,9 +78,6 @@ public class StudentService implements IStudentService{
 			JobInfoDomain jobInfoDomain=new JobInfoDomain();
 			jobInfoDomain.setStudent(studentDomain);
 			jobInfoService.doSave(jobInfoDomain);
-			PatyDomain patyDomain=new PatyDomain();
-			patyDomain.setStudent(studentDomain);
-			patyService.doSave(patyDomain);
 			return studentDao.save(studentDomain);
 		}else{
 			return studentDao.update(studentDomain);

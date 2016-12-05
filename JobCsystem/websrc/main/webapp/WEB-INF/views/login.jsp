@@ -27,7 +27,7 @@
 								<h1>
 									<i class="icon-leaf green"></i>
 									<span class="red"></span>
-									<span class="white">CSystem登录</span>
+									<span class="white">计算机学院就业管理系统</span>
 								</h1>
 							</div>
 

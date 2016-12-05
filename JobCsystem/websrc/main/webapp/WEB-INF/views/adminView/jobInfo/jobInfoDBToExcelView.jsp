@@ -24,19 +24,6 @@
 						<option value="${gradeDomain.id }">${gradeDomain.grade}</option>
 					</c:forEach>
 				</select>
-				
-				<label style="margin-left: 15px;">学院：</label>
-				<select id="college_DBtoExcel_select_id" class="select_style" onchange="getMajor(this.value)">
-					<option value="" selected="selected">全部</option>
-					<c:forEach items="${collegeList }" var="collegeDomain">
-						<option value="${collegeDomain.id }">${collegeDomain.name}</option>
-					</c:forEach>
-				</select>
-			</td>
-		</tr>
-		<tr style="height: 60px;">
-			<td>
-				
 				<label style="margin-left: 15px;">专业：</label>
 				<select id="major_DBtoExcel_select_id" class="select_style" onchange="getClass(this.value)">
 					<option value="" selected="selected">全部</option>
@@ -52,8 +39,16 @@
 						<option value="${classItem.selectText }">${classItem.selectValue}</option>
 					</c:forEach>
 				</select>	
+<%-- 				<label style="margin-left: 15px;">学院：</label>
+				<select id="college_DBtoExcel_select_id" class="select_style" onchange="getMajor(this.value)">
+					<option value="" selected="selected">全部</option>
+					<c:forEach items="${collegeList }" var="collegeDomain">
+						<option value="${collegeDomain.id }">${collegeDomain.name}</option>
+					</c:forEach>
+				</select> --%>
 			</td>
 		</tr>
+
 		<tr style="height: 60px;">
 			<td>
 			
@@ -73,11 +68,6 @@
 					</c:forEach>
 				</select>
 			
-				<label style="margin-left: 15px;">标记：</label>
-				<select id="isPositive_DBtoExcel_select_id" class="select_style" style="width: 100px;">
-					<option value="" selected="selected">选择</option>
-					<option value="2">标记</option>
-				</select>
 			</td>
 		</tr>
 		<tr style="height: 60px;">

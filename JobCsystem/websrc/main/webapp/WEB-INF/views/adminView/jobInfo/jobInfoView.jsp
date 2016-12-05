@@ -54,12 +54,15 @@
 		</tr>
 		<tr>
 			<td class="lesta-150">备注：</td>
-			<td class="lestb" colspan="3" rowspan="2">
-				<textarea rows="5" cols="50" readonly="readonly" style="margin-top: 20px;">${jobInfoDomain.note }</textarea>
+			<td class="lestb">
+				${jobInfoDomain.note }
 			</td>
+<%-- 			<td class="lestb" colspan="3" rowspan="2">
+				<textarea rows="5" cols="50" readonly="readonly" style="margin-top: 20px;">${jobInfoDomain.note }</textarea>
+			</td> --%>
 		</tr>
 		<tr></tr>
-		<tr><td colspan="5"><div class="line" style="margin-left: 50px;"></div></td></tr>
+		<!-- <tr><td colspan="5"><div class="line" style="margin-left: 50px;"></div></td></tr> -->
 		<tr>
 			<td class="lesta-150">派遣地址：</td>
 			<td class="lestb" colspan="3">
@@ -89,7 +92,7 @@
 			</td>
 		</tr>
 	</table>
-	<input id="closeButton" type="button" class="button button-highlight button-rounded button-small" style="margin-top:20px; margin-left: 290px;" value="关闭"/>
+	<input id="closeButton" type="button" class="button button-highlight button-rounded button-small" style="margin-top:20px; margin-left: 290px;" value="Close"/>
 
 <script>
 	

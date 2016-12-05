@@ -23,7 +23,7 @@
 	<input type="hidden" id="sortValue" name="sortValue" value="${sortValue }" />
 	<div class="breadcrumbs" id="jobInfoListToolbar">
 	
-		<span class="input-icon" style="margin: 5px;">
+		<span class="input-icon" style="margin: 5px;float: left;">
 			<input type="text" id="nav-search-input" name="searchText" placeholder="Search ..." class="nav-search-input" autocomplete="off" value="${searchText }"/> 
 			<i class="icon-search nav-search-icon"></i>
 		</span>
@@ -31,7 +31,7 @@
 		<input id="jobInfoCountButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="统计信息"/>
 		<input id="jobInfoDBToExcelButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="导出数据"/>
 	
-		<input id="jobInfoQueryButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="查询"/>
+		<input id="jobInfoQueryButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: left;" value="查询"/>
 	</div>
 	<div class="breadcrumbs">
 	
@@ -43,13 +43,13 @@
 			</c:forEach>
 		</select>
 		
-		<label style="margin-left: 20px;">学院：</label>
+<%-- 		<label style="margin-left: 20px;">学院：</label>
 		<select id="college_select_id" class="select_style" onchange="getMajor(this.value)">
 			<option value="" selected="selected">选择</option>
 			<c:forEach items="${collegeList }" var="collegeDomain">
 				<option value="${collegeDomain.id }">${collegeDomain.name}</option>
 			</c:forEach>
-		</select>
+		</select> --%>
 		
 		<label style="margin-left: 20px;">专业：</label>
 		<select id="major_select_id" style="width: 100px;" onchange="getClass(this.value)">
@@ -66,11 +66,7 @@
 				<option value="${classItem.selectText }">${classItem.selectValue}</option>
 			</c:forEach>
 		</select>
-	
-		<!-- <input id="jobInfoExcelToDBButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="导入数据"/> -->
-	</div>
-	<div class="breadcrumbs">
-	
+
 		<label style="margin-left: 20px;">签约状态：</label>
 		<select id="contractStatus_select_id" class="select_style" onchange="getProtocalState(this.value)">
 			<option value="" selected="selected">选择</option>
@@ -86,6 +82,12 @@
 				<option value="${protocalStateDomain.value }">${protocalStateDomain.name}</option>
 			</c:forEach>
 		</select>
+
+		<!-- <input id="jobInfoExcelToDBButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="导入数据"/> -->
+	</div>
+<!-- 	<div class="breadcrumbs">
+	
+
 	
 		<label style="margin-left: 20px;">标记：</label>
 		<select id="isPositive_select_id" class="select_style" style="width: 100px;">
@@ -93,8 +95,8 @@
 			<option value="2">标记</option>
 		</select>
 	
-		<!-- <input id="jobInfoExcelToDBButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="导入数据"/> -->
-	</div>
+		<input id="jobInfoExcelToDBButton" type="button" class="button button-primary button-rounded button-small" style="margin: 5px;float: right;" value="导入数据"/>
+	</div> -->
 	<div class="table-responsive">
 		<table id="sample-table-2" class="table table-striped table-bordered table-hover" style="table-layout:fixed;">
 			<thead>
@@ -103,7 +105,7 @@
 						<label> <input id="theadCheckbox" type="checkbox" class="ace" /> <span class="lbl"></span></label>
 					</th>
 					<th style="width: 100px;">学号
-						<span>
+<%-- 						<span>
 							<c:choose>
 								<c:when test="${sortMode=='asc'&&sortValue=='qstu.stuId' }">
 									<img id="img_qstu.stuId_asc" style="float: right;" src="${pageContext.request.contextPath}/resources/images/sorticon/table_sort_up_24.png">
@@ -115,7 +117,7 @@
 									<img id="img_qstu.stuId" style="float: right;" src="${pageContext.request.contextPath}/resources/images/sorticon/table_sort_24.png">
 								</c:otherwise>
 							</c:choose>
-						</span>
+						</span> --%>
 					</th>
 					<th style="width: 80px;">姓名</th>
 					<th style="width: 60px;">性别</th>
@@ -125,7 +127,7 @@
 					<th>协议书</th>
 					<th>当前状态</th>
 					<th style="width:80px;">薪水
-						<span>
+<%-- 						<span>
 							<c:choose>
 								<c:when test="${sortMode=='asc'&&sortValue=='salary' }">
 									<img id="img_salary_asc" style="float: right;" src="${pageContext.request.contextPath}/resources/images/sorticon/table_sort_up_24.png">
@@ -137,10 +139,10 @@
 									<img id="img_salary" style="float: right;" src="${pageContext.request.contextPath}/resources/images/sorticon/table_sort_24.png">
 								</c:otherwise>
 							</c:choose>
-						</span>
+						</span> --%>
 					</th>
 					<!-- <th>备注</th> -->
-					<th>最后修改时间
+<%-- 					<th>最后修改时间
 						<span>
 							<c:choose>
 								<c:when test="${sortMode=='asc'&&sortValue=='modifyTime' }">
@@ -154,14 +156,14 @@
 								</c:otherwise>
 							</c:choose>
 						</span>
-					</th>
+					</th> --%>
 					<th>操作</th>
 				</tr>
 			</thead>
 	
 			<tbody>
 				<c:forEach items="${jobInfoList }" var="jobInfoDomain">
-					<c:if test="${jobInfoDomain.isPositive!=2 }">
+<%-- 					<c:if test="${jobInfoDomain.isPositive!=2 }"> --%>
 					<tr>
 						<td class="center">
 							<label> <input type="checkbox" class="ace" value="${jobInfoDomain.id }"/> <span class="lbl"></span></label>
@@ -176,15 +178,16 @@
 						<td>${cusfun:getNameByValueAndType(jobInfoDomain.nowState,"8005")}</td>
 						<td>${jobInfoDomain.salary }</td>
 						<%-- <td>${jobInfoDomain.note }</td> --%>
-						<td>${jobInfoDomain.modifyTime }</td>
+						<%-- <td>${jobInfoDomain.modifyTime }</td> --%>
 						<td>
-							<input type="button" class="btn_list_lock" value="标记" onclick="tagjobInfo('${jobInfoDomain.id }')"/>
+							<%-- <input type="button" class="btn_list_lock" value="标记" onclick="tagjobInfo('${jobInfoDomain.id }')"/> --%>
 							<input type="button" class="btn_list_view" value="查看" onclick="viewjobInfo('${jobInfoDomain.id }')"/>
 							<input type="button" class="btn_list_update" value="修改" onclick="updatejobInfo('${jobInfoDomain.id }')"/>
+							<input type="button" class="btn_list_delete" value="删除" onclick="deletestudent('${studentDomain.id }')"/>
 						</td>
 					</tr>
-					</c:if>
-					<c:if test="${jobInfoDomain.isPositive==2 }">
+<%-- 					</c:if> --%>
+<%-- 					<c:if test="${jobInfoDomain.isPositive==2 }">
 					<tr style="color: #FF0000;">
 						<td class="center">
 							<label> <input type="checkbox" class="ace" value="${jobInfoDomain.id }"/> <span class="lbl"></span></label>
@@ -198,7 +201,7 @@
 						<td>${cusfun:getNameByValueAndType(jobInfoDomain.protocalState,"8004")}</td>
 						<td>${cusfun:getNameByValueAndType(jobInfoDomain.nowState,"8005")}</td>
 						<td>${jobInfoDomain.salary }</td>
-						<%-- <td>${jobInfoDomain.note }</td> --%>
+						<td>${jobInfoDomain.note }</td>
 						<td>${jobInfoDomain.modifyTime }</td>
 						<td>
 							<input type="button" class="btn_list_unlock" value="取消标记" onclick="tagjobInfo('${jobInfoDomain.id }')"/>
@@ -206,7 +209,7 @@
 							<input type="button" class="btn_list_update" value="修改" onclick="updatejobInfo('${jobInfoDomain.id }')"/>
 						</td>
 					</tr>
-					</c:if>
+					</c:if> --%>
 				</c:forEach>
 			</tbody>
 		</table>
